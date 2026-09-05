@@ -53,7 +53,7 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
   // Confidence distribution histogram (4 bins)
   const confBins = [
     { label: '25% - 50%', min: 0.25, max: 0.5, count: 0, color: '#6793AC' },
-    { label: '50% - 75%', min: 0.5, max: 0.75, count: 0, color: '#EBF2F7' },
+    { label: '50% - 75%', min: 0.5, max: 0.75, count: 0, color: '#6793AC' },
     { label: '75% - 90%', min: 0.75, max: 0.9, count: 0, color: '#E4580B' },
     { label: '90% - 100%', min: 0.9, max: 1.01, count: 0, color: '#114AB1' },
   ];
@@ -78,10 +78,10 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
       {/* Header with Collapsible Toggle */}
       <div
         onClick={onToggleCollapse}
-        className="p-3 border-b border-[#EBF2F7] dark:border-[#114AB1]/40 flex items-center justify-between cursor-pointer hover:bg-[#EBF2F7]/60 dark:hover:bg-[#114AB1]/10 transition-colors select-none"
+        className="p-3 border-b border-[#EBF2F7] dark:border-[#114AB1]/40 flex items-center justify-between cursor-pointer hover:bg-[#EBF2F7]/40 dark:hover:bg-[#0A1120]/50 transition-colors select-none"
       >
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded bg-[#EBF2F7] dark:bg-[#114AB1]/20 border border-[#6793AC] flex items-center justify-center text-[#114AB1] dark:text-[#6793AC]">
+          <div className="w-7 h-7 rounded bg-[#EBF2F7] dark:bg-[#0A1120] border border-[#6793AC] flex items-center justify-center text-[#114AB1] dark:text-[#6793AC]">
             <TrendingUp className="w-4 h-4 text-[#114AB1] dark:text-[#6793AC]" />
           </div>
           <div>
@@ -92,7 +92,7 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                 content="Aggregated YOLO detection trends, confidence heatmaps, and quick access to previous hydrographic survey transects."
               />
             </h3>
-            <p className="text-[10px] text-[#6793AC] dark:text-[#6793AC]/80">
+            <p className="text-[10px] text-[#114AB1]/70 dark:text-[#6793AC]/70">
               Confidence heatmap distributions, hazard classifications, and multi-transect telemetry
             </p>
           </div>
@@ -100,117 +100,127 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
 
         <div className="flex items-center gap-3">
           <div className="hidden sm:flex items-center gap-2 text-[10px] font-tech text-[#114AB1] dark:text-[#6793AC]">
-            <span className="px-2 py-0.5 rounded bg-[#EBF2F7] dark:bg-[#114AB1]/20 border border-[#6793AC] dark:border-[#114AB1] font-bold">
+            <span className="px-2 py-0.5 rounded bg-[#EBF2F7] dark:bg-[#0A1120] border border-[#6793AC] dark:border-[#114AB1] font-bold">
               AVG CONF: {avgConfidence.toFixed(1)}%
             </span>
-            <span className="px-2 py-0.5 rounded bg-[#114AB1] text-[#FEFEFE] font-bold">
+            <span className="px-2 py-0.5 rounded bg-[#6793AC] text-[#114AB1] font-bold">
               {totalDetectionsCount} DETECTIONS
             </span>
           </div>
-          <button className="p-1 text-[#114AB1] dark:text-[#6793AC]">
-          <div className="hidden sm:flex items-center gap-2 text-[10px] font-tech text-[#114AB1] dark:text-[#6793AC]">
-            <span className="px-2 py-0.5 rounded bg-[#EBF2F7] dark:bg-[#114AB1]/20 border border-[#6793AC] dark:border-[#114AB1] font-bold">
-              {totalScansCount} Scans Analyzed
-            </span>
-            <span className="px-2 py-0.5 rounded bg-[#6793AC] text-[#FEFEFE] font-bold">
-              {totalDebrisCount} Total Debris
-            </span>
-          </div>
-
           <button className="p-1 text-[#114AB1] dark:text-[#6793AC]">
             {isCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
           </button>
         </div>
       </div>
 
-      {/* Expandable Grid Body */}
+      {/* Collapsible Content */}
       {!isCollapsed && (
-        <div className="p-3.5 space-y-4 animate-fadeIn">
+        <div className="p-3.5 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {/* Card 1: Class Breakdown */}
-            <div className="bg-[#EBF2F7]/60 dark:bg-[#114AB1]/20 p-3 rounded-lg border border-[#6793AC] dark:border-[#114AB1]/40 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-1.5">
-                    <PieChart className="w-3.5 h-3.5 text-[#114AB1]" />
-                    <span>Debris Categorization</span>
-                  </span>
-                  <span className="text-[10px] font-tech text-[#6793AC]">
-                    {sortedClasses.length} Unique Classes
-                  </span>
-                </div>
-
-                {sortedClasses.length === 0 ? (
-                  <div className="py-6 text-center text-xs text-[#6793AC]">
-                    No debris detected yet
-                  </div>
-                ) : (
-                  <div className="space-y-1.5">
-                    {sortedClasses.slice(0, 5).map(([cls, count]) => {
-                      const pct = Math.round((count / (allDetections.length || 1)) * 100);
-                      return (
-                        <div key={cls} className="space-y-0.5 text-xs font-sans">
-                          <div className="flex items-center justify-between text-[11px]">
-                            <span className="capitalize font-semibold text-[#114AB1] dark:text-[#6793AC]">
-                              {cls.replace(/_/g, ' ')}
-                            </span>
-                            <span className="font-tech tabular-nums font-bold text-[#114AB1] dark:text-[#FEFEFE]">
-                              {count} ({pct}%)
-                            </span>
-                          </div>
-                          <div className="h-1.5 w-full bg-[#FEFEFE] dark:bg-[#0A1120] rounded-full overflow-hidden border border-[#6793AC] dark:border-[#114AB1]/40">
-                            <div
-                              className="h-full bg-[#114AB1] dark:bg-[#6793AC] rounded-full transition-all duration-300"
-                              style={{ width: `${pct}%` }}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
+            {/* 1. Anomaly Category Distribution */}
+            <div className="bg-[#EBF2F7]/60 dark:bg-[#0A1120]/60 p-3 rounded-lg border border-[#6793AC] dark:border-[#114AB1]/40 flex flex-col justify-between">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-1.5">
+                  <BarChart3 className="w-3.5 h-3.5" />
+                  <span>Debris Class Distribution</span>
+                </span>
+                <span className="text-[10px] font-tech text-[#114AB1]/70 dark:text-[#6793AC]/70">
+                  {sortedClasses.length} TYPES
+                </span>
               </div>
-            </div>
 
-            {/* Card 2: Confidence Histogram */}
-            <div className="bg-[#EBF2F7]/60 dark:bg-[#114AB1]/20 p-3 rounded-lg border border-[#6793AC] dark:border-[#114AB1]/40 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-1.5">
-                    <Flame className="w-3.5 h-3.5 text-[#E4580B]" />
-                    <span>Confidence Spread</span>
-                  </span>
-                  <span className="text-[10px] font-tech text-[#114AB1] dark:text-[#6793AC] font-bold">
-                    Avg: {avgConfidence}%
-                  </span>
+              {sortedClasses.length === 0 ? (
+                <div className="py-6 text-center text-xs text-[#114AB1]/60 dark:text-[#6793AC]/60">
+                  No active debris targets logged yet.
                 </div>
-
-                <div className="grid grid-cols-4 gap-1.5 items-end pt-3">
-                  {confidenceBins.map((bin) => {
-                    const heightPct = Math.round((bin.count / maxBinCount) * 100);
+              ) : (
+                <div className="space-y-2">
+                  {sortedClasses.map(([cls, count]) => {
+                    const pct = Math.round((count / totalDetectionsCount) * 100);
                     return (
-                      <div key={bin.label} className="flex flex-col items-center gap-1">
-                        <span className="font-tech tabular-nums text-[10px] font-bold text-[#114AB1] dark:text-[#FEFEFE]">
-                          {bin.count}
-                        </span>
-                        <div className="w-full h-16 bg-[#FEFEFE] dark:bg-[#0A1120] rounded flex items-end p-1 border border-[#6793AC] dark:border-[#114AB1]/40">
+                      <div key={cls} className="space-y-1">
+                        <div className="flex justify-between text-[11px]">
+                          <span className="capitalize font-semibold text-[#114AB1] dark:text-[#6793AC]">
+                            {cls.replace(/_/g, ' ')}
+                          </span>
+                          <span className="font-tech tabular-nums font-bold text-[#114AB1] dark:text-[#FEFEFE]">
+                            {count} ({pct}%)
+                          </span>
+                        </div>
+                        <div className="h-1.5 w-full bg-[#FEFEFE] dark:bg-[#0A1120] rounded-full overflow-hidden border border-[#6793AC] dark:border-[#114AB1]/40">
                           <div
-                            className="w-full rounded transition-all duration-500"
-                            style={{
-                              height: `${Math.max(10, heightPct)}%`,
-                              backgroundColor: bin.color,
-                            }}
+                            className="h-full bg-[#114AB1] dark:bg-[#6793AC] rounded-full transition-all duration-300"
+                            style={{ width: `${pct}%` }}
                           />
                         </div>
-                        <span className="text-[9px] font-tech text-center text-[#6793AC] whitespace-nowrap">
-                          {bin.label}
-                        </span>
                       </div>
                     );
                   })}
                 </div>
+              )}
+            </div>
+
+            {/* 2. Confidence Heatmap / Histogram */}
+            <div className="bg-[#EBF2F7]/60 dark:bg-[#0A1120]/60 p-3 rounded-lg border border-[#6793AC] dark:border-[#114AB1]/40 flex flex-col justify-between">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-1.5">
+                  <Flame className="w-3.5 h-3.5 text-[#E4580B]" />
+                  <span>Confidence Heatmap</span>
+                  <Tooltip
+                    title="Confidence Bins"
+                    content="Visual distribution of YOLO prediction probabilities across confidence ranges."
+                  />
+                </span>
+                <span className="text-[10px] font-tech text-[#114AB1] dark:text-[#6793AC] font-bold">
+                  AVG: {avgConfidence.toFixed(0)}%
+                </span>
+              </div>
+
+              <div className="grid grid-cols-4 gap-2 pt-2">
+                {confBins.map((bin) => {
+                  const heightPct = Math.max(12, Math.round((bin.count / maxBinCount) * 100));
+                  return (
+                    <div key={bin.label} className="flex flex-col items-center gap-1.5">
+                      <span className="font-tech tabular-nums text-[10px] font-bold text-[#114AB1] dark:text-[#FEFEFE]">
+                        {bin.count}
+                      </span>
+                      <div className="w-full h-16 bg-[#FEFEFE] dark:bg-[#0A1120] rounded flex items-end p-1 border border-[#6793AC] dark:border-[#114AB1]/40">
+                        <div
+                          className="w-full rounded-sm transition-all duration-300"
+                          style={{
+                            height: `${heightPct}%`,
+                            backgroundColor: bin.color,
+                          }}
+                        />
+                      </div>
+                      <span className="text-[9px] font-tech text-center text-[#114AB1]/80 dark:text-[#6793AC]/80 whitespace-nowrap">
+                        {bin.label}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-2 pt-2 border-t border-[#6793AC]/60 dark:border-[#114AB1]/40 flex items-center justify-between text-[10px] text-[#114AB1]/70 dark:text-[#6793AC]/70">
+                <span>Model Calibration: Optimal</span>
+                <span className="font-tech font-bold text-[#114AB1] dark:text-[#FEFEFE]">YOLOv8 INT8/FP32</span>
+              </div>
+            </div>
+
+            {/* 3. Threat Priority Matrix & Impact */}
+            <div className="bg-[#EBF2F7]/60 dark:bg-[#0A1120]/60 p-3 rounded-lg border border-[#6793AC] dark:border-[#114AB1]/40 flex flex-col justify-between">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-1.5">
+                  <ShieldAlert className="w-3.5 h-3.5 text-[#E4580B]" />
+                  <span>Threat Matrix</span>
+                </span>
+                <span className="text-[10px] font-tech text-[#E4580B] font-bold">
+                  {criticalCount} CRITICAL
+                </span>
+              </div>
+
               <div className="space-y-2">
-                <div className="flex items-center justify-between p-2 rounded bg-[#E4580B]/15 border border-[#E4580B]">
+                <div className="flex items-center justify-between p-2 rounded bg-[#E4580B]/20 border border-[#E4580B]">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-[#E4580B]" />
                     <span className="text-xs font-bold font-tech text-[#E4580B] uppercase">Critical Priority</span>
@@ -220,9 +230,9 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between p-2 rounded bg-[#6793AC]/20 border border-[#6793AC]/60">
+                <div className="flex items-center justify-between p-2 rounded bg-[#6793AC]/30 border border-[#E4580B]/40">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#6793AC] border border-[#114AB1]" />
+                    <span className="w-2 h-2 rounded-full bg-[#6793AC] border border-[#E4580B]" />
                     <span className="text-xs font-bold font-tech text-[#114AB1] dark:text-[#FEFEFE] uppercase">
                       Warning Priority
                     </span>
@@ -232,9 +242,9 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between p-2 rounded bg-[#EBF2F7] border border-[#6793AC]/40">
+                <div className="flex items-center justify-between p-2 rounded bg-[#6793AC]/30 border border-[#114AB1]/30">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#6793AC]/60 border border-[#6793AC]" />
+                    <span className="w-2 h-2 rounded-full bg-[#6793AC] border border-[#114AB1]/40" />
                     <span className="text-xs font-bold font-tech text-[#114AB1] dark:text-[#FEFEFE] uppercase">
                       Advisory Priority
                     </span>
@@ -245,7 +255,7 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                 </div>
               </div>
 
-              <div className="mt-2 text-[10px] text-[#6793AC] dark:text-[#6793AC]/80">
+              <div className="mt-2 text-[10px] text-[#114AB1]/70 dark:text-[#6793AC]/70">
                 Action: Critical debris targets require priority ROV grapple salvage.
               </div>
             </div>
@@ -259,7 +269,7 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                   <Clock className="w-3.5 h-3.5" />
                   <span>Recent Survey Scans (Click to restore)</span>
                 </span>
-                <span className="text-[10px] text-[#6793AC] dark:text-[#6793AC]/80">
+                <span className="text-[10px] text-[#114AB1]/70 dark:text-[#6793AC]/70">
                   {history.length} archived scans available
                 </span>
               </div>
@@ -287,7 +297,7 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                     <div className="text-[10px] font-tech font-bold truncate text-[#114AB1] dark:text-[#FEFEFE]">
                       {record.filename}
                     </div>
-                    <div className="flex items-center justify-between text-[9px] text-[#6793AC] dark:text-[#6793AC]/80 mt-1">
+                    <div className="flex items-center justify-between text-[9px] text-[#114AB1]/70 dark:text-[#6793AC]/70 mt-1">
                       <span className="font-tech tabular-nums font-semibold">
                         {record.detectionCount} DET
                       </span>
