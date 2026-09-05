@@ -213,42 +213,42 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
     return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
   };
 
-  const pendingCount = filesQueue.filter((f) => f.status === 'queued').length;
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + ['B', 'KB', 'MB', 'GB'][i];
+  };
+
   const completedCount = filesQueue.filter((f) => f.status === 'completed').length;
-  const activeFile = filesQueue.find((f) => f.id === activeFileId);
+  const isActive = (id: string) => id === activeFileId;
 
   return (
-    <div className="bg-[#FEFEFE] border border-[#F2E8DF] rounded p-4 flex flex-col gap-3.5 shadow-sm font-sans">
-      {/* Panel Header */}
+    <div className="bg-[#FEFEFE] border border-[#EBF2F7] rounded p-4 flex flex-col gap-3.5 shadow-sm font-sans">
       <div className="flex items-center justify-between">
-        <h2 className="text-[10px] font-tech font-bold uppercase tracking-widest text-[#415111] flex items-center gap-1.5">
-          <FileImage className="w-3.5 h-3.5 text-[#415111]" />
+        <h2 className="text-[10px] font-tech font-bold uppercase tracking-widest text-[#114AB1] flex items-center gap-1.5">
+          <FileImage className="w-3.5 h-3.5 text-[#114AB1]" />
           <span>ACOUSTIC DATA ACQUISITION & YOLO INFERENCE</span>
         </h2>
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-tech text-[#415111] font-bold bg-[#D2E186] px-2 py-0.5 rounded border border-[#415111]/20 uppercase tracking-wider">
+          <span className="text-[10px] font-tech text-[#FEFEFE] font-bold bg-[#6793AC] px-2 py-0.5 rounded border border-[#114AB1]/20 uppercase tracking-wider">
             MULTI-TRANSECT QUEUE
           </span>
         </div>
       </div>
 
-      {/* Engine Selection & Model Status */}
-      <div className="bg-[#F2E8DF] border border-[#D2E186] rounded p-2.5 flex flex-col gap-2 font-sans text-xs">
+      <div className="bg-[#EBF2F7] border border-[#6793AC] rounded p-2.5 flex flex-col gap-2 font-sans text-xs">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-1.5">
-            <Cpu className="w-3.5 h-3.5 text-[#415111]" />
-            <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#415111]">INFERENCE ENGINE:</span>
+            <Cpu className="w-3.5 h-3.5 text-[#114AB1]" />
+            <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#114AB1]">INFERENCE ENGINE:</span>
           </div>
 
-          <div className="flex items-center gap-1 bg-[#FEFEFE] p-0.5 rounded border border-[#D2E186]">
+          <div className="flex items-center gap-1 bg-[#FEFEFE] p-0.5 rounded border border-[#6793AC]">
             <button
               id="btn-engine-yolo"
               type="button"
               onClick={() => setEngineMode('yolo')}
               className={`px-2.5 py-1 rounded text-[10px] font-sans font-bold uppercase tracking-wider transition cursor-pointer flex items-center gap-1 ${
                 engineMode === 'yolo'
-                  ? 'bg-[#415111] text-[#FEFEFE] shadow-sm'
-                  : 'text-[#415111]/70 hover:text-[#415111]'
+                  ? 'bg-[#114AB1] text-[#FEFEFE] shadow-sm'
+                  : 'text-[#114AB1]/70 hover:text-[#114AB1]'
               }`}
             >
               <span>YOLO ONNX (Browser WASM)</span>
@@ -259,8 +259,8 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
               onClick={() => setEngineMode('server')}
               className={`px-2.5 py-1 rounded text-[10px] font-sans font-bold uppercase tracking-wider transition cursor-pointer flex items-center gap-1 ${
                 engineMode === 'server'
-                  ? 'bg-[#415111] text-[#FEFEFE] shadow-sm'
-                  : 'text-[#415111]/70 hover:text-[#415111]'
+                  ? 'bg-[#114AB1] text-[#FEFEFE] shadow-sm'
+                  : 'text-[#114AB1]/70 hover:text-[#114AB1]'
               }`}
             >
               <span>Acoustic Server</span>
@@ -268,191 +268,163 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
           </div>
         </div>
 
-        {/* Model File Status Banner */}
-        <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] pt-1 border-t border-[#D2E186] text-[#415111]/80 font-normal">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] pt-1 border-t border-[#6793AC] text-[#114AB1]/80 font-normal">
           <div className="flex items-center gap-1.5">
-            <span className="text-[#415111]/80 font-medium">ONNX Model:</span>
-            <code className="text-[#415111] font-tech font-semibold bg-[#FEFEFE] px-1.5 py-0.5 rounded border border-[#D2E186]">
+            <span className="text-[#114AB1]/80 font-medium">ONNX Model:</span>
+            <code className="text-[#114AB1] font-tech font-semibold bg-[#FEFEFE] px-1.5 py-0.5 rounded border border-[#6793AC]">
               /models/marine-debris.onnx
             </code>
-            <span className="text-[#415111]/80 font-tech tabular-nums">
+            <span className="text-[#114AB1]/80 font-tech tabular-nums">
               ({MODEL_CONFIG.inputWidth}×{MODEL_CONFIG.inputHeight})
             </span>
           </div>
 
           <div className="flex items-center gap-1.5">
             {isModelAvailable === true ? (
-              <span className="text-[#415111] flex items-center gap-1 font-sans font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D2E186] border border-[#415111] animate-pulse" />
+              <span className="text-[#114AB1] flex items-center gap-1 font-sans font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#6793AC] border border-[#114AB1] animate-pulse" />
                 <span className="font-tech tabular-nums">ONNX Ready {modelFileSize ? `(${formatFileSize(modelFileSize)})` : ''}</span>
               </span>
             ) : isModelAvailable === false ? (
-              <span className="text-[#FB8159] flex items-center gap-1 font-sans font-semibold">
-                <Info className="w-3 h-3 text-[#FB8159]" />
+              <span className="text-[#E4580B] flex items-center gap-1 font-sans font-semibold">
+                <Info className="w-3 h-3 text-[#E4580B]" />
                 <span>Place file in /public/models/</span>
               </span>
             ) : (
-              <span className="text-[#415111]/70 font-sans font-medium">Checking model...</span>
+              <span className="text-[#114AB1]/70 font-sans font-medium">Checking model...</span>
             )}
           </div>
         </div>
 
-        {/* Confidence Threshold Slider */}
-        <div className="flex items-center justify-between gap-3 pt-1 border-t border-[#D2E186] text-[10px]">
-          <div className="flex items-center gap-1.5 text-[#415111]">
-            <Sliders className="w-3 h-3 text-[#415111]" />
-            <span className="font-sans font-medium">Confidence Threshold:</span>
-            <span className="text-[#415111] font-tech tabular-nums font-bold">{(confThreshold * 100).toFixed(0)}%</span>
+        <div className="flex items-center justify-between gap-3 pt-1 border-t border-[#6793AC] text-[10px]">
+          <div className="flex items-center gap-1.5 text-[#114AB1]">
+            <Sliders className="w-3 h-3 text-[#114AB1]" />
+            <span className="font-tech font-bold uppercase tracking-wider">CONFIDENCE THRESHOLD:</span>
+            <span className="text-[#114AB1] font-tech tabular-nums font-bold">{(confThreshold * 100).toFixed(0)}%</span>
           </div>
+
           <input
+            id="slider-conf-threshold"
             type="range"
-            min="0.10"
-            max="0.90"
+            min="0.1"
+            max="0.9"
             step="0.05"
             value={confThreshold}
             onChange={(e) => setConfThreshold(parseFloat(e.target.value))}
-            className="w-28 sm:w-36 h-1.5 bg-[#FEFEFE] rounded-lg appearance-none cursor-pointer accent-[#415111]"
+            className="w-28 sm:w-36 h-1.5 bg-[#FEFEFE] rounded-lg appearance-none cursor-pointer accent-[#114AB1]"
           />
         </div>
       </div>
 
-      {/* Multi-File Drag and Drop Ingestion Zone */}
       <div
-        id="sonar-dropzone"
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        onClick={() => fileInputRef.current?.click()}
-        className={`border-2 border-dashed rounded p-3 text-center cursor-pointer transition flex flex-col items-center justify-center gap-1.5 ${
-          isDragging
-            ? 'border-[#415111] bg-[#F2E8DF] shadow-sm'
+        {...getRootProps()}
+        className={`border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors flex flex-col items-center justify-center gap-2 ${
+          isDragActive
+            ? 'border-[#114AB1] bg-[#EBF2F7] shadow-sm'
             : filesQueue.length > 0
-            ? 'border-[#D2E186] hover:border-[#415111] bg-[#F2E8DF]'
-            : 'border-[#D2E186] hover:border-[#415111] bg-[#F2E8DF] py-6'
+            ? 'border-[#6793AC] hover:border-[#114AB1] bg-[#EBF2F7]'
+            : 'border-[#6793AC] hover:border-[#114AB1] bg-[#EBF2F7] py-6'
         }`}
       >
-        <input
-          ref={fileInputRef}
-          type="file"
-          multiple
-          accept=".png,.jpg,.jpeg,.tif,.tiff"
-          onChange={handleFileChange}
-          className="hidden"
-          disabled={isBatchRunning}
-        />
-
-        <div className="flex items-center gap-2">
-          <Upload className="w-5 h-5 text-[#415111] animate-bounce" />
-          <span className="text-xs font-sans font-semibold text-[#415111]">
-            {filesQueue.length > 0
-              ? 'Drop additional sonar waterfall images here'
-              : 'Drop side-scan sonar waterfall or acoustic imagery here'}
-          </span>
-        </div>
-
-        <p className="text-[10px] text-[#415111]/70 font-sans font-normal">
-          Multi-file selection supported • PNG, JPG, JPEG, TIFF
+        <input {...getInputProps()} id="input-file-dropzone" />
+        <Upload className="w-5 h-5 text-[#114AB1] animate-bounce" />
+        <span className="text-xs font-sans font-semibold text-[#114AB1]">
+          {isDragActive
+            ? 'Drop Sonar Acoustic Files Here...'
+            : 'Drag & Drop Side-Scan / Bathymetric Sonar Scans'}
+        </span>
+        <p className="text-[10px] text-[#6793AC] font-sans font-normal">
+          Supports PNG, JPG, WEBP, GeoTIFF imagery formats
         </p>
-
         <button
           type="button"
-          className="mt-0.5 bg-[#FEFEFE] hover:bg-[#D2E186] text-[#415111] border border-[#415111]/30 px-3 py-1 rounded text-[10px] font-sans font-bold uppercase tracking-wider transition-colors"
+          className="mt-0.5 bg-[#FEFEFE] hover:bg-[#6793AC] text-[#114AB1] hover:text-[#FEFEFE] border border-[#114AB1]/30 px-3 py-1 rounded text-[10px] font-sans font-bold uppercase tracking-wider transition-colors"
         >
-          {filesQueue.length > 0 ? '+ Add More Sonar Files' : 'Browse & Select Files (Multi-Select)'}
+          Browse Files
         </button>
       </div>
 
-      {/* Preset Demo Samples Row */}
-      <div className="flex flex-col gap-1.5 pt-0.5">
-        <div className="flex items-center justify-between text-[10px] font-tech text-[#415111]/80 uppercase tracking-wider font-bold">
-          <span>Survey Transect Presets:</span>
-          <button
-            type="button"
-            onClick={loadAllPresets}
-            disabled={isBusy || loadingAllPresets}
-            className="text-[10px] text-[#415111] hover:text-[#FB8159] flex items-center gap-1 font-sans font-semibold cursor-pointer disabled:opacity-50"
-            title="Queue all 3 sample transect files for sequential analysis"
-          >
-            {loadingAllPresets ? (
-              <RefreshCw className="w-3 h-3 animate-spin" />
-            ) : (
-              <Plus className="w-3 h-3" />
-            )}
-            <span>Queue All 3 Presets</span>
-          </button>
+      {filesQueue.length > 0 && (
+        <div className="flex items-center justify-between text-[10px] font-tech text-[#114AB1]/80 uppercase tracking-wider font-bold">
+          <span>BATCH TRANSECT QUEUE ({filesQueue.length} FILES)</span>
+          {onClearQueue && (
+            <button
+              type="button"
+              disabled={isBatchRunning}
+              onClick={onClearQueue}
+              className="text-[10px] text-[#114AB1] hover:text-[#E4580B] flex items-center gap-1 font-sans font-semibold cursor-pointer disabled:opacity-50"
+            >
+              <Trash2 className="w-3 h-3" />
+              <span>Clear All</span>
+            </button>
+          )}
         </div>
+      )}
 
-        <div className="grid grid-cols-3 gap-1.5">
-          {SAMPLE_IMAGES.map((sample) => {
-            const isQueued = filesQueue.some((f) => f.file.name === sample.filename);
-            return (
-              <button
-                key={sample.id}
-                id={`preset-${sample.id}`}
-                onClick={() => loadSample(sample)}
-                disabled={isBusy}
-                className={`p-2 rounded border text-left text-xs transition cursor-pointer flex flex-col justify-between gap-0.5 ${
-                  isQueued
-                    ? 'border-[#415111] bg-[#D2E186] text-[#415111] shadow-sm font-bold'
-                    : 'border-[#D2E186] bg-[#F2E8DF] hover:bg-[#D2E186]/50 hover:border-[#415111] text-[#415111]'
-                }`}
-              >
-                <div className="flex items-center justify-between w-full">
-                  <span className="font-semibold font-tech text-[10px] truncate text-[#415111]">
-                    {sample.name}
-                  </span>
-                  {loadingSample === sample.id ? (
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FB8159] animate-ping" />
-                  ) : isQueued ? (
-                    <span className="text-[8px] font-tech font-bold px-1 py-0.2 rounded bg-[#415111] text-[#FEFEFE] uppercase tracking-wider">
-                      QUEUED
-                    </span>
-                  ) : null}
-                </div>
-                <p className="text-[9px] text-[#415111]/70 line-clamp-1 font-sans font-normal leading-tight">
-                  {sample.desc}
-                </p>
-              </button>
-            );
-          })}
-        </div>
+      <div className="flex flex-wrap items-center gap-1.5 text-xs">
+        <span className="text-[10px] font-tech text-[#6793AC] uppercase font-bold mr-1">
+          Preset Sonar Transects:
+        </span>
+        {SAMPLE_FILES.map((sample) => {
+          const isLoaded = filesQueue.some((f) => f.id === sample.id);
+
+          return (
+            <button
+              key={sample.id}
+              type="button"
+              disabled={isBatchRunning}
+              onClick={() => handleLoadPresetSample(sample)}
+              className={`px-2 py-1 rounded text-[10px] font-tech uppercase tracking-wider transition cursor-pointer flex items-center gap-1 border ${
+                isLoaded
+                  ? 'border-[#114AB1] bg-[#6793AC] text-[#FEFEFE] shadow-sm font-bold'
+                  : 'border-[#6793AC] bg-[#EBF2F7] hover:bg-[#6793AC]/50 hover:border-[#114AB1] text-[#114AB1]'
+              }`}
+            >
+              <FileImage className="w-3 h-3" />
+              <span className="font-semibold font-tech text-[10px] truncate text-[#114AB1]">
+                {sample.name.split('.')[0]}
+              </span>
+              {sample.priority === 'high' && (
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E4580B] animate-ping" />
+              )}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Queued Sonar Files List & Sequential Batch Controller */}
       {filesQueue.length > 0 && (
-        <div className="bg-[#F2E8DF] border border-[#D2E186] rounded p-2.5 flex flex-col gap-2 font-sans">
-          {/* Queue Header & Stats */}
-          <div className="flex items-center justify-between border-b border-[#D2E186] pb-1.5">
+        <div className="bg-[#EBF2F7] border border-[#6793AC] rounded p-2.5 flex flex-col gap-2 font-sans">
+          <div className="flex items-center justify-between border-b border-[#6793AC] pb-1.5">
             <div className="flex items-center gap-1.5">
-              <ListOrdered className="w-3.5 h-3.5 text-[#415111]" />
-              <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#415111]">
-                QUEUED TRANSECTS ({filesQueue.length})
+              <ListOrdered className="w-3.5 h-3.5 text-[#114AB1]" />
+              <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1]">
+                QUEUED TRANSECT SCANS
               </span>
-              <span className="text-[10px] text-[#415111]/70 font-tech tabular-nums font-medium">
-                • {completedCount}/{filesQueue.length} Analyzed
+              <span className="text-[10px] text-[#6793AC] font-tech tabular-nums font-medium">
+                ({completedCount}/{filesQueue.length} Analyzed)
               </span>
             </div>
-
-            <div className="flex items-center gap-1.5">
+            {completedCount > 0 && onClearQueue && (
               <button
                 type="button"
-                onClick={onClearQueue}
                 disabled={isBatchRunning}
-                className="text-[10px] text-[#415111]/70 hover:text-[#FB8159] transition-colors flex items-center gap-1 px-1.5 py-0.5 rounded border border-[#D2E186] hover:border-[#FB8159] cursor-pointer disabled:opacity-50 font-sans font-semibold"
-                title="Clear all queued transect images"
+                onClick={() => {
+                  const pendingFiles = filesQueue.filter((f) => f.status !== 'completed');
+                  if (pendingFiles.length === 0) onClearQueue();
+                }}
+                className="text-[10px] text-[#6793AC] hover:text-[#E4580B] transition-colors flex items-center gap-1 px-1.5 py-0.5 rounded border border-[#6793AC] hover:border-[#E4580B] cursor-pointer disabled:opacity-50 font-sans font-semibold"
               >
                 <Trash2 className="w-3 h-3" />
-                <span>Clear All</span>
+                <span>Remove Completed</span>
               </button>
-            </div>
+            )}
           </div>
 
-          {/* Active Batch Progress Banner if running */}
           {isBatchRunning && batchProgress && (
-            <div className="p-2 bg-[#FEFEFE] border border-[#D2E186] rounded text-xs flex flex-col gap-1.5 font-sans">
+            <div className="p-2 bg-[#FEFEFE] border border-[#6793AC] rounded text-xs flex flex-col gap-1.5 font-sans">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-[#415111] font-tech font-bold uppercase tracking-wider">
-                  <span className="w-2 h-2 rounded-full bg-[#FB8159] animate-ping" />
+                <div className="flex items-center gap-1.5 text-[#114AB1] font-tech font-bold uppercase tracking-wider">
+                  <span className="w-2 h-2 rounded-full bg-[#E4580B] animate-ping" />
                   <span className="tabular-nums">
                     SEQUENTIAL ANALYSIS: SCAN {batchProgress.current} OF {batchProgress.total}
                   </span>
@@ -461,215 +433,101 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                   <button
                     type="button"
                     onClick={onCancelBatch}
-                    className="px-2 py-0.5 rounded bg-[#FB8159] hover:bg-[#FCBF93] text-[#FEFEFE] border border-[#FB8159] text-[10px] font-sans font-bold uppercase tracking-wider transition flex items-center gap-1 cursor-pointer"
+                    className="px-2 py-0.5 rounded bg-[#E4580B] hover:bg-[#E4580B]/90 text-[#FEFEFE] border border-[#E4580B] text-[10px] font-sans font-bold uppercase tracking-wider transition flex items-center gap-1 cursor-pointer"
                   >
                     <StopCircle className="w-3 h-3" />
                     <span>Stop Queue</span>
                   </button>
                 )}
               </div>
-              <p className="text-[10px] text-[#415111] truncate font-sans font-medium">
+              <p className="text-[10px] text-[#114AB1] truncate font-sans font-medium">
                 Processing: <span className="font-tech font-bold">{batchProgress.currentFilename}</span>
               </p>
-              <div className="w-full h-1.5 bg-[#F2E8DF] rounded-full overflow-hidden border border-[#D2E186]">
+              <div className="w-full h-1.5 bg-[#EBF2F7] rounded-full overflow-hidden border border-[#6793AC]">
                 <div
-                  className="h-full bg-gradient-to-r from-[#FCBF93] via-[#FB8159] to-[#D2E186] transition-all duration-300"
+                  className="h-full bg-gradient-to-r from-[#6793AC] via-[#114AB1] to-[#E4580B] transition-all duration-300"
                   style={{
-                    width: `${Math.max(
-                      8,
-                      ((batchProgress.current - 0.5) / batchProgress.total) * 100
-                    )}%`,
+                    width: `${Math.max(8, ((batchProgress.current - 0.5) / batchProgress.total) * 100)}%`,
                   }}
                 />
               </div>
             </div>
           )}
 
-          {/* Queued Items Scrollable List */}
-          <div className="max-h-52 overflow-y-auto space-y-1.5 pr-1 text-xs font-sans">
-            {filesQueue.map((item, index) => {
-              const isActive = item.id === activeFileId;
-              const isItemAnalyzing = item.status === 'analyzing';
-              const isItemCompleted = item.status === 'completed';
-              const isItemError = item.status === 'error';
-
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => onSelectQueuedFile(item.id)}
-                  className={`p-2 rounded border transition-all flex items-center justify-between gap-2.5 cursor-pointer ${
-                    isActive
-                      ? 'border-[#415111] bg-[#FEFEFE] shadow-sm ring-1 ring-[#415111]'
-                      : 'border-[#D2E186] bg-[#FEFEFE]/70 hover:bg-[#FEFEFE] hover:border-[#415111]'
-                  }`}
-                >
-                  {/* Left: Thumbnail & Index */}
-                  <div className="flex items-center gap-2 min-w-0 flex-1">
-                    <span className="text-[10px] text-[#415111]/70 font-tech tabular-nums w-4 shrink-0 text-center font-bold">
-                      #{index + 1}
-                    </span>
-
-                    {/* Image Thumbnail */}
-                    <div className="w-8 h-8 rounded border border-[#D2E186] bg-[#FEFEFE] overflow-hidden shrink-0 flex items-center justify-center">
-                      {item.previewUrl ? (
-                        <img
-                          src={item.previewUrl}
-                          alt="Sonar thumbnail"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <FileImage className="w-4 h-4 text-[#415111]/40" />
-                      )}
-                    </div>
-
-                    {/* File Meta */}
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-1.5">
-                        <p
-                          className={`font-semibold truncate text-[11px] font-tech ${
-                            isActive ? 'text-[#415111] font-bold' : 'text-[#415111]'
-                          }`}
-                          title={item.file.name}
-                        >
-                          {item.file.name}
-                        </p>
-                        {isActive && (
-                          <span className="text-[8px] bg-[#415111] text-[#FEFEFE] px-1 rounded font-bold font-tech uppercase tracking-wider shrink-0">
-                            ACTIVE
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-[9px] text-[#415111]/70 font-tech tabular-nums">
-                        {formatFileSize(item.file.size)}
-                      </p>
-                    </div>
+          <div className="max-h-52 overflow-y-auto space-y-1.5 pr-1 text-xs">
+            {filesQueue.map((item, index) => (
+              <div
+                key={item.id}
+                onClick={() => onSelectQueuedFile(item.id)}
+                className={`p-2 rounded border transition-all flex items-center justify-between gap-2.5 cursor-pointer ${
+                  isActive(item.id)
+                    ? 'border-[#114AB1] bg-[#FEFEFE] shadow-sm ring-1 ring-[#114AB1]'
+                    : 'border-[#6793AC] bg-[#FEFEFE]/70 hover:bg-[#FEFEFE] hover:border-[#114AB1]'
+                }`}
+              >
+                <div className="flex items-center gap-2 min-w-0 flex-1">
+                  <span className="text-[10px] text-[#6793AC] font-tech tabular-nums w-4 shrink-0 text-center font-bold">
+                    #{index + 1}
+                  </span>
+                  <div className="w-8 h-8 rounded border border-[#6793AC] bg-[#FEFEFE] overflow-hidden shrink-0 flex items-center justify-center">
+                    {item.previewUrl ? <img src={item.previewUrl} className="w-full h-full object-cover" /> : <FileImage className="w-4 h-4 text-[#6793AC]/40" />}
                   </div>
-
-                  {/* Right: Status Pill & Actions */}
-                  <div
-                    className="flex items-center gap-2 shrink-0"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {/* Status Pill */}
-                    {isItemAnalyzing ? (
-                      <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FCBF93] text-[#415111] border border-[#FB8159] flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#FB8159] animate-ping" />
-                        <span>ANALYZING</span>
-                      </span>
-                    ) : isItemCompleted ? (
-                      <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#D2E186] text-[#415111] border border-[#415111]/30 flex items-center gap-1 tabular-nums">
-                        <CheckCircle2 className="w-3 h-3 text-[#415111]" />
-                        <span>
-                          {item.detectionCount !== undefined
-                            ? `${item.detectionCount} DETECTIONS`
-                            : 'COMPLETED'}
-                        </span>
-                      </span>
-                    ) : isItemError ? (
-                      <span
-                        className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FB8159] text-[#FEFEFE] border border-[#FB8159] flex items-center gap-1"
-                        title={item.error || 'Inference error'}
-                      >
-                        <AlertCircle className="w-3 h-3" />
-                        <span>FAILED</span>
-                      </span>
-                    ) : (
-                      <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FEFEFE] text-[#415111]/70 border border-[#D2E186] flex items-center gap-1">
-                        <Clock className="w-2.5 h-2.5" />
-                        <span>QUEUED</span>
-                      </span>
-                    )}
-
-                    {/* View Button */}
-                    <button
-                      type="button"
-                      onClick={() => onSelectQueuedFile(item.id)}
-                      className={`p-1 rounded transition text-[10px] cursor-pointer ${
-                        isActive
-                          ? 'text-[#415111] bg-[#D2E186]'
-                          : 'text-[#415111]/70 hover:text-[#415111] hover:bg-[#D2E186]'
-                      }`}
-                      title="View this sonar scan in dashboard"
-                    >
-                      <Eye className="w-3.5 h-3.5" />
-                    </button>
-
-                    {/* Individual Run Button */}
-                    <button
-                      type="button"
-                      disabled={isBatchRunning || isItemAnalyzing}
-                      onClick={() => onAnalyzeSingle(item.id, engineMode, confThreshold)}
-                      className="p-1 rounded text-[#415111]/70 hover:text-[#415111] hover:bg-[#D2E186] transition cursor-pointer disabled:opacity-40"
-                      title={
-                        isItemCompleted
-                          ? 'Re-analyze this scan individually'
-                          : 'Analyze this scan individually'
-                      }
-                    >
-                      {isItemCompleted ? (
-                        <RefreshCw className="w-3.5 h-3.5" />
-                      ) : (
-                        <Play className="w-3.5 h-3.5" />
-                      )}
-                    </button>
-
-                    {/* Remove from Queue Button */}
-                    <button
-                      type="button"
-                      disabled={isBatchRunning || isItemAnalyzing}
-                      onClick={() => onRemoveQueuedFile(item.id)}
-                      className="p-1 rounded text-[#415111]/60 hover:text-[#FB8159] hover:bg-[#FB8159]/20 transition cursor-pointer disabled:opacity-40"
-                      title="Remove from queue"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
+                  <div className="min-w-0 flex-1">
+                    <p className={`font-semibold truncate text-[11px] font-tech ${isActive(item.id) ? 'text-[#114AB1] font-bold' : 'text-[#114AB1]'}`}>{item.file.name}</p>
+                    <p className="text-[9px] text-[#6793AC] font-tech tabular-nums">{formatFileSize(item.file.size)}</p>
                   </div>
                 </div>
-              );
-            })}
+                <div className="flex items-center gap-2 shrink-0" onClick={(e) => e.stopPropagation()}>
+                  {item.status === 'analyzing' ? (
+                    <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#E4580B]/20 text-[#E4580B] border border-[#E4580B] flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#E4580B] animate-ping" />
+                      <span>ANALYZING</span>
+                    </span>
+                  ) : item.status === 'completed' ? (
+                    <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#6793AC]/20 text-[#114AB1] border border-[#6793AC]/40 flex items-center gap-1 tabular-nums">
+                      <CheckCircle2 className="w-3 h-3 text-[#114AB1]" />
+                      <span>{item.detectionCount !== undefined ? `${item.detectionCount} Detections` : 'Done'}</span>
+                    </span>
+                  ) : item.status === 'error' ? (
+                    <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#E4580B] text-[#FEFEFE] border border-[#E4580B] flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3" />
+                      <span>Failed</span>
+                    </span>
+                  ) : (
+                    <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FEFEFE] text-[#6793AC] border border-[#6793AC] flex items-center gap-1">
+                      <Clock className="w-2.5 h-2.5" />
+                      <span>Queued</span>
+                    </span>
+                  )}
+                  <button type="button" onClick={() => onSelectQueuedFile(item.id)} className={`p-1 rounded transition text-[10px] cursor-pointer ${isActive(item.id) ? 'text-[#FEFEFE] bg-[#114AB1]' : 'text-[#114AB1]/70 hover:text-[#114AB1] hover:bg-[#6793AC]/30'}`}>
+                    <Eye className="w-3.5 h-3.5" />
+                  </button>
+                  <button type="button" disabled={isBatchRunning} onClick={() => onAnalyzeSingle(item.id, engineMode, confThreshold)} className="p-1 rounded text-[#114AB1]/70 hover:text-[#114AB1] hover:bg-[#6793AC]/30 transition cursor-pointer disabled:opacity-40">
+                    <Play className="w-3.5 h-3.5" />
+                  </button>
+                  <button type="button" disabled={isBatchRunning} onClick={() => onRemoveQueuedFile(item.id)} className="p-1 rounded text-[#114AB1]/60 hover:text-[#E4580B] hover:bg-[#E4580B]/20 transition cursor-pointer disabled:opacity-40">
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
 
-      {/* Error Alert */}
       {error && (
-        <div className="p-2.5 rounded bg-[#F2E8DF] border border-[#FB8159] flex flex-col gap-1.5 text-xs text-[#FB8159] font-sans">
+        <div className="p-2.5 rounded bg-[#EBF2F7] border border-[#E4580B] flex flex-col gap-1.5 text-xs text-[#E4580B] font-sans">
           <div className="flex items-start gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#FB8159]" />
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#E4580B]" />
             <div className="flex-1 font-sans text-[11px]">
               <span className="font-tech font-bold uppercase tracking-wider">INFERENCE ERROR: </span>
               <span>{error}</span>
             </div>
           </div>
-          {error.includes('marine-debris.onnx') && (
-            <div className="pl-6 text-[10px] font-sans text-[#415111]">
-              <p className="font-semibold text-[#FB8159]">How to fix:</p>
-              <p>
-                Place your exported YOLO ONNX weights at{' '}
-                <code className="text-[#415111] font-tech font-bold bg-[#FEFEFE] px-1 py-0.5 rounded border border-[#D2E186]">public/models/marine-debris.onnx</code>
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setEngineMode('server');
-                  if (activeFileId) {
-                    onAnalyzeSingle(activeFileId, 'server', confThreshold);
-                  } else if (onAnalyze) {
-                    onAnalyze('server', confThreshold);
-                  }
-                }}
-                className="mt-1 text-[10px] text-[#FB8159] underline hover:text-[#415111] cursor-pointer font-sans font-semibold"
-              >
-                Or switch to the Server Acoustic Pipeline now →
-              </button>
-            </div>
-          )}
         </div>
       )}
 
-      {/* Main Action Bar: Sequential Analysis & Single Analysis */}
       <div className="flex flex-col sm:flex-row items-center gap-2 pt-1 font-sans">
-        {/* Primary Sequential Batch Analysis Button */}
         <button
           id="btn-analyze-batch"
           type="button"
@@ -677,51 +535,26 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
           disabled={filesQueue.length === 0 || isBatchRunning}
           className={`flex-1 w-full py-2.5 px-3 rounded text-xs font-sans font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer ${
             filesQueue.length === 0 || isBatchRunning
-              ? 'bg-[#F2E8DF] text-[#415111]/40 border border-[#F2E8DF] cursor-not-allowed'
-              : 'bg-[#FB8159] hover:bg-[#FCBF93] text-[#FEFEFE] border border-[#FB8159] shadow-sm font-bold'
+              ? 'bg-[#EBF2F7] text-[#114AB1]/40 border border-[#EBF2F7] cursor-not-allowed'
+              : 'bg-[#E4580B] hover:bg-[#E4580B]/90 text-[#FEFEFE] border border-[#E4580B] shadow-sm font-bold'
           }`}
         >
-          {isBatchRunning ? (
-            <>
-              <span className="w-3.5 h-3.5 border-2 border-[#FEFEFE] border-t-transparent rounded-full animate-spin" />
-              <span className="tabular-nums">
-                SEQUENTIAL BATCH IN PROGRESS ({batchProgress?.current || 1}/{batchProgress?.total || filesQueue.length})...
-              </span>
-            </>
-          ) : (
-            <>
-              <Sparkles className="w-3.5 h-3.5" />
-              <span className="tabular-nums">
-                {pendingCount > 0
-                  ? `RUN SEQUENTIAL ANALYSIS (${pendingCount} PENDING)`
-                  : filesQueue.length > 0
-                  ? `RE-ANALYZE QUEUE (${filesQueue.length} TRANSECTS)`
-                  : 'QUEUE TRANSECTS TO ANALYZE'}
-              </span>
-            </>
-          )}
+          {isBatchRunning ? 'Processing Queue...' : 'Run Sequential Batch'}
         </button>
-
-        {/* Analyze Active Scan Button */}
         {filesQueue.length > 0 && (
           <button
             id="btn-analyze-active"
             type="button"
-            disabled={!activeFileId || isBatchRunning || isBusy}
-            onClick={() => {
-              if (activeFileId) {
-                onAnalyzeSingle(activeFileId, engineMode, confThreshold);
-              }
-            }}
+            disabled={!activeFileId || isBatchRunning}
+            onClick={() => activeFileId && onAnalyzeSingle(activeFileId, engineMode, confThreshold)}
             className={`w-full sm:w-auto py-2.5 px-3 rounded text-xs font-sans font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border transition-all cursor-pointer ${
-              !activeFileId || isBatchRunning || isBusy
-                ? 'bg-[#F2E8DF] text-[#415111]/40 border-[#F2E8DF] cursor-not-allowed'
-                : 'bg-[#F2E8DF] hover:bg-[#D2E186] text-[#415111] border-[#D2E186] font-bold'
+              !activeFileId || isBatchRunning
+                ? 'bg-[#EBF2F7] text-[#114AB1]/40 border-[#EBF2F7] cursor-not-allowed'
+                : 'bg-[#EBF2F7] hover:bg-[#6793AC] text-[#114AB1] hover:text-[#FEFEFE] border-[#6793AC] font-bold'
             }`}
-            title="Analyze only the currently active selected scan"
           >
-            <Play className="w-3 h-3 text-[#415111]" />
-            <span>ANALYZE ACTIVE SCAN</span>
+            <Play className="w-3 h-3" />
+            <span>Analyze Active</span>
           </button>
         )}
       </div>

@@ -37,7 +37,7 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
       let y = 16;
 
       // Header Banner
-      doc.setFillColor(65, 81, 17); // Olive Primary #415111
+      doc.setFillColor(17, 74, 177); // Royal Blue Primary #114AB1
       doc.rect(0, 0, pageWidth, 24, 'F');
 
       doc.setTextColor(254, 254, 254);
@@ -52,7 +52,7 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
       y = 32;
 
       // Mission Metadata
-      doc.setTextColor(65, 81, 17);
+      doc.setTextColor(17, 74, 177);
       doc.setFontSize(11);
       doc.setFont('helvetica', 'bold');
       doc.text('SURVEY MISSION TELEMETRY', 14, y);
@@ -77,9 +77,9 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
       y += 9;
 
       // Summary Statistics Box
-      doc.setFillColor(242, 232, 223); // #F2E8DF
+      doc.setFillColor(235, 242, 247); // #EBF2F7
       doc.rect(14, y, pageWidth - 28, 18, 'F');
-      doc.setDrawColor(210, 225, 134); // #D2E186
+      doc.setDrawColor(103, 147, 172); // #6793AC
       doc.rect(14, y, pageWidth - 28, 18, 'S');
 
       const detections = result?.detections || [];
@@ -88,12 +88,12 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
       const advisoryCount = detections.filter((d) => d.priority === 'low').length;
 
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(65, 81, 17);
+      doc.setTextColor(17, 74, 177);
       doc.setFontSize(9);
       doc.text(`TOTAL ANOMALIES: ${detections.length}`, 20, y + 7);
-      doc.setTextColor(251, 129, 89); // Coral #FB8159
+      doc.setTextColor(228, 88, 11); // Orange #E4580B
       doc.text(`CRITICAL TARGETS: ${criticalCount}`, 70, y + 7);
-      doc.setTextColor(65, 81, 17);
+      doc.setTextColor(17, 74, 177);
       doc.text(`WARNING TARGETS: ${warningCount}`, 120, y + 7);
       doc.text(`ADVISORY TARGETS: ${advisoryCount}`, 160, y + 7);
 
@@ -105,14 +105,14 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
       y += 26;
 
       // Detections Table
-      doc.setTextColor(65, 81, 17);
+      doc.setTextColor(17, 74, 177);
       doc.setFontSize(11);
       doc.setFont('helvetica', 'bold');
       doc.text('GEOREFERENCED TARGET INVENTORY', 14, y);
       y += 5;
 
       // Table Header
-      doc.setFillColor(65, 81, 17);
+      doc.setFillColor(17, 74, 177);
       doc.rect(14, y, pageWidth - 28, 7, 'F');
       doc.setTextColor(254, 254, 254);
       doc.setFontSize(8);
@@ -132,7 +132,7 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
 
       detections.slice(0, 22).forEach((det, i) => {
         const isEven = i % 2 === 0;
-        doc.setFillColor(isEven ? 254 : 242, isEven ? 254 : 232, isEven ? 254 : 223);
+        doc.setFillColor(isEven ? 254 : 235, isEven ? 254 : 242, isEven ? 254 : 247);
         doc.rect(14, y, pageWidth - 28, 6, 'F');
 
         doc.setTextColor(50, 50, 50);
@@ -143,11 +143,11 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
         doc.text(`${det.longitude.toFixed(6)}° E`, 140, y + 4);
 
         if (det.priority === 'high') {
-          doc.setTextColor(251, 129, 89);
+          doc.setTextColor(228, 88, 11);
         } else if (det.priority === 'medium') {
-          doc.setTextColor(180, 100, 20);
+          doc.setTextColor(103, 147, 172);
         } else {
-          doc.setTextColor(65, 81, 17);
+          doc.setTextColor(17, 74, 177);
         }
         doc.setFont('helvetica', 'bold');
         doc.text(det.priority.toUpperCase(), 175, y + 4);
@@ -158,7 +158,7 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
 
       // Environmental Protection Notes Footer
       y = Math.max(y + 6, 260);
-      doc.setDrawColor(210, 225, 134);
+      doc.setDrawColor(103, 147, 172);
       doc.line(14, y, pageWidth - 14, y);
       y += 5;
 
@@ -257,8 +257,8 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
           disabled={!hasData}
           className={`px-3 py-1.5 rounded border font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer text-[11px] ${
             !hasData
-              ? 'bg-[#F2E8DF] dark:bg-[#1E2E21] border-[#F2E8DF] dark:border-[#415111] text-[#415111]/40 dark:text-[#D2E186]/40 cursor-not-allowed'
-              : 'bg-[#FB8159] hover:bg-[#FCBF93] text-[#FEFEFE] border-[#FB8159] shadow-sm'
+              ? 'bg-[#EBF2F7] dark:bg-[#114AB1]/20 border-[#EBF2F7] dark:border-[#114AB1] text-[#114AB1]/40 dark:text-[#6793AC]/40 cursor-not-allowed'
+              : 'bg-[#E4580B] hover:bg-[#E4580B]/90 text-[#FEFEFE] border-[#E4580B] shadow-sm'
           }`}
           title="Generate AI Threat & Ecological Assessment Briefing"
         >
@@ -274,8 +274,8 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
         disabled={!hasData}
         className={`px-3 py-1.5 rounded border font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer text-[11px] ${
           !hasData
-            ? 'bg-[#F2E8DF] dark:bg-[#1E2E21] border-[#F2E8DF] dark:border-[#415111] text-[#415111]/40 dark:text-[#D2E186]/40 cursor-not-allowed'
-            : 'bg-[#415111] hover:bg-[#415111]/90 text-[#FEFEFE] border-[#415111] shadow-sm'
+            ? 'bg-[#EBF2F7] dark:bg-[#114AB1]/20 border-[#EBF2F7] dark:border-[#114AB1] text-[#114AB1]/40 dark:text-[#6793AC]/40 cursor-not-allowed'
+            : 'bg-[#114AB1] hover:bg-[#114AB1]/90 text-[#FEFEFE] border-[#114AB1] shadow-sm'
         }`}
         title="Download complete formatted hydrographic survey report as PDF"
       >
@@ -294,15 +294,15 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
         disabled={!hasData}
         className={`px-3 py-1.5 rounded border font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer text-[11px] ${
           !hasData
-            ? 'bg-[#F2E8DF] dark:bg-[#1E2E21] border-[#F2E8DF] dark:border-[#415111] text-[#415111]/40 dark:text-[#D2E186]/40 cursor-not-allowed'
-            : 'bg-[#F2E8DF] dark:bg-[#1E2E21] hover:bg-[#D2E186] text-[#415111] dark:text-[#D2E186] border-[#415111]/30 dark:border-[#415111] shadow-sm'
+            ? 'bg-[#EBF2F7] dark:bg-[#114AB1]/20 border-[#EBF2F7] dark:border-[#114AB1] text-[#114AB1]/40 dark:text-[#6793AC]/40 cursor-not-allowed'
+            : 'bg-[#EBF2F7] dark:bg-[#114AB1]/20 hover:bg-[#6793AC] hover:text-[#FEFEFE] text-[#114AB1] dark:text-[#6793AC] border-[#114AB1]/30 dark:border-[#114AB1] shadow-sm'
         }`}
         title="Download detection coordinates and bounds as standard survey CSV"
       >
         {downloadingCsv ? (
-          <Check className="w-3.5 h-3.5 text-[#415111] dark:text-[#D2E186]" />
+          <Check className="w-3.5 h-3.5 text-[#114AB1] dark:text-[#6793AC]" />
         ) : (
-          <FileSpreadsheet className="w-3.5 h-3.5 text-[#415111] dark:text-[#D2E186]" />
+          <FileSpreadsheet className="w-3.5 h-3.5 text-[#114AB1] dark:text-[#6793AC]" />
         )}
         <span>EXPORT CSV</span>
       </button>
@@ -314,15 +314,15 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
         disabled={!hasData}
         className={`px-3 py-1.5 rounded border font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer text-[11px] ${
           !hasData
-            ? 'bg-[#F2E8DF] dark:bg-[#1E2E21] border-[#F2E8DF] dark:border-[#415111] text-[#415111]/40 dark:text-[#D2E186]/40 cursor-not-allowed'
-            : 'bg-[#F2E8DF] dark:bg-[#1E2E21] hover:bg-[#D2E186] text-[#415111] dark:text-[#D2E186] border-[#415111]/30 dark:border-[#415111] shadow-sm'
+            ? 'bg-[#EBF2F7] dark:bg-[#114AB1]/20 border-[#EBF2F7] dark:border-[#114AB1] text-[#114AB1]/40 dark:text-[#6793AC]/40 cursor-not-allowed'
+            : 'bg-[#EBF2F7] dark:bg-[#114AB1]/20 hover:bg-[#6793AC] hover:text-[#FEFEFE] text-[#114AB1] dark:text-[#6793AC] border-[#114AB1]/30 dark:border-[#114AB1] shadow-sm'
         }`}
         title="Download full analysis payload as JSON"
       >
         {downloadingJson ? (
-          <Check className="w-3.5 h-3.5 text-[#415111] dark:text-[#D2E186]" />
+          <Check className="w-3.5 h-3.5 text-[#114AB1] dark:text-[#6793AC]" />
         ) : (
-          <FileJson className="w-3.5 h-3.5 text-[#415111] dark:text-[#D2E186]" />
+          <FileJson className="w-3.5 h-3.5 text-[#114AB1] dark:text-[#6793AC]" />
         )}
         <span>JSON</span>
       </button>

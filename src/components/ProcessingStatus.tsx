@@ -48,13 +48,13 @@ export const ProcessingStatus: React.FC<ProcessingStatusProps> = ({
   const currentIndex = stageOrder.indexOf(stage);
 
   return (
-    <div className="bg-[#FEFEFE] border border-[#F2E8DF] rounded p-4 font-sans flex flex-col gap-3 shadow-sm">
-      <div className="flex items-center justify-between border-b border-[#F2E8DF] pb-2">
-        <h2 className="text-[10px] font-tech font-bold uppercase tracking-wider text-[#415111] flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-[#D2E186] border border-[#415111]/30 animate-pulse" />
+    <div className="bg-[#FEFEFE] border border-[#EBF2F7] rounded p-4 font-sans flex flex-col gap-3 shadow-sm">
+      <div className="flex items-center justify-between border-b border-[#EBF2F7] pb-2">
+        <h2 className="text-[10px] font-tech font-bold uppercase tracking-wider text-[#114AB1] flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-[#6793AC] border border-[#114AB1]/30 animate-pulse" />
           <span>HYDROGRAPHIC PROCESSING PIPELINE</span>
         </h2>
-        <span className="text-[10px] text-[#415111] font-tech font-bold uppercase tracking-wider bg-[#F2E8DF] px-2 py-0.5 rounded border border-[#D2E186]">
+        <span className="text-[10px] text-[#114AB1] font-tech font-bold uppercase tracking-wider bg-[#EBF2F7] px-2 py-0.5 rounded border border-[#6793AC]">
           {isBatchRunning
             ? `BATCH SEQUENCE: ${batchProgress ? `${batchProgress.current}/${batchProgress.total}` : 'ACTIVE'}`
             : stage === 'error'
@@ -67,28 +67,28 @@ export const ProcessingStatus: React.FC<ProcessingStatusProps> = ({
 
       {/* Sequential Batch Status Indicator */}
       {batchProgress && (
-        <div className="p-2 bg-[#F2E8DF] border border-[#D2E186] rounded text-[11px] flex flex-col gap-1.5">
+        <div className="p-2 bg-[#EBF2F7] border border-[#6793AC] rounded text-[11px] flex flex-col gap-1.5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 text-[#415111] font-tech font-bold uppercase tracking-wider">
+            <div className="flex items-center gap-1.5 text-[#114AB1] font-tech font-bold uppercase tracking-wider">
               <ListOrdered className="w-3.5 h-3.5" />
               <span>
                 BATCH PROGRESS: SCAN {batchProgress.current} OF {batchProgress.total}
               </span>
             </div>
-            <span className="text-[10px] text-[#415111]/70 font-tech font-bold tabular-nums">
+            <span className="text-[10px] text-[#114AB1]/70 font-tech font-bold tabular-nums">
               {Math.round(((batchProgress.current - 1) / batchProgress.total) * 100)}% COMPLETE
             </span>
           </div>
 
           {batchProgress.currentFilename && (
-            <p className="text-[10px] text-[#415111] truncate font-sans">
-              <span className="text-[#415111]/70 font-semibold">Active Transect:</span> <span className="font-tech font-semibold">{batchProgress.currentFilename}</span>
+            <p className="text-[10px] text-[#114AB1] truncate font-sans">
+              <span className="text-[#114AB1]/70 font-semibold">Active Transect:</span> <span className="font-tech font-semibold">{batchProgress.currentFilename}</span>
             </p>
           )}
 
-          <div className="w-full h-1.5 bg-[#FEFEFE] rounded-full overflow-hidden border border-[#D2E186]">
+          <div className="w-full h-1.5 bg-[#FEFEFE] rounded-full overflow-hidden border border-[#6793AC]">
             <div
-              className="h-full bg-gradient-to-r from-[#FCBF93] via-[#FB8159] to-[#D2E186] transition-all duration-300 rounded-full"
+              className="h-full bg-gradient-to-r from-[#E4580B] via-[#114AB1] to-[#6793AC] transition-all duration-300 rounded-full"
               style={{
                 width: `${Math.max(5, ((batchProgress.current - (stage === 'completed' ? 0 : 0.5)) / batchProgress.total) * 100)}%`,
               }}
@@ -109,33 +109,33 @@ export const ProcessingStatus: React.FC<ProcessingStatusProps> = ({
               key={s.id}
               className={`p-2 rounded border transition-all flex flex-col justify-between gap-1 ${
                 isCurrent
-                  ? 'border-[#415111] bg-[#F2E8DF] shadow-sm'
+                  ? 'border-[#114AB1] bg-[#EBF2F7] shadow-sm'
                   : isDone
-                  ? 'border-[#D2E186] bg-[#D2E186]/30'
-                  : 'border-[#F2E8DF] bg-[#FEFEFE] opacity-60'
+                  ? 'border-[#6793AC] bg-[#6793AC]/30'
+                  : 'border-[#EBF2F7] bg-[#FEFEFE] opacity-60'
               }`}
             >
               <div className="flex items-center gap-2">
                 {isDone ? (
-                  <div className="w-5 h-5 rounded-full border border-[#415111] flex items-center justify-center text-[10px] text-[#415111] font-tech font-bold shrink-0 bg-[#D2E186]">
+                  <div className="w-5 h-5 rounded-full border border-[#114AB1] flex items-center justify-center text-[10px] text-[#114AB1] font-tech font-bold shrink-0 bg-[#6793AC]">
                     ✓
                   </div>
                 ) : isCurrent ? (
-                  <div className="w-5 h-5 rounded-full border border-[#415111] flex items-center justify-center shrink-0 bg-[#415111]">
-                    <div className="w-2 h-2 bg-[#D2E186] rounded-full animate-pulse" />
+                  <div className="w-5 h-5 rounded-full border border-[#114AB1] flex items-center justify-center shrink-0 bg-[#114AB1]">
+                    <div className="w-2 h-2 bg-[#6793AC] rounded-full animate-pulse" />
                   </div>
                 ) : (
-                  <div className="w-5 h-5 rounded-full border border-[#F2E8DF] flex items-center justify-center text-[10px] text-[#415111]/60 font-tech font-bold shrink-0 bg-[#F2E8DF]">
+                  <div className="w-5 h-5 rounded-full border border-[#EBF2F7] flex items-center justify-center text-[10px] text-[#114AB1]/60 font-tech font-bold shrink-0 bg-[#EBF2F7]">
                     {idx + 1}
                   </div>
                 )}
                 <span
-                  className={`text-xs font-sans font-semibold truncate text-[#415111]`}
+                  className={`text-xs font-sans font-semibold truncate text-[#114AB1]`}
                 >
                   {s.label}
                 </span>
               </div>
-              <p className="text-[9px] text-[#415111]/70 line-clamp-1 pl-7 font-sans font-normal">
+              <p className="text-[9px] text-[#114AB1]/70 line-clamp-1 pl-7 font-sans font-normal">
                 {s.detail}
               </p>
             </div>
@@ -144,8 +144,8 @@ export const ProcessingStatus: React.FC<ProcessingStatusProps> = ({
       </div>
 
       {stage === 'error' && (
-        <div className="mt-1 p-2.5 rounded bg-[#F2E8DF] border border-[#FB8159] text-[#FB8159] text-xs flex items-center gap-2 font-sans font-bold">
-          <AlertTriangle className="w-4 h-4 shrink-0 text-[#FB8159]" />
+        <div className="mt-1 p-2.5 rounded bg-[#EBF2F7] border border-[#E4580B] text-[#E4580B] text-xs flex items-center gap-2 font-sans font-bold">
+          <AlertTriangle className="w-4 h-4 shrink-0 text-[#E4580B]" />
           <span>Pipeline halted: {error || 'Unexpected acoustic processing failure'}</span>
         </div>
       )}

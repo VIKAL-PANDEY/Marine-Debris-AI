@@ -105,7 +105,7 @@ export async function analyzeSonarWithYOLO(
     ctx.drawImage(img, 0, 0);
 
     for (const det of detections) {
-      const color = det.priority === 'high' ? '#FB8159' : det.priority === 'medium' ? '#FCBF93' : '#415111';
+      const color = det.priority === 'high' ? '#E4580B' : det.priority === 'medium' ? '#6793AC' : '#114AB1';
       ctx.strokeStyle = color;
       ctx.lineWidth = 3;
       ctx.strokeRect(det.bbox.x, det.bbox.y, det.bbox.width, det.bbox.height);

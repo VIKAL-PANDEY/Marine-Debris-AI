@@ -139,19 +139,19 @@ export const AICoPilotChatDrawer: React.FC<AICoPilotChatDrawerProps> = ({
   };
 
   return (
-    <div className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-50 w-[95vw] sm:w-[460px] h-[580px] max-h-[85vh] bg-[#FEFEFE] border border-[#F2E8DF] rounded-lg shadow-2xl flex flex-col overflow-hidden font-sans text-[#415111] backdrop-blur-md">
+    <div className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-50 w-[95vw] sm:w-[460px] h-[580px] max-h-[85vh] bg-[#FEFEFE] border border-[#EBF2F7] rounded-lg shadow-2xl flex flex-col overflow-hidden font-sans text-[#114AB1] backdrop-blur-md">
       {/* Header */}
-      <div className="p-3 border-b border-[#F2E8DF] bg-[#FEFEFE] flex items-center justify-between">
+      <div className="p-3 border-b border-[#EBF2F7] bg-[#FEFEFE] flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded bg-[#F2E8DF] border border-[#D2E186] flex items-center justify-center text-[#415111]">
+          <div className="w-6 h-6 rounded bg-[#EBF2F7] border border-[#6793AC] flex items-center justify-center text-[#114AB1]">
             <Sparkles className="w-3.5 h-3.5" />
           </div>
           <div>
-            <h3 className="text-xs font-tech font-bold text-[#415111] uppercase tracking-wider flex items-center gap-1.5">
+            <h3 className="text-xs font-tech font-bold text-[#114AB1] uppercase tracking-wider flex items-center gap-1.5">
               <span>AQUAVISION AI CO-PILOT</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D2E186] border border-[#415111]/30 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#6793AC] border border-[#114AB1]/30 animate-pulse" />
             </h3>
-            <p className="text-[9px] font-sans text-[#415111]/70">
+            <p className="text-[9px] font-sans text-[#114AB1]/70">
               {result ? `${result.detections.length} Target(s) Context Loaded` : 'Ready for Ingestion'}
             </p>
           </div>
@@ -160,14 +160,14 @@ export const AICoPilotChatDrawer: React.FC<AICoPilotChatDrawerProps> = ({
         <div className="flex items-center gap-1">
           <button
             onClick={handleClear}
-            className="p-1 rounded text-[#415111] hover:bg-[#F2E8DF] transition cursor-pointer"
+            className="p-1 rounded text-[#114AB1] hover:bg-[#EBF2F7] transition cursor-pointer"
             title="Clear Chat History"
           >
             <Trash2 className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={onClose}
-            className="p-1 rounded text-[#415111] hover:bg-[#F2E8DF] transition cursor-pointer"
+            className="p-1 rounded text-[#114AB1] hover:bg-[#EBF2F7] transition cursor-pointer"
             title="Close Assistant"
           >
             <X className="w-4 h-4" />
@@ -177,15 +177,15 @@ export const AICoPilotChatDrawer: React.FC<AICoPilotChatDrawerProps> = ({
 
       {/* Selected Target Live Context Banner */}
       {selectedDetection && (
-        <div className="px-3 py-1.5 bg-[#F2E8DF] border-b border-[#D2E186] flex items-center justify-between text-[10px] text-[#415111] font-sans">
+        <div className="px-3 py-1.5 bg-[#EBF2F7] border-b border-[#6793AC] flex items-center justify-between text-[10px] text-[#114AB1] font-sans">
           <div className="flex items-center gap-1 truncate">
-            <Compass className="w-3 h-3 shrink-0 text-[#415111]" />
+            <Compass className="w-3 h-3 shrink-0 text-[#114AB1]" />
             <span className="font-bold">Active Focus:</span>
-            <span className="text-[#415111] font-tech font-bold uppercase truncate">
+            <span className="text-[#114AB1] font-tech font-bold uppercase truncate">
               {selectedDetection.id} ({selectedDetection.class_name.replace(/_/g, ' ')})
             </span>
           </div>
-          <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#FEFEFE] border border-[#D2E186] text-[#415111] font-tech font-bold shrink-0 tabular-nums">
+          <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#FEFEFE] border border-[#6793AC] text-[#114AB1] font-tech font-bold shrink-0 tabular-nums">
             {(selectedDetection.confidence * 100).toFixed(0)}% CONF
           </span>
         </div>
@@ -200,15 +200,15 @@ export const AICoPilotChatDrawer: React.FC<AICoPilotChatDrawerProps> = ({
               m.role === 'user' ? 'items-end' : 'items-start'
             }`}
           >
-            <div className="flex items-center gap-1 text-[9px] text-[#415111]/70 mb-0.5 px-1 font-tech uppercase tracking-wider">
+            <div className="flex items-center gap-1 text-[9px] text-[#114AB1]/70 mb-0.5 px-1 font-tech uppercase tracking-wider">
               {m.role === 'assistant' ? (
                 <>
-                  <Bot className="w-2.5 h-2.5 text-[#415111]" />
+                  <Bot className="w-2.5 h-2.5 text-[#114AB1]" />
                   <span>AQUAVISION AI</span>
                 </>
               ) : (
                 <>
-                  <User className="w-2.5 h-2.5 text-[#415111]/70" />
+                  <User className="w-2.5 h-2.5 text-[#114AB1]/70" />
                   <span>HYDROGRAPHER</span>
                 </>
               )}
@@ -219,22 +219,22 @@ export const AICoPilotChatDrawer: React.FC<AICoPilotChatDrawerProps> = ({
             <div
               className={`p-2.5 rounded-lg max-w-[90%] relative group ${
                 m.role === 'user'
-                  ? 'bg-[#F2E8DF] border border-[#D2E186] text-[#415111]'
-                  : 'bg-[#FEFEFE] border border-[#F2E8DF] shadow-sm text-[#415111]'
+                  ? 'bg-[#EBF2F7] border border-[#6793AC] text-[#114AB1]'
+                  : 'bg-[#FEFEFE] border border-[#EBF2F7] shadow-sm text-[#114AB1]'
               }`}
             >
-              <div className="markdown-body max-w-none text-[11px] font-sans leading-relaxed space-y-1.5 text-[#415111]">
+              <div className="markdown-body max-w-none text-[11px] font-sans leading-relaxed space-y-1.5 text-[#114AB1]">
                 <Markdown>{m.content}</Markdown>
               </div>
 
               {/* Copy action */}
               <button
                 onClick={() => handleCopy(m.id, m.content)}
-                className="absolute top-1 right-1 p-1 rounded bg-[#F2E8DF] text-[#415111] hover:bg-[#D2E186] opacity-0 group-hover:opacity-100 transition cursor-pointer"
+                className="absolute top-1 right-1 p-1 rounded bg-[#EBF2F7] text-[#114AB1] hover:bg-[#6793AC] opacity-0 group-hover:opacity-100 transition cursor-pointer"
                 title="Copy text"
               >
                 {copiedId === m.id ? (
-                  <Check className="w-3 h-3 text-[#415111]" />
+                  <Check className="w-3 h-3 text-[#114AB1]" />
                 ) : (
                   <Copy className="w-3 h-3" />
                 )}
@@ -244,8 +244,8 @@ export const AICoPilotChatDrawer: React.FC<AICoPilotChatDrawerProps> = ({
         ))}
 
         {loading && (
-          <div className="flex items-center gap-2 text-[#415111] text-xs py-2">
-            <Bot className="w-3.5 h-3.5 text-[#415111] animate-spin" />
+          <div className="flex items-center gap-2 text-[#114AB1] text-xs py-2">
+            <Bot className="w-3.5 h-3.5 text-[#114AB1] animate-spin" />
             <span className="text-[11px] font-sans animate-pulse">
               Consulting hydrographic models & generating response...
             </span>
@@ -256,14 +256,14 @@ export const AICoPilotChatDrawer: React.FC<AICoPilotChatDrawerProps> = ({
       </div>
 
       {/* Preset Action Pills */}
-      <div className="p-2 border-t border-[#F2E8DF] bg-[#FEFEFE] flex items-center gap-1.5 overflow-x-auto text-[9px] no-scrollbar">
-        <span className="text-[#415111] font-tech font-bold uppercase tracking-wider shrink-0">Prompts:</span>
+      <div className="p-2 border-t border-[#EBF2F7] bg-[#FEFEFE] flex items-center gap-1.5 overflow-x-auto text-[9px] no-scrollbar">
+        <span className="text-[#114AB1] font-tech font-bold uppercase tracking-wider shrink-0">Prompts:</span>
         {PRESET_PROMPTS.map((prompt, i) => (
           <button
             key={i}
             onClick={() => handleSend(prompt)}
             disabled={loading}
-            className="px-2 py-1 rounded bg-[#F2E8DF] hover:bg-[#D2E186] border border-[#D2E186] text-[#415111] font-sans font-medium whitespace-nowrap transition cursor-pointer shrink-0"
+            className="px-2 py-1 rounded bg-[#EBF2F7] hover:bg-[#6793AC] border border-[#6793AC] text-[#114AB1] font-sans font-medium whitespace-nowrap transition cursor-pointer shrink-0"
           >
             {prompt.length > 32 ? prompt.slice(0, 30) + '...' : prompt}
           </button>
@@ -276,7 +276,7 @@ export const AICoPilotChatDrawer: React.FC<AICoPilotChatDrawerProps> = ({
           e.preventDefault();
           handleSend();
         }}
-        className="p-2.5 border-t border-[#F2E8DF] bg-[#FEFEFE] flex items-center gap-2"
+        className="p-2.5 border-t border-[#EBF2F7] bg-[#FEFEFE] flex items-center gap-2"
       >
         <input
           type="text"
@@ -284,15 +284,15 @@ export const AICoPilotChatDrawer: React.FC<AICoPilotChatDrawerProps> = ({
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask AI about acoustic targets, salvage methods, or NOAA protocols..."
           disabled={loading}
-          className="flex-1 bg-[#F2E8DF] border border-[#D2E186] rounded px-3 py-1.5 text-xs font-sans text-[#415111] placeholder-[#415111]/50 focus:outline-none focus:border-[#415111]"
+          className="flex-1 bg-[#EBF2F7] border border-[#6793AC] rounded px-3 py-1.5 text-xs font-sans text-[#114AB1] placeholder-[#114AB1]/50 focus:outline-none focus:border-[#114AB1]"
         />
         <button
           type="submit"
           disabled={!input.trim() || loading}
           className={`p-2 rounded font-bold transition cursor-pointer ${
             !input.trim() || loading
-              ? 'bg-[#F2E8DF] text-[#415111]/30 cursor-not-allowed border border-[#D2E186]'
-              : 'bg-[#415111] text-[#FEFEFE] hover:bg-[#415111]/90'
+              ? 'bg-[#EBF2F7] text-[#114AB1]/30 cursor-not-allowed border border-[#6793AC]'
+              : 'bg-[#114AB1] text-[#FEFEFE] hover:bg-[#114AB1]/90'
           }`}
           title="Send query"
         >

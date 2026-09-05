@@ -44,7 +44,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         <button
           type="button"
           aria-label="Info"
-          className="text-[#415111]/70 hover:text-[#415111] transition-colors p-0.5 rounded cursor-help"
+          className="text-[#114AB1]/70 hover:text-[#114AB1] transition-colors p-0.5 rounded cursor-help"
         >
           <HelpCircle className="w-3.5 h-3.5" />
         </button>
@@ -53,14 +53,14 @@ export const Tooltip: React.FC<TooltipProps> = ({
       {isVisible && (
         <div
           role="tooltip"
-          className={`absolute z-50 pointer-events-none w-60 p-2 text-[11px] font-sans rounded-md bg-[#FEFEFE] dark:bg-[#1A261D] text-[#415111] dark:text-[#D2E186] border border-[#D2E186] dark:border-[#415111] shadow-xl backdrop-blur-sm ${getPositionClasses()}`}
+          className={`absolute z-50 pointer-events-none w-60 p-2 text-[11px] font-sans rounded-md bg-[#FEFEFE] dark:bg-[#0A1120] text-[#114AB1] dark:text-[#6793AC] border border-[#6793AC] dark:border-[#114AB1] shadow-xl backdrop-blur-sm ${getPositionClasses()}`}
         >
           {title && (
-            <div className="font-tech font-bold uppercase tracking-wider text-[10px] text-[#415111] dark:text-[#FEFEFE] mb-0.5 border-b border-[#F2E8DF] dark:border-[#415111]/60 pb-0.5">
+            <div className="font-tech font-bold uppercase tracking-wider text-[10px] text-[#114AB1] dark:text-[#FEFEFE] mb-0.5 border-b border-[#EBF2F7] dark:border-[#114AB1]/60 pb-0.5">
               {title}
             </div>
           )}
-          <p className="leading-relaxed text-[#415111]/90 dark:text-[#D2E186]/90">{content}</p>
+          <p className="leading-relaxed text-[#114AB1]/90 dark:text-[#6793AC]/90">{content}</p>
         </div>
       )}
     </div>
