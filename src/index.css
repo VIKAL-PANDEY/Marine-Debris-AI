@@ -28,29 +28,29 @@ body {
 
 :root {
   --base-white: #FEFEFE;
-  --soft-blush: #EBF2F7;
-  --deep-olive: #114AB1;
-  --pastel-green: #6793AC;
-  --pastel-orange: #E4580B;
-  --warm-coral: #E4580B;
+  --soft-blush: #F2E8DF;
+  --deep-olive: #415111;
+  --pastel-green: #D2E186;
+  --pastel-orange: #FCBF93;
+  --warm-coral: #FB8159;
 }
 
-/* Light Canvas Background Texture */
+/* Light Pastel Canvas Background Texture */
 .ocean-abyss-bg {
   background-color: #FEFEFE;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(103, 147, 172, 0.22), transparent 45%),
-    radial-gradient(circle at 10% 40%, rgba(228, 88, 11, 0.15), transparent 35%),
-    radial-gradient(circle at 90% 70%, rgba(103, 147, 172, 0.15), transparent 40%);
+    radial-gradient(circle at 50% 0%, rgba(210, 225, 134, 0.22), transparent 45%),
+    radial-gradient(circle at 10% 40%, rgba(252, 191, 147, 0.2), transparent 35%),
+    radial-gradient(circle at 90% 70%, rgba(242, 232, 223, 0.8), transparent 40%);
   background-attachment: fixed;
 }
 
 .dark .ocean-abyss-bg {
-  background-color: #0A1120;
+  background-color: #121E15;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(103, 147, 172, 0.15), transparent 45%),
-    radial-gradient(circle at 10% 40%, rgba(17, 74, 177, 0.25), transparent 35%),
-    radial-gradient(circle at 90% 70%, rgba(103, 147, 172, 0.1), transparent 40%);
+    radial-gradient(circle at 50% 0%, rgba(210, 225, 134, 0.08), transparent 45%),
+    radial-gradient(circle at 10% 40%, rgba(65, 81, 17, 0.25), transparent 35%),
+    radial-gradient(circle at 90% 70%, rgba(24, 38, 30, 0.9), transparent 40%);
   background-attachment: fixed;
 }
 
@@ -58,8 +58,8 @@ body {
 .sonar-scanlines {
   background: repeating-linear-gradient(
     0deg,
-    rgba(17, 74, 177, 0.04) 0px,
-    rgba(17, 74, 177, 0.04) 1px,
+    rgba(65, 81, 17, 0.04) 0px,
+    rgba(65, 81, 17, 0.04) 1px,
     transparent 1px,
     transparent 2px
   );
@@ -68,20 +68,20 @@ body {
 .dark .sonar-scanlines {
   background: repeating-linear-gradient(
     0deg,
-    rgba(103, 147, 172, 0.05) 0px,
-    rgba(103, 147, 172, 0.05) 1px,
+    rgba(210, 225, 134, 0.03) 0px,
+    rgba(210, 225, 134, 0.03) 1px,
     transparent 1px,
     transparent 2px
   );
 }
 
 .tactical-grid {
-  background-image: radial-gradient(rgba(17, 74, 177, 0.12) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(65, 81, 17, 0.12) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 .dark .tactical-grid {
-  background-image: radial-gradient(rgba(103, 147, 172, 0.2) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(210, 225, 134, 0.15) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -90,7 +90,7 @@ body {
     circle at 50% 50%,
     transparent 0,
     transparent 40px,
-    rgba(17, 74, 177, 0.04) 41px,
+    rgba(65, 81, 17, 0.04) 41px,
     transparent 42px
   );
 }
@@ -98,13 +98,13 @@ body {
 /* Oceanic Glass Panels */
 .ocean-panel {
   background-color: #FEFEFE;
-  border: 1px solid rgba(103, 147, 172, 0.3);
-  box-shadow: 0 4px 16px 0 rgba(17, 74, 177, 0.06);
+  border: 1px solid #F2E8DF;
+  box-shadow: 0 4px 16px 0 rgba(65, 81, 17, 0.06);
 }
 
 .ocean-panel-header {
-  background: #EBF2F7;
-  border-bottom: 1px solid #6793AC;
+  background: #F2E8DF;
+  border-bottom: 1px solid #D2E186;
 }
 
 /* Oceanic Glow Animations */
@@ -134,13 +134,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #6793AC;
+  background: #D2E186;
   border-radius: 3px;
-  border: 1px solid #EBF2F7;
+  border: 1px solid #F2E8DF;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #E4580B;
+  background: #FCBF93;
 }
 
 /* Leaflet Ocean Tactical Overrides */
@@ -151,15 +151,15 @@ body {
 
 .leaflet-popup-content-wrapper {
   background: #FEFEFE !important;
-  color: #114AB1 !important;
-  border: 1px solid #6793AC !important;
+  color: #415111 !important;
+  border: 1px solid #D2E186 !important;
   border-radius: 6px !important;
-  box-shadow: 0 8px 24px rgba(17, 74, 177, 0.15) !important;
+  box-shadow: 0 8px 24px rgba(65, 81, 17, 0.15) !important;
 }
 
 .leaflet-popup-tip {
   background: #FEFEFE !important;
-  border: 1px solid #6793AC !important;
+  border: 1px solid #D2E186 !important;
 }
 
 .leaflet-popup-content {

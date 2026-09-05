@@ -19,15 +19,15 @@ export const MissionStatistics: React.FC<MissionStatisticsProps> = ({ statistics
   const hasInferenceTime = typeof stats.inference_time_ms === 'number';
 
   return (
-    <div className={`bg-[#FEFEFE] dark:bg-[#0A1120] border border-[#EBF2F7] dark:border-[#114AB1]/40 rounded-lg p-3 font-sans flex flex-col gap-2 shadow-sm transition-colors ${className}`}>
+    <div className={`bg-[#FEFEFE] dark:bg-[#15221B] border border-[#F2E8DF] dark:border-[#415111]/40 rounded-lg p-3 font-sans flex flex-col gap-2 shadow-sm transition-colors ${className}`}>
       <div className="flex items-center justify-between">
-        <h2 className="text-[10px] font-tech font-bold uppercase tracking-widest text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-1.5">
-          <Waves className="w-3.5 h-3.5 text-[#114AB1] dark:text-[#6793AC]" />
+        <h2 className="text-[10px] font-tech font-bold uppercase tracking-widest text-[#415111] dark:text-[#FEFEFE] flex items-center gap-1.5">
+          <Waves className="w-3.5 h-3.5 text-[#415111] dark:text-[#D2E186]" />
           <span>MISSION TELEMETRY & SURVEY SUMMARY</span>
         </h2>
         {hasInferenceTime && (
-          <span className="text-[10px] font-tech tabular-nums text-[#FEFEFE] font-bold bg-[#6793AC] px-2 py-0.5 rounded border border-[#114AB1]/20 flex items-center gap-1">
-            <Zap className="w-3 h-3 text-[#FEFEFE]" />
+          <span className="text-[10px] font-tech tabular-nums text-[#415111] font-bold bg-[#D2E186] px-2 py-0.5 rounded border border-[#415111]/20 flex items-center gap-1">
+            <Zap className="w-3 h-3 text-[#415111]" />
             <span>{stats.inference_time_ms?.toFixed(1)} ms</span>
           </span>
         )}
@@ -35,57 +35,57 @@ export const MissionStatistics: React.FC<MissionStatisticsProps> = ({ statistics
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {/* Total Detections */}
-        <div className="bg-[#EBF2F7]/60 dark:bg-[#114AB1]/20 p-2.5 rounded-md border border-[#6793AC] dark:border-[#114AB1]/50 flex flex-col justify-between">
-          <div className="text-[10px] font-sans text-[#114AB1]/80 dark:text-[#6793AC]/80 uppercase tracking-wider flex items-center justify-between font-semibold">
+        <div className="bg-[#F2E8DF]/60 dark:bg-[#1E2E21] p-2.5 rounded-md border border-[#D2E186] dark:border-[#415111]/50 flex flex-col justify-between">
+          <div className="text-[10px] font-sans text-[#415111]/80 dark:text-[#D2E186]/80 uppercase tracking-wider flex items-center justify-between font-semibold">
             <span>Total Detections</span>
-            <Target className="w-3 h-3 text-[#114AB1] dark:text-[#6793AC]" />
+            <Target className="w-3 h-3 text-[#415111] dark:text-[#D2E186]" />
           </div>
-          <div className="text-xl font-tech tabular-nums font-bold text-[#114AB1] dark:text-[#FEFEFE] my-0.5 tracking-tight">
+          <div className="text-xl font-tech tabular-nums font-bold text-[#415111] dark:text-[#FEFEFE] my-0.5 tracking-tight">
             {stats.total_detections}
           </div>
-          <div className="text-[9px] font-sans text-[#6793AC] leading-tight">
+          <div className="text-[9px] font-sans text-[#415111]/70 dark:text-[#D2E186]/70 leading-tight">
             YOLO localized objects
           </div>
         </div>
 
         {/* High Priority / Critical */}
-        <div className="bg-[#EBF2F7]/60 dark:bg-[#114AB1]/20 p-2.5 rounded-md border border-[#E4580B] flex flex-col justify-between">
-          <div className="text-[10px] font-sans text-[#E4580B] uppercase tracking-wider font-semibold flex items-center justify-between">
+        <div className="bg-[#F2E8DF]/60 dark:bg-[#1E2E21] p-2.5 rounded-md border border-[#FB8159] flex flex-col justify-between">
+          <div className="text-[10px] font-sans text-[#FB8159] uppercase tracking-wider font-semibold flex items-center justify-between">
             <span>Critical Priority</span>
-            <ShieldAlert className="w-3 h-3 text-[#E4580B]" />
+            <ShieldAlert className="w-3 h-3 text-[#FB8159]" />
           </div>
-          <div className="text-xl font-tech tabular-nums font-bold text-[#E4580B] my-0.5 tracking-tight">
+          <div className="text-xl font-tech tabular-nums font-bold text-[#FB8159] my-0.5 tracking-tight">
             {stats.high_priority}
           </div>
-          <div className="text-[9px] font-sans text-[#6793AC] leading-tight">
+          <div className="text-[9px] font-sans text-[#415111]/70 dark:text-[#D2E186]/70 leading-tight">
             Immediate hazard recovery
           </div>
         </div>
 
         {/* Ghost Nets */}
-        <div className="bg-[#EBF2F7]/60 dark:bg-[#114AB1]/20 p-2.5 rounded-md border border-[#6793AC] dark:border-[#114AB1]/50 flex flex-col justify-between">
-          <div className="text-[10px] font-sans text-[#114AB1] dark:text-[#FEFEFE] uppercase tracking-wider font-semibold flex items-center justify-between">
+        <div className="bg-[#F2E8DF]/60 dark:bg-[#1E2E21] p-2.5 rounded-md border border-[#FCBF93] dark:border-[#415111]/50 flex flex-col justify-between">
+          <div className="text-[10px] font-sans text-[#415111] dark:text-[#FEFEFE] uppercase tracking-wider font-semibold flex items-center justify-between">
             <span>Ghost Nets</span>
-            <Anchor className="w-3 h-3 text-[#E4580B]" />
+            <Anchor className="w-3 h-3 text-[#FB8159]" />
           </div>
-          <div className="text-xl font-tech tabular-nums font-bold text-[#114AB1] dark:text-[#FEFEFE] my-0.5 tracking-tight">
+          <div className="text-xl font-tech tabular-nums font-bold text-[#415111] dark:text-[#FEFEFE] my-0.5 tracking-tight">
             {stats.ghost_nets}
           </div>
-          <div className="text-[9px] font-sans text-[#6793AC] leading-tight">
+          <div className="text-[9px] font-sans text-[#415111]/70 dark:text-[#D2E186]/70 leading-tight">
             Derelict fishing gear
           </div>
         </div>
 
         {/* Inference Latency */}
-        <div className="bg-[#EBF2F7]/60 dark:bg-[#114AB1]/20 p-2.5 rounded-md border border-[#6793AC] dark:border-[#114AB1]/50 flex flex-col justify-between">
-          <div className="text-[10px] font-sans text-[#114AB1] dark:text-[#6793AC] uppercase tracking-wider font-semibold flex items-center justify-between">
+        <div className="bg-[#F2E8DF]/60 dark:bg-[#1E2E21] p-2.5 rounded-md border border-[#D2E186] dark:border-[#415111]/50 flex flex-col justify-between">
+          <div className="text-[10px] font-sans text-[#415111] dark:text-[#D2E186] uppercase tracking-wider font-semibold flex items-center justify-between">
             <span>Inference Speed</span>
-            <Cpu className="w-3 h-3 text-[#114AB1] dark:text-[#6793AC]" />
+            <Cpu className="w-3 h-3 text-[#415111] dark:text-[#D2E186]" />
           </div>
-          <div className="text-xl font-tech tabular-nums font-bold text-[#114AB1] dark:text-[#FEFEFE] my-0.5 tracking-tight">
+          <div className="text-xl font-tech tabular-nums font-bold text-[#415111] dark:text-[#FEFEFE] my-0.5 tracking-tight">
             {hasInferenceTime ? `${stats.inference_time_ms?.toFixed(1)} ms` : 'Standby'}
           </div>
-          <div className="text-[9px] font-sans text-[#6793AC] leading-tight">
+          <div className="text-[9px] font-sans text-[#415111]/70 dark:text-[#D2E186]/70 leading-tight">
             ONNX Web Runtime (WASM)
           </div>
         </div>

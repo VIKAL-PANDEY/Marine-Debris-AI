@@ -112,20 +112,20 @@ const createCustomMarkerIcon = (detection: DetectionItem, isSelected: boolean) =
   const isMedium = detection.priority === 'medium';
 
   const colorClass = isSelected
-    ? 'bg-[#114AB1] border-[#6793AC] text-[#FEFEFE] ring-4 ring-[#114AB1]/40'
+    ? 'bg-[#415111] border-[#D2E186] text-[#FEFEFE] ring-4 ring-[#415111]/40'
     : isHigh
-    ? 'bg-[#E4580B] border-[#FEFEFE] text-[#FEFEFE]'
+    ? 'bg-[#FB8159] border-[#FEFEFE] text-[#FEFEFE]'
     : isMedium
-    ? 'bg-[#6793AC] border-[#E4580B] text-[#FEFEFE]'
-    : 'bg-[#EBF2F7] border-[#114AB1]/40 text-[#114AB1]';
+    ? 'bg-[#FCBF93] border-[#FB8159] text-[#415111]'
+    : 'bg-[#D2E186] border-[#415111]/40 text-[#415111]';
 
   const pulseColor = isSelected
-    ? '#114AB1'
+    ? '#415111'
     : isHigh
-    ? '#E4580B'
+    ? '#FB8159'
     : isMedium
-    ? '#6793AC'
-    : '#6793AC';
+    ? '#FCBF93'
+    : '#D2E186';
 
   const html = `
     <div class="relative flex items-center justify-center -translate-x-1/2 -translate-y-1/2 cursor-pointer group">
@@ -181,37 +181,37 @@ export const MarineMap: React.FC<MarineMapProps> = ({
   }, [detections]);
 
   return (
-    <div className={`bg-[#FEFEFE] dark:bg-[#0A1120] border border-[#EBF2F7] dark:border-[#114AB1]/40 rounded-lg flex flex-col overflow-hidden shadow-sm font-sans transition-colors ${className || 'h-full flex-1 min-h-0'}`}>
+    <div className={`bg-[#FEFEFE] dark:bg-[#15221B] border border-[#F2E8DF] dark:border-[#415111]/40 rounded-lg flex flex-col overflow-hidden shadow-sm font-sans transition-colors ${className || 'h-full flex-1 min-h-0'}`}>
       {/* Map Header */}
-      <div className="p-2.5 border-b border-[#EBF2F7] dark:border-[#114AB1]/40 bg-[#FEFEFE] dark:bg-[#0A1120] flex flex-wrap items-center justify-between gap-2">
+      <div className="p-2.5 border-b border-[#F2E8DF] dark:border-[#415111]/40 bg-[#FEFEFE] dark:bg-[#15221B] flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded bg-[#EBF2F7] dark:bg-[#114AB1]/20 border border-[#6793AC] flex items-center justify-center text-[#114AB1] dark:text-[#6793AC]">
+          <div className="w-6 h-6 rounded bg-[#F2E8DF] dark:bg-[#1E2E21] border border-[#D2E186] flex items-center justify-center text-[#415111] dark:text-[#D2E186]">
             <Navigation className="w-3.5 h-3.5" />
           </div>
-          <h3 className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE]">
+          <h3 className="text-xs font-tech font-bold uppercase tracking-wider text-[#415111] dark:text-[#FEFEFE]">
             HYDROGRAPHIC BATHYMETRIC MAP (WGS84)
           </h3>
         </div>
 
         {/* Legend */}
-        <div className="flex items-center gap-3 text-[10px] font-sans font-medium text-[#114AB1] dark:text-[#6793AC]">
+        <div className="flex items-center gap-3 text-[10px] font-sans font-medium text-[#415111] dark:text-[#D2E186]">
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[#E4580B]" /> Critical
+            <span className="w-2 h-2 rounded-full bg-[#FB8159]" /> Critical
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[#6793AC] border border-[#E4580B]" /> Warning
+            <span className="w-2 h-2 rounded-full bg-[#FCBF93] border border-[#FB8159]" /> Warning
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[#EBF2F7] border border-[#114AB1]/40" /> Advisory
+            <span className="w-2 h-2 rounded-full bg-[#D2E186] border border-[#415111]/30" /> Advisory
           </span>
         </div>
       </div>
 
       {/* Map Viewport Container */}
-      <div className="flex-1 min-h-0 w-full relative z-10 bg-[#EBF2F7] dark:bg-[#0A1120]">
+      <div className="flex-1 min-h-0 w-full relative z-10 bg-[#F2E8DF] dark:bg-[#18261E]">
         {/* Top HUD Coordinates Badge */}
-        <div className="absolute top-2 left-2 px-2.5 py-1 bg-[#FEFEFE]/95 dark:bg-[#0A1120]/95 rounded text-[10px] font-tech border border-[#6793AC] dark:border-[#114AB1] z-[1000] text-[#114AB1] dark:text-[#FEFEFE] font-bold flex items-center gap-2 shadow-sm pointer-events-none uppercase tracking-wider">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#E4580B] border border-[#114AB1]/40 animate-pulse" />
+        <div className="absolute top-2 left-2 px-2.5 py-1 bg-[#FEFEFE]/95 dark:bg-[#15221B]/95 rounded text-[10px] font-tech border border-[#D2E186] dark:border-[#415111] z-[1000] text-[#415111] dark:text-[#FEFEFE] font-bold flex items-center gap-2 shadow-sm pointer-events-none uppercase tracking-wider">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#D2E186] border border-[#415111]/40 animate-pulse" />
           <span className="tabular-nums">
             {activeDetection
               ? `TARGET [${activeDetection.id}] • LAT: ${activeDetection.latitude.toFixed(5)}°N • LON: ${activeDetection.longitude.toFixed(5)}°E`
@@ -243,7 +243,7 @@ export const MarineMap: React.FC<MarineMapProps> = ({
             <Polyline
               positions={polylineCoords}
               pathOptions={{
-                color: '#114AB1',
+                color: '#415111',
                 weight: 2.5,
                 dashArray: '5, 8',
                 opacity: 0.85,
@@ -268,21 +268,21 @@ export const MarineMap: React.FC<MarineMapProps> = ({
                 }}
               >
                 <Popup className="marine-popup" autoPan={false}>
-                  <div className="p-2.5 font-sans text-xs text-[#114AB1] min-w-[220px] bg-[#FEFEFE] border border-[#EBF2F7] rounded-lg shadow-md">
-                    <div className="flex items-center justify-between border-b border-[#EBF2F7] pb-1.5 mb-1.5">
-                      <span className="font-bold text-[#114AB1] flex items-center gap-1 font-tech">
+                  <div className="p-2.5 font-sans text-xs text-[#415111] min-w-[220px] bg-[#FEFEFE] border border-[#F2E8DF] rounded-lg shadow-md">
+                    <div className="flex items-center justify-between border-b border-[#F2E8DF] pb-1.5 mb-1.5">
+                      <span className="font-bold text-[#415111] flex items-center gap-1 font-tech">
                         <span>{det.id}</span>
-                        <span className="text-[10px] text-[#114AB1]/70 font-sans font-normal">
+                        <span className="text-[10px] text-[#415111]/70 font-sans font-normal">
                           ({det.class_name.replace(/_/g, ' ')})
                         </span>
                       </span>
                       <span
                         className={`px-1.5 py-0.5 rounded text-[9px] font-tech font-bold uppercase tracking-wider ${
                           det.priority === 'high'
-                            ? 'bg-[#E4580B] text-[#FEFEFE]'
+                            ? 'bg-[#FB8159] text-[#FEFEFE]'
                             : det.priority === 'medium'
-                            ? 'bg-[#6793AC] text-[#FEFEFE]'
-                            : 'bg-[#EBF2F7] text-[#114AB1] border border-[#6793AC]'
+                            ? 'bg-[#FCBF93] text-[#415111]'
+                            : 'bg-[#D2E186] text-[#415111]'
                         }`}
                       >
                         {det.priority} PRIORITY
@@ -291,32 +291,32 @@ export const MarineMap: React.FC<MarineMapProps> = ({
 
                     <div className="space-y-1 text-[11px]">
                       <div>
-                        <span className="text-[#114AB1]/70 font-medium">Confidence: </span>
-                        <strong className="text-[#114AB1] font-tech font-bold tabular-nums">
+                        <span className="text-[#415111]/70 font-medium">Confidence: </span>
+                        <strong className="text-[#415111] font-tech font-bold tabular-nums">
                           {Math.round(det.confidence * 100)}%
                         </strong>
                       </div>
                       <div>
-                        <span className="text-[#114AB1]/70 font-medium">WGS84 Coordinates: </span>
-                        <span className="text-[#114AB1] font-tech font-semibold tabular-nums block">
+                        <span className="text-[#415111]/70 font-medium">WGS84 Coordinates: </span>
+                        <span className="text-[#415111] font-tech font-semibold tabular-nums block">
                           {det.latitude.toFixed(6)}° N, {det.longitude.toFixed(6)}° E
                         </span>
                       </div>
                       <div>
-                        <span className="text-[#114AB1]/70 font-medium">ROI Bounds: </span>
-                        <span className="text-[#114AB1] font-tech font-semibold tabular-nums">
+                        <span className="text-[#415111]/70 font-medium">ROI Bounds: </span>
+                        <span className="text-[#415111] font-tech font-semibold tabular-nums">
                           [{det.bbox.x}, {det.bbox.y}, {det.bbox.width}×{det.bbox.height}px]
                         </span>
                       </div>
                     </div>
 
-                    <div className="pt-2 mt-2 border-t border-[#EBF2F7] flex items-center justify-between gap-1">
+                    <div className="pt-2 mt-2 border-t border-[#F2E8DF] flex items-center justify-between gap-1">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleCopyCoord(det);
                         }}
-                        className="px-2 py-1 rounded bg-[#EBF2F7] hover:bg-[#6793AC] text-[#114AB1] hover:text-[#FEFEFE] text-[10px] font-tech font-bold uppercase tracking-wider flex items-center gap-1 transition"
+                        className="px-2 py-1 rounded bg-[#F2E8DF] hover:bg-[#D2E186] text-[#415111] text-[10px] font-tech font-bold uppercase tracking-wider flex items-center gap-1 transition"
                       >
                         {copiedId === det.id ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                         <span>{copiedId === det.id ? 'COPIED' : 'COPY GPS'}</span>
@@ -327,7 +327,7 @@ export const MarineMap: React.FC<MarineMapProps> = ({
                           e.stopPropagation();
                           onSelectDetection(det.id);
                         }}
-                        className="px-2 py-1 rounded bg-[#114AB1] text-[#FEFEFE] hover:bg-[#E4580B] text-[10px] font-tech font-bold uppercase tracking-wider transition"
+                        className="px-2 py-1 rounded bg-[#415111] text-[#FEFEFE] text-[10px] font-tech font-bold uppercase tracking-wider"
                       >
                         FOCUS TARGET
                       </button>

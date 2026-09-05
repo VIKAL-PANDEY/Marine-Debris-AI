@@ -52,10 +52,10 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
 
   // Confidence distribution histogram (4 bins)
   const confBins = [
-    { label: '25% - 50%', min: 0.25, max: 0.5, count: 0, color: '#6793AC' },
-    { label: '50% - 75%', min: 0.5, max: 0.75, count: 0, color: '#6793AC' },
-    { label: '75% - 90%', min: 0.75, max: 0.9, count: 0, color: '#E4580B' },
-    { label: '90% - 100%', min: 0.9, max: 1.01, count: 0, color: '#114AB1' },
+    { label: '25% - 50%', min: 0.25, max: 0.5, count: 0, color: '#D2E186' },
+    { label: '50% - 75%', min: 0.5, max: 0.75, count: 0, color: '#FCBF93' },
+    { label: '75% - 90%', min: 0.75, max: 0.9, count: 0, color: '#FB8159' },
+    { label: '90% - 100%', min: 0.9, max: 1.01, count: 0, color: '#415111' },
   ];
 
   sourceDetections.forEach((d) => {
@@ -74,40 +74,40 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
   const advisoryCount = sourceDetections.filter((d) => d.priority === 'low').length;
 
   return (
-    <div className="bg-[#FEFEFE] dark:bg-[#0A1120] border border-[#EBF2F7] dark:border-[#114AB1]/40 rounded-lg overflow-hidden shadow-sm font-sans transition-all">
+    <div className="bg-[#FEFEFE] dark:bg-[#15221B] border border-[#F2E8DF] dark:border-[#415111]/40 rounded-lg overflow-hidden shadow-sm font-sans transition-all">
       {/* Header with Collapsible Toggle */}
       <div
         onClick={onToggleCollapse}
-        className="p-3 border-b border-[#EBF2F7] dark:border-[#114AB1]/40 flex items-center justify-between cursor-pointer hover:bg-[#EBF2F7]/40 dark:hover:bg-[#0A1120]/50 transition-colors select-none"
+        className="p-3 border-b border-[#F2E8DF] dark:border-[#415111]/40 flex items-center justify-between cursor-pointer hover:bg-[#F2E8DF]/40 dark:hover:bg-[#1E2E21]/50 transition-colors select-none"
       >
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded bg-[#EBF2F7] dark:bg-[#0A1120] border border-[#6793AC] flex items-center justify-center text-[#114AB1] dark:text-[#6793AC]">
-            <TrendingUp className="w-4 h-4 text-[#114AB1] dark:text-[#6793AC]" />
+          <div className="w-7 h-7 rounded bg-[#F2E8DF] dark:bg-[#1E2E21] border border-[#D2E186] flex items-center justify-center text-[#415111] dark:text-[#D2E186]">
+            <TrendingUp className="w-4 h-4 text-[#415111] dark:text-[#D2E186]" />
           </div>
           <div>
-            <h3 className="text-xs sm:text-sm font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-2">
+            <h3 className="text-xs sm:text-sm font-tech font-bold uppercase tracking-wider text-[#415111] dark:text-[#FEFEFE] flex items-center gap-2">
               <span>SURVEY INTELLIGENCE & ANOMALY TRENDS</span>
               <Tooltip
                 title="Telemetry Trends"
                 content="Aggregated YOLO detection trends, confidence heatmaps, and quick access to previous hydrographic survey transects."
               />
             </h3>
-            <p className="text-[10px] text-[#114AB1]/70 dark:text-[#6793AC]/70">
+            <p className="text-[10px] text-[#415111]/70 dark:text-[#D2E186]/70">
               Confidence heatmap distributions, hazard classifications, and multi-transect telemetry
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2 text-[10px] font-tech text-[#114AB1] dark:text-[#6793AC]">
-            <span className="px-2 py-0.5 rounded bg-[#EBF2F7] dark:bg-[#0A1120] border border-[#6793AC] dark:border-[#114AB1] font-bold">
+          <div className="hidden sm:flex items-center gap-2 text-[10px] font-tech text-[#415111] dark:text-[#D2E186]">
+            <span className="px-2 py-0.5 rounded bg-[#F2E8DF] dark:bg-[#1E2E21] border border-[#D2E186] dark:border-[#415111] font-bold">
               AVG CONF: {avgConfidence.toFixed(1)}%
             </span>
-            <span className="px-2 py-0.5 rounded bg-[#6793AC] text-[#114AB1] font-bold">
+            <span className="px-2 py-0.5 rounded bg-[#D2E186] text-[#415111] font-bold">
               {totalDetectionsCount} DETECTIONS
             </span>
           </div>
-          <button className="p-1 text-[#114AB1] dark:text-[#6793AC]">
+          <button className="p-1 text-[#415111] dark:text-[#D2E186]">
             {isCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
           </button>
         </div>
@@ -118,19 +118,19 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
         <div className="p-3.5 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {/* 1. Anomaly Category Distribution */}
-            <div className="bg-[#EBF2F7]/60 dark:bg-[#0A1120]/60 p-3 rounded-lg border border-[#6793AC] dark:border-[#114AB1]/40 flex flex-col justify-between">
+            <div className="bg-[#F2E8DF]/60 dark:bg-[#1E2E21]/60 p-3 rounded-lg border border-[#D2E186] dark:border-[#415111]/40 flex flex-col justify-between">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-1.5">
+                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#415111] dark:text-[#FEFEFE] flex items-center gap-1.5">
                   <BarChart3 className="w-3.5 h-3.5" />
                   <span>Debris Class Distribution</span>
                 </span>
-                <span className="text-[10px] font-tech text-[#114AB1]/70 dark:text-[#6793AC]/70">
+                <span className="text-[10px] font-tech text-[#415111]/70 dark:text-[#D2E186]/70">
                   {sortedClasses.length} TYPES
                 </span>
               </div>
 
               {sortedClasses.length === 0 ? (
-                <div className="py-6 text-center text-xs text-[#114AB1]/60 dark:text-[#6793AC]/60">
+                <div className="py-6 text-center text-xs text-[#415111]/60 dark:text-[#D2E186]/60">
                   No active debris targets logged yet.
                 </div>
               ) : (
@@ -140,16 +140,16 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                     return (
                       <div key={cls} className="space-y-1">
                         <div className="flex justify-between text-[11px]">
-                          <span className="capitalize font-semibold text-[#114AB1] dark:text-[#6793AC]">
+                          <span className="capitalize font-semibold text-[#415111] dark:text-[#D2E186]">
                             {cls.replace(/_/g, ' ')}
                           </span>
-                          <span className="font-tech tabular-nums font-bold text-[#114AB1] dark:text-[#FEFEFE]">
+                          <span className="font-tech tabular-nums font-bold text-[#415111] dark:text-[#FEFEFE]">
                             {count} ({pct}%)
                           </span>
                         </div>
-                        <div className="h-1.5 w-full bg-[#FEFEFE] dark:bg-[#0A1120] rounded-full overflow-hidden border border-[#6793AC] dark:border-[#114AB1]/40">
+                        <div className="h-1.5 w-full bg-[#FEFEFE] dark:bg-[#15221B] rounded-full overflow-hidden border border-[#D2E186] dark:border-[#415111]/40">
                           <div
-                            className="h-full bg-[#114AB1] dark:bg-[#6793AC] rounded-full transition-all duration-300"
+                            className="h-full bg-[#415111] dark:bg-[#D2E186] rounded-full transition-all duration-300"
                             style={{ width: `${pct}%` }}
                           />
                         </div>
@@ -161,17 +161,17 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
             </div>
 
             {/* 2. Confidence Heatmap / Histogram */}
-            <div className="bg-[#EBF2F7]/60 dark:bg-[#0A1120]/60 p-3 rounded-lg border border-[#6793AC] dark:border-[#114AB1]/40 flex flex-col justify-between">
+            <div className="bg-[#F2E8DF]/60 dark:bg-[#1E2E21]/60 p-3 rounded-lg border border-[#D2E186] dark:border-[#415111]/40 flex flex-col justify-between">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-1.5">
-                  <Flame className="w-3.5 h-3.5 text-[#E4580B]" />
+                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#415111] dark:text-[#FEFEFE] flex items-center gap-1.5">
+                  <Flame className="w-3.5 h-3.5 text-[#FB8159]" />
                   <span>Confidence Heatmap</span>
                   <Tooltip
                     title="Confidence Bins"
                     content="Visual distribution of YOLO prediction probabilities across confidence ranges."
                   />
                 </span>
-                <span className="text-[10px] font-tech text-[#114AB1] dark:text-[#6793AC] font-bold">
+                <span className="text-[10px] font-tech text-[#415111] dark:text-[#D2E186] font-bold">
                   AVG: {avgConfidence.toFixed(0)}%
                 </span>
               </div>
@@ -181,10 +181,10 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                   const heightPct = Math.max(12, Math.round((bin.count / maxBinCount) * 100));
                   return (
                     <div key={bin.label} className="flex flex-col items-center gap-1.5">
-                      <span className="font-tech tabular-nums text-[10px] font-bold text-[#114AB1] dark:text-[#FEFEFE]">
+                      <span className="font-tech tabular-nums text-[10px] font-bold text-[#415111] dark:text-[#FEFEFE]">
                         {bin.count}
                       </span>
-                      <div className="w-full h-16 bg-[#FEFEFE] dark:bg-[#0A1120] rounded flex items-end p-1 border border-[#6793AC] dark:border-[#114AB1]/40">
+                      <div className="w-full h-16 bg-[#FEFEFE] dark:bg-[#15221B] rounded flex items-end p-1 border border-[#D2E186] dark:border-[#415111]/40">
                         <div
                           className="w-full rounded-sm transition-all duration-300"
                           style={{
@@ -193,7 +193,7 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                           }}
                         />
                       </div>
-                      <span className="text-[9px] font-tech text-center text-[#114AB1]/80 dark:text-[#6793AC]/80 whitespace-nowrap">
+                      <span className="text-[9px] font-tech text-center text-[#415111]/80 dark:text-[#D2E186]/80 whitespace-nowrap">
                         {bin.label}
                       </span>
                     </div>
@@ -201,61 +201,61 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                 })}
               </div>
 
-              <div className="mt-2 pt-2 border-t border-[#6793AC]/60 dark:border-[#114AB1]/40 flex items-center justify-between text-[10px] text-[#114AB1]/70 dark:text-[#6793AC]/70">
+              <div className="mt-2 pt-2 border-t border-[#D2E186]/60 dark:border-[#415111]/40 flex items-center justify-between text-[10px] text-[#415111]/70 dark:text-[#D2E186]/70">
                 <span>Model Calibration: Optimal</span>
-                <span className="font-tech font-bold text-[#114AB1] dark:text-[#FEFEFE]">YOLOv8 INT8/FP32</span>
+                <span className="font-tech font-bold text-[#415111] dark:text-[#FEFEFE]">YOLOv8 INT8/FP32</span>
               </div>
             </div>
 
             {/* 3. Threat Priority Matrix & Impact */}
-            <div className="bg-[#EBF2F7]/60 dark:bg-[#0A1120]/60 p-3 rounded-lg border border-[#6793AC] dark:border-[#114AB1]/40 flex flex-col justify-between">
+            <div className="bg-[#F2E8DF]/60 dark:bg-[#1E2E21]/60 p-3 rounded-lg border border-[#D2E186] dark:border-[#415111]/40 flex flex-col justify-between">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-1.5">
-                  <ShieldAlert className="w-3.5 h-3.5 text-[#E4580B]" />
+                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#415111] dark:text-[#FEFEFE] flex items-center gap-1.5">
+                  <ShieldAlert className="w-3.5 h-3.5 text-[#FB8159]" />
                   <span>Threat Matrix</span>
                 </span>
-                <span className="text-[10px] font-tech text-[#E4580B] font-bold">
+                <span className="text-[10px] font-tech text-[#FB8159] font-bold">
                   {criticalCount} CRITICAL
                 </span>
               </div>
 
               <div className="space-y-2">
-                <div className="flex items-center justify-between p-2 rounded bg-[#E4580B]/20 border border-[#E4580B]">
+                <div className="flex items-center justify-between p-2 rounded bg-[#FB8159]/20 border border-[#FB8159]">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#E4580B]" />
-                    <span className="text-xs font-bold font-tech text-[#E4580B] uppercase">Critical Priority</span>
+                    <span className="w-2 h-2 rounded-full bg-[#FB8159]" />
+                    <span className="text-xs font-bold font-tech text-[#FB8159] uppercase">Critical Priority</span>
                   </div>
-                  <span className="font-tech font-bold text-xs text-[#E4580B] tabular-nums">
+                  <span className="font-tech font-bold text-xs text-[#FB8159] tabular-nums">
                     {criticalCount}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between p-2 rounded bg-[#6793AC]/30 border border-[#E4580B]/40">
+                <div className="flex items-center justify-between p-2 rounded bg-[#FCBF93]/30 border border-[#FB8159]/40">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#6793AC] border border-[#E4580B]" />
-                    <span className="text-xs font-bold font-tech text-[#114AB1] dark:text-[#FEFEFE] uppercase">
+                    <span className="w-2 h-2 rounded-full bg-[#FCBF93] border border-[#FB8159]" />
+                    <span className="text-xs font-bold font-tech text-[#415111] dark:text-[#FEFEFE] uppercase">
                       Warning Priority
                     </span>
                   </div>
-                  <span className="font-tech font-bold text-xs text-[#114AB1] dark:text-[#FEFEFE] tabular-nums">
+                  <span className="font-tech font-bold text-xs text-[#415111] dark:text-[#FEFEFE] tabular-nums">
                     {warningCount}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between p-2 rounded bg-[#6793AC]/30 border border-[#114AB1]/30">
+                <div className="flex items-center justify-between p-2 rounded bg-[#D2E186]/30 border border-[#415111]/30">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#6793AC] border border-[#114AB1]/40" />
-                    <span className="text-xs font-bold font-tech text-[#114AB1] dark:text-[#FEFEFE] uppercase">
+                    <span className="w-2 h-2 rounded-full bg-[#D2E186] border border-[#415111]/40" />
+                    <span className="text-xs font-bold font-tech text-[#415111] dark:text-[#FEFEFE] uppercase">
                       Advisory Priority
                     </span>
                   </div>
-                  <span className="font-tech font-bold text-xs text-[#114AB1] dark:text-[#FEFEFE] tabular-nums">
+                  <span className="font-tech font-bold text-xs text-[#415111] dark:text-[#FEFEFE] tabular-nums">
                     {advisoryCount}
                   </span>
                 </div>
               </div>
 
-              <div className="mt-2 text-[10px] text-[#114AB1]/70 dark:text-[#6793AC]/70">
+              <div className="mt-2 text-[10px] text-[#415111]/70 dark:text-[#D2E186]/70">
                 Action: Critical debris targets require priority ROV grapple salvage.
               </div>
             </div>
@@ -263,13 +263,13 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
 
           {/* Recent Mission Scans Quick Carousel */}
           {history.length > 0 && (
-            <div className="pt-2 border-t border-[#EBF2F7] dark:border-[#114AB1]/40">
+            <div className="pt-2 border-t border-[#F2E8DF] dark:border-[#415111]/40">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-1.5">
+                <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#415111] dark:text-[#FEFEFE] flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5" />
                   <span>Recent Survey Scans (Click to restore)</span>
                 </span>
-                <span className="text-[10px] text-[#114AB1]/70 dark:text-[#6793AC]/70">
+                <span className="text-[10px] text-[#415111]/70 dark:text-[#D2E186]/70">
                   {history.length} archived scans available
                 </span>
               </div>
@@ -279,9 +279,9 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                   <button
                     key={record.id}
                     onClick={() => onSelectScan(record)}
-                    className="p-2 rounded-lg border border-[#6793AC] dark:border-[#114AB1]/40 bg-[#FEFEFE] dark:bg-[#0A1120] hover:border-[#114AB1] hover:shadow transition text-left cursor-pointer group flex flex-col justify-between"
+                    className="p-2 rounded-lg border border-[#D2E186] dark:border-[#415111]/40 bg-[#FEFEFE] dark:bg-[#1E2E21] hover:border-[#415111] hover:shadow transition text-left cursor-pointer group flex flex-col justify-between"
                   >
-                    <div className="w-full h-14 rounded bg-[#0A1120] overflow-hidden mb-1.5 border border-[#6793AC]/50">
+                    <div className="w-full h-14 rounded bg-[#1A241A] overflow-hidden mb-1.5 border border-[#D2E186]/50">
                       {record.previewUrl ? (
                         <img
                           src={record.previewUrl}
@@ -289,20 +289,20 @@ export const DashboardAnalytics: React.FC<DashboardAnalyticsProps> = ({
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-[10px] text-[#6793AC]">
+                        <div className="w-full h-full flex items-center justify-center text-[10px] text-[#D2E186]">
                           SONAR
                         </div>
                       )}
                     </div>
-                    <div className="text-[10px] font-tech font-bold truncate text-[#114AB1] dark:text-[#FEFEFE]">
+                    <div className="text-[10px] font-tech font-bold truncate text-[#415111] dark:text-[#FEFEFE]">
                       {record.filename}
                     </div>
-                    <div className="flex items-center justify-between text-[9px] text-[#114AB1]/70 dark:text-[#6793AC]/70 mt-1">
+                    <div className="flex items-center justify-between text-[9px] text-[#415111]/70 dark:text-[#D2E186]/70 mt-1">
                       <span className="font-tech tabular-nums font-semibold">
                         {record.detectionCount} DET
                       </span>
                       {record.criticalCount > 0 && (
-                        <span className="text-[#E4580B] font-bold font-tech">
+                        <span className="text-[#FB8159] font-bold font-tech">
                           {record.criticalCount} CRIT
                         </span>
                       )}

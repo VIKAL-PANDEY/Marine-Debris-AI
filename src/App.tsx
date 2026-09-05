@@ -493,7 +493,7 @@ export default function App() {
     processingStage !== 'error';
 
   return (
-    <div className="h-screen w-screen overflow-hidden flex flex-col bg-[#FEFEFE] dark:bg-[#0A1120] text-[#114AB1] dark:text-[#FEFEFE] font-sans transition-colors selection:bg-[#6793AC] selection:text-[#FEFEFE]">
+    <div className="h-screen w-screen overflow-hidden flex flex-col bg-[#FEFEFE] dark:bg-[#121E15] text-[#415111] dark:text-[#FEFEFE] font-sans transition-colors selection:bg-[#D2E186] selection:text-[#415111]">
       {/* Top Unified Header Navigation */}
       <Header
         activeSection={activeSection}
@@ -519,29 +519,29 @@ export default function App() {
         {activeSection === 'cockpit' && (
           <div className="h-full w-full p-2 sm:p-2.5 flex flex-col lg:flex-row gap-2.5 overflow-hidden">
             {/* Left / Center: Interactive Sonar Waterfall & Bathymetric Map Stage */}
-            <div className="flex-1 min-h-0 flex flex-col bg-[#FEFEFE] dark:bg-[#0A1120] border border-[#EBF2F7] dark:border-[#114AB1]/40 rounded-lg overflow-hidden shadow-sm">
+            <div className="flex-1 min-h-0 flex flex-col bg-[#FEFEFE] dark:bg-[#15221B] border border-[#F2E8DF] dark:border-[#415111]/40 rounded-lg overflow-hidden shadow-sm">
               {/* Stage Sub-Header Bar */}
-              <div className="h-10 px-3 border-b border-[#EBF2F7] dark:border-[#114AB1]/40 bg-[#EBF2F7]/40 dark:bg-[#114AB1]/20 flex items-center justify-between gap-2 shrink-0">
+              <div className="h-10 px-3 border-b border-[#F2E8DF] dark:border-[#415111]/40 bg-[#F2E8DF]/30 dark:bg-[#1E2E21]/50 flex items-center justify-between gap-2 shrink-0">
                 <div className="flex items-center gap-2 text-xs font-tech font-bold uppercase tracking-wider">
-                  <span className="text-[#6793AC]">TRANSECT:</span>
-                  <span className="text-[#114AB1] dark:text-[#FEFEFE] truncate max-w-[200px] sm:max-w-[340px]">
+                  <span className="text-[#415111]/70 dark:text-[#D2E186]/70">TRANSECT:</span>
+                  <span className="text-[#415111] dark:text-[#FEFEFE] truncate max-w-[200px] sm:max-w-[340px]">
                     {selectedFile ? selectedFile.name : result ? result.result_id : 'Awaiting Sonar Waterfall'}
                   </span>
                   {result && (
-                    <span className="hidden sm:inline-block px-1.5 py-0.2 rounded bg-[#6793AC] text-[#FEFEFE] text-[10px] font-tech font-bold">
+                    <span className="hidden sm:inline-block px-1.5 py-0.2 rounded bg-[#D2E186] text-[#415111] text-[10px] font-tech font-bold">
                       {result.detections.length} TARGETS DETECTED
                     </span>
                   )}
                 </div>
 
                 {/* Viewport Split / Single Switcher */}
-                <div className="flex items-center bg-[#EBF2F7] dark:bg-[#114AB1]/20 border border-[#6793AC] dark:border-[#114AB1] rounded p-0.5 text-xs font-sans">
+                <div className="flex items-center bg-[#F2E8DF] dark:bg-[#1E2E21] border border-[#D2E186] dark:border-[#415111] rounded p-0.5 text-xs font-sans">
                   <button
                     onClick={() => setVisualLayoutMode('split')}
                     className={`px-2.5 py-1 rounded text-[10px] uppercase font-bold tracking-wider transition cursor-pointer flex items-center gap-1 ${
                       visualLayoutMode === 'split'
-                        ? 'bg-[#114AB1] text-[#FEFEFE]'
-                        : 'text-[#114AB1]/70 dark:text-[#6793AC] hover:text-[#114AB1]'
+                        ? 'bg-[#415111] text-[#FEFEFE]'
+                        : 'text-[#415111]/70 dark:text-[#D2E186]/70 hover:text-[#415111]'
                     }`}
                     title="Dual Side-by-Side View"
                   >
@@ -552,8 +552,8 @@ export default function App() {
                     onClick={() => setVisualLayoutMode('sonar')}
                     className={`px-2.5 py-1 rounded text-[10px] uppercase font-bold tracking-wider transition cursor-pointer flex items-center gap-1 ${
                       visualLayoutMode === 'sonar'
-                        ? 'bg-[#114AB1] text-[#FEFEFE]'
-                        : 'text-[#114AB1]/70 dark:text-[#6793AC] hover:text-[#114AB1]'
+                        ? 'bg-[#415111] text-[#FEFEFE]'
+                        : 'text-[#415111]/70 dark:text-[#D2E186]/70 hover:text-[#415111]'
                     }`}
                     title="Acoustic Waterfall Only"
                   >
@@ -564,8 +564,8 @@ export default function App() {
                     onClick={() => setVisualLayoutMode('map')}
                     className={`px-2.5 py-1 rounded text-[10px] uppercase font-bold tracking-wider transition cursor-pointer flex items-center gap-1 ${
                       visualLayoutMode === 'map'
-                        ? 'bg-[#114AB1] text-[#FEFEFE]'
-                        : 'text-[#114AB1]/70 dark:text-[#6793AC] hover:text-[#114AB1]'
+                        ? 'bg-[#415111] text-[#FEFEFE]'
+                        : 'text-[#415111]/70 dark:text-[#D2E186]/70 hover:text-[#415111]'
                     }`}
                     title="Hydrographic Map Only"
                   >
@@ -576,7 +576,7 @@ export default function App() {
               </div>
 
               {/* Stage Viewport Area (Zero overflow, exact container fit) */}
-              <div className="flex-1 min-h-0 flex flex-col lg:flex-row gap-2 p-2 overflow-hidden bg-[#114AB1]/5 dark:bg-black/20">
+              <div className="flex-1 min-h-0 flex flex-col lg:flex-row gap-2 p-2 overflow-hidden bg-[#182419]/5 dark:bg-black/20">
                 {/* Sonar Waterfall Viewer Sub-Pane */}
                 {(visualLayoutMode === 'split' || visualLayoutMode === 'sonar') && (
                   <div
@@ -611,7 +611,7 @@ export default function App() {
             </div>
 
             {/* Right Panel: Clean Detection Targets & Target Inspector */}
-            <div className="w-full lg:w-[380px] xl:w-[420px] h-full min-h-0 shrink-0 border border-[#EBF2F7] dark:border-[#114AB1]/40 rounded-lg overflow-hidden shadow-sm bg-[#FEFEFE] dark:bg-[#0A1120]">
+            <div className="w-full lg:w-[380px] xl:w-[420px] h-full min-h-0 shrink-0 border border-[#F2E8DF] dark:border-[#415111]/40 rounded-lg overflow-hidden shadow-sm bg-[#FEFEFE] dark:bg-[#15221B]">
               <CockpitTargetsPanel
                 result={result}
                 selectedDetectionId={selectedDetectionId}
@@ -630,13 +630,13 @@ export default function App() {
         {/* ================= SECTION 2: DATA INGESTION & BATCH QUEUE ================= */}
         {activeSection === 'ingest' && (
           <div className="h-full w-full p-4 sm:p-6 overflow-y-auto max-w-[1500px] mx-auto space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#EBF2F7] dark:border-[#114AB1]/40">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#F2E8DF] dark:border-[#415111]/40">
               <div>
-                <h2 className="text-base sm:text-lg font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-2">
-                  <FolderUp className="w-5 h-5 text-[#114AB1] dark:text-[#6793AC]" />
+                <h2 className="text-base sm:text-lg font-tech font-bold uppercase tracking-wider text-[#415111] dark:text-[#FEFEFE] flex items-center gap-2">
+                  <FolderUp className="w-5 h-5 text-[#415111] dark:text-[#D2E186]" />
                   <span>ACOUSTIC DATA ACQUISITION & BATCH INGESTION</span>
                 </h2>
-                <p className="text-xs text-[#6793AC] mt-0.5">
+                <p className="text-xs text-[#415111]/70 dark:text-[#D2E186]/70 mt-0.5">
                   Import side-scan sonar image transects, configure YOLOv8 WASM sensitivity, and execute batch inference.
                 </p>
               </div>
@@ -644,7 +644,7 @@ export default function App() {
               {result && (
                 <button
                   onClick={() => setActiveSection('cockpit')}
-                  className="px-4 py-2 rounded-md bg-[#114AB1] hover:bg-[#114AB1]/90 text-[#FEFEFE] font-tech font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition cursor-pointer self-start sm:self-auto"
+                  className="px-4 py-2 rounded-md bg-[#415111] hover:bg-[#415111]/90 text-[#FEFEFE] font-tech font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition cursor-pointer self-start sm:self-auto"
                 >
                   <span>Open Active Scan in Cockpit</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -696,12 +696,12 @@ export default function App() {
                     isBatchRunning={isBatchRunning}
                   />
                 ) : (
-                  <div className="bg-[#FEFEFE] dark:bg-[#0A1120] border border-[#EBF2F7] dark:border-[#114AB1]/40 rounded-lg p-4 font-sans text-xs shadow-sm">
-                    <div className="flex items-center gap-2 text-[#114AB1] dark:text-[#FEFEFE] font-tech font-bold uppercase tracking-wider mb-1">
-                      <Activity className="w-4 h-4 text-[#114AB1] dark:text-[#6793AC]" />
+                  <div className="bg-[#FEFEFE] dark:bg-[#15221B] border border-[#F2E8DF] dark:border-[#415111]/40 rounded-lg p-4 font-sans text-xs shadow-sm">
+                    <div className="flex items-center gap-2 text-[#415111] dark:text-[#FEFEFE] font-tech font-bold uppercase tracking-wider mb-1">
+                      <Activity className="w-4 h-4 text-[#415111] dark:text-[#D2E186]" />
                       <span>HYDROGRAPHIC PIPELINE STANDBY</span>
                     </div>
-                    <p className="text-[11px] text-[#6793AC] leading-relaxed">
+                    <p className="text-[11px] text-[#415111]/70 dark:text-[#D2E186]/70 leading-relaxed">
                       Select any queued transect and click "Analyze Single" or "Batch Scan All" to run automated YOLOv8 object detection on your sonar imagery.
                     </p>
                   </div>
@@ -714,13 +714,13 @@ export default function App() {
         {/* ================= SECTION 3: SURVEY ANALYTICS & THREAT INTEL ================= */}
         {activeSection === 'analytics' && (
           <div className="h-full w-full p-4 sm:p-6 overflow-y-auto max-w-[1500px] mx-auto space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#EBF2F7] dark:border-[#114AB1]/40">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#F2E8DF] dark:border-[#415111]/40">
               <div>
-                <h2 className="text-base sm:text-lg font-tech font-bold uppercase tracking-wider text-[#114AB1] dark:text-[#FEFEFE] flex items-center gap-2">
-                  <Activity className="w-5 h-5 text-[#114AB1] dark:text-[#6793AC]" />
+                <h2 className="text-base sm:text-lg font-tech font-bold uppercase tracking-wider text-[#415111] dark:text-[#FEFEFE] flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-[#415111] dark:text-[#D2E186]" />
                   <span>SURVEY TELEMETRY & DEBRIS CLASSIFICATION ANALYTICS</span>
                 </h2>
-                <p className="text-xs text-[#6793AC] mt-0.5">
+                <p className="text-xs text-[#415111]/70 dark:text-[#D2E186]/70 mt-0.5">
                   Aggregate anomaly counts, confidence distribution histogram, and marine ecological hazard breakdown.
                 </p>
               </div>
@@ -728,7 +728,7 @@ export default function App() {
               {result && (
                 <button
                   onClick={() => setIsThreatModalOpen(true)}
-                  className="px-4 py-2 rounded-md bg-[#E4580B] hover:bg-[#E4580B]/90 text-[#FEFEFE] font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition cursor-pointer self-start sm:self-auto"
+                  className="px-4 py-2 rounded-md bg-[#FB8159] hover:bg-[#FCBF93] text-[#FEFEFE] font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition cursor-pointer self-start sm:self-auto"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Launch AI Threat Intel</span>
