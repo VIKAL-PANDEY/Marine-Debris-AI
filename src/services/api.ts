@@ -105,7 +105,7 @@ export async function analyzeSonarWithYOLO(
     ctx.drawImage(img, 0, 0);
 
     for (const det of detections) {
-      const color = det.priority === 'high' ? '#FB8159' : det.priority === 'medium' ? '#FCBF93' : '#415111';
+      const color = det.priority === 'high' ? '#1BDFC8' : det.priority === 'medium' ? '#2E96DB' : '#93A8BC';
       ctx.strokeStyle = color;
       ctx.lineWidth = 3;
       ctx.strokeRect(det.bbox.x, det.bbox.y, det.bbox.width, det.bbox.height);
@@ -114,7 +114,7 @@ export async function analyzeSonarWithYOLO(
       ctx.font = 'bold 12px monospace';
       const textWidth = ctx.measureText(label).width;
 
-      ctx.fillStyle = '#FEFEFE';
+      ctx.fillStyle = '#0F1A2C';
       ctx.fillRect(det.bbox.x, Math.max(0, det.bbox.y - 18), textWidth + 8, 18);
 
       ctx.fillStyle = color;
@@ -235,7 +235,7 @@ export async function fetchResult(resultId: string): Promise<DetectionResult> {
   return response.json();
 }
 
-export function getDownloadUrl(resultId: string, format: 'json' | 'csv'): string {
+export function getDownloadUrl(resultId: string, format: 'json' | 'csv' | 'geojson'): string {
   return `${API_BASE_URL}/api/results/${resultId}/${format}`;
 }
 

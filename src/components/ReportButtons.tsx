@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileJson, FileSpreadsheet, FileText, Check, Sparkles, Download } from 'lucide-react';
+import { FileJson, FileSpreadsheet, FileText, Check, Sparkles, Download, Globe } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import { getDownloadUrl } from '../services/api';
 import { DetectionResult } from '../types/detection';
@@ -19,6 +19,7 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
 }) => {
   const [downloadingJson, setDownloadingJson] = useState(false);
   const [downloadingCsv, setDownloadingCsv] = useState(false);
+  const [downloadingGeoJson, setDownloadingGeoJson] = useState(false);
   const [downloadingPdf, setDownloadingPdf] = useState(false);
 
   // Generate and download professional Hydrographic PDF Report via jsPDF
@@ -37,22 +38,23 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
       let y = 16;
 
       // Header Banner
-      doc.setFillColor(65, 81, 17); // Olive Primary #415111
+      doc.setFillColor(15, 26, 44); // Dark Navy #0F1A2C
       doc.rect(0, 0, pageWidth, 24, 'F');
 
-      doc.setTextColor(254, 254, 254);
+      doc.setTextColor(255, 255, 255);
       doc.setFontSize(14);
       doc.setFont('helvetica', 'bold');
-      doc.text('MARINE DEBRIS AI | DEEP SEA HYDROGRAPHIC SURVEY', 14, 11);
+      doc.text('HEIMDALL | SIH26057 | ALLSPARK', 14, 11);
 
       doc.setFontSize(8);
       doc.setFont('helvetica', 'normal');
-      doc.text('ACOUSTIC BATHYMETRIC ANOMALY INSPECTION & YOLO RECOVERY REPORT', 14, 18);
+      doc.setTextColor(27, 223, 200); // #1BDFC8
+      doc.text('AUTONOMOUS SIDE-SCAN SONAR MARINE DEBRIS ANOMALY SURVEY REPORT', 14, 18);
 
       y = 32;
 
       // Mission Metadata
-      doc.setTextColor(65, 81, 17);
+      doc.setTextColor(27, 223, 200);
       doc.setFontSize(11);
       doc.setFont('helvetica', 'bold');
       doc.text('SURVEY MISSION TELEMETRY', 14, y);
@@ -66,20 +68,20 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
         ? new Date(result.created_at).toUTCString()
         : new Date().toUTCString();
 
-      doc.text(`Mission Scan ID: ${resultId || 'SCAN-ACTIVE'}`, 14, y);
+      doc.text(`Mission Scan ID: ${resultId || 'HEIMDALL-ACTIVE'}`, 14, y);
       doc.text(`Sector: Bathymetric Sector 04-9 (Abyssal Zone -2,450m)`, 110, y);
       y += 5;
       doc.text(`Survey Timestamp: ${dateStr}`, 14, y);
-      doc.text(`Inference Engine: YOLOv8 ONNX WebAssembly (WASM)`, 110, y);
+      doc.text(`Inference Engine: Ultralytics YOLOv8 + ONNX Runtime (WASM)`, 110, y);
       y += 5;
-      doc.text(`Geodetic Reference: WGS84 Geodetic Datum`, 14, y);
+      doc.text(`Geodetic Reference: WGS84 Geodetic Datum (EPSG:4326)`, 14, y);
       doc.text(`Swath Coverage: 100m Lateral (±50m Towfish Nadir)`, 110, y);
       y += 9;
 
       // Summary Statistics Box
-      doc.setFillColor(242, 232, 223); // #F2E8DF
+      doc.setFillColor(20, 34, 56); // #142238
       doc.rect(14, y, pageWidth - 28, 18, 'F');
-      doc.setDrawColor(210, 225, 134); // #D2E186
+      doc.setDrawColor(46, 150, 219); // #2E96DB
       doc.rect(14, y, pageWidth - 28, 18, 'S');
 
       const detections = result?.detections || [];
@@ -88,33 +90,34 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
       const advisoryCount = detections.filter((d) => d.priority === 'low').length;
 
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(65, 81, 17);
+      doc.setTextColor(255, 255, 255);
       doc.setFontSize(9);
       doc.text(`TOTAL ANOMALIES: ${detections.length}`, 20, y + 7);
-      doc.setTextColor(251, 129, 89); // Coral #FB8159
+      doc.setTextColor(27, 223, 200); // Turquoise #1BDFC8
       doc.text(`CRITICAL TARGETS: ${criticalCount}`, 70, y + 7);
-      doc.setTextColor(65, 81, 17);
+      doc.setTextColor(46, 150, 219); // Blue #2E96DB
       doc.text(`WARNING TARGETS: ${warningCount}`, 120, y + 7);
+      doc.setTextColor(147, 168, 188); // Steel-gray #93A8BC
       doc.text(`ADVISORY TARGETS: ${advisoryCount}`, 160, y + 7);
 
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(8);
-      doc.setTextColor(80, 80, 80);
+      doc.setTextColor(147, 168, 188);
       doc.text('Action Recommendation: Deploy ROV manipulator for critical entanglement hazards.', 20, y + 14);
 
       y += 26;
 
       // Detections Table
-      doc.setTextColor(65, 81, 17);
+      doc.setTextColor(27, 223, 200);
       doc.setFontSize(11);
       doc.setFont('helvetica', 'bold');
       doc.text('GEOREFERENCED TARGET INVENTORY', 14, y);
       y += 5;
 
       // Table Header
-      doc.setFillColor(65, 81, 17);
+      doc.setFillColor(15, 26, 44);
       doc.rect(14, y, pageWidth - 28, 7, 'F');
-      doc.setTextColor(254, 254, 254);
+      doc.setTextColor(255, 255, 255);
       doc.setFontSize(8);
       doc.setFont('helvetica', 'bold');
 
@@ -132,7 +135,7 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
 
       detections.slice(0, 22).forEach((det, i) => {
         const isEven = i % 2 === 0;
-        doc.setFillColor(isEven ? 254 : 242, isEven ? 254 : 232, isEven ? 254 : 223);
+        doc.setFillColor(isEven ? 245 : 235, isEven ? 248 : 240, isEven ? 252 : 245);
         doc.rect(14, y, pageWidth - 28, 6, 'F');
 
         doc.setTextColor(50, 50, 50);
@@ -143,11 +146,11 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
         doc.text(`${det.longitude.toFixed(6)}° E`, 140, y + 4);
 
         if (det.priority === 'high') {
-          doc.setTextColor(251, 129, 89);
+          doc.setTextColor(27, 223, 200);
         } else if (det.priority === 'medium') {
-          doc.setTextColor(180, 100, 20);
+          doc.setTextColor(46, 150, 219);
         } else {
-          doc.setTextColor(65, 81, 17);
+          doc.setTextColor(147, 168, 188);
         }
         doc.setFont('helvetica', 'bold');
         doc.text(det.priority.toUpperCase(), 175, y + 4);
@@ -158,7 +161,7 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
 
       // Environmental Protection Notes Footer
       y = Math.max(y + 6, 260);
-      doc.setDrawColor(210, 225, 134);
+      doc.setDrawColor(46, 150, 219);
       doc.line(14, y, pageWidth - 14, y);
       y += 5;
 
@@ -176,24 +179,71 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
     }
   };
 
-  const handleDownload = (format: 'json' | 'csv') => {
+  const handleDownload = (format: 'json' | 'csv' | 'geojson') => {
     if (!resultId && !result) return;
 
     if (format === 'json') {
       setDownloadingJson(true);
       setTimeout(() => setDownloadingJson(false), 1500);
-    } else {
+    } else if (format === 'csv') {
       setDownloadingCsv(true);
       setTimeout(() => setDownloadingCsv(false), 1500);
+    } else {
+      setDownloadingGeoJson(true);
+      setTimeout(() => setDownloadingGeoJson(false), 1500);
     }
 
     // Client-side generated YOLO result download
     if (result && (!resultId || !resultId.startsWith('SONAR-') || result.metadata.inference_engine?.includes('ONNX'))) {
       let blob: Blob;
-      const filename = `marine_debris_${resultId || 'survey'}.${format}`;
+      const filename = `heimdall_${resultId || 'survey'}.${format === 'geojson' ? 'geojson' : format}`;
 
       if (format === 'json') {
         blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
+      } else if (format === 'geojson') {
+        // Construct standard RFC 7946 GeoJSON FeatureCollection
+        const features = result.detections.map((d) => {
+          const lat = d.latitude;
+          const lon = d.longitude;
+          const halfWidthDeg = (Math.max(1.5, d.bbox.width * 0.12) / 2.0) / (111139.0 * Math.cos((lat * Math.PI) / 180));
+          const halfHeightDeg = (Math.max(1.5, d.bbox.height * 0.12) / 2.0) / 111139.0;
+
+          return {
+            type: 'Feature',
+            id: d.id,
+            geometry: {
+              type: 'Polygon',
+              coordinates: [
+                [
+                  [Number((lon - halfWidthDeg).toFixed(6)), Number((lat - halfHeightDeg).toFixed(6))],
+                  [Number((lon + halfWidthDeg).toFixed(6)), Number((lat - halfHeightDeg).toFixed(6))],
+                  [Number((lon + halfWidthDeg).toFixed(6)), Number((lat + halfHeightDeg).toFixed(6))],
+                  [Number((lon - halfWidthDeg).toFixed(6)), Number((lat + halfHeightDeg).toFixed(6))],
+                  [Number((lon - halfWidthDeg).toFixed(6)), Number((lat - halfHeightDeg).toFixed(6))],
+                ],
+              ],
+            },
+            properties: {
+              id: d.id,
+              class_name: d.class_name,
+              confidence: d.confidence,
+              priority: d.priority,
+              latitude: d.latitude,
+              longitude: d.longitude,
+              bbox: d.bbox,
+              specular_db: d.specular_db || 15.0,
+              shadow_ratio: d.shadow_ratio || 2.1,
+              source: 'HeimDall Sonar AI (SIH26057 - AllSpark)',
+            },
+          };
+        });
+
+        const geojsonObj = {
+          type: 'FeatureCollection',
+          name: `HeimDall_Survey_${resultId || 'active'}`,
+          features,
+        };
+        blob = new Blob([JSON.stringify(geojsonObj, null, 2)], { type: 'application/geo+json' });
       } else {
         // Generate comprehensive CSV
         const headers = [
@@ -238,7 +288,7 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
       const url = getDownloadUrl(resultId, format);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `marine_debris_${resultId}.${format}`;
+      link.download = `heimdall_${resultId}.${format}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -257,8 +307,8 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
           disabled={!hasData}
           className={`px-3 py-1.5 rounded border font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer text-[11px] ${
             !hasData
-              ? 'bg-[#F2E8DF] dark:bg-[#1E2E21] border-[#F2E8DF] dark:border-[#415111] text-[#415111]/40 dark:text-[#D2E186]/40 cursor-not-allowed'
-              : 'bg-[#FB8159] hover:bg-[#FCBF93] text-[#FEFEFE] border-[#FB8159] shadow-sm'
+              ? 'bg-[#142238] border-[#93A8BC]/20 text-[#93A8BC]/40 cursor-not-allowed'
+              : 'bg-[#1BDFC8] hover:bg-[#1BDFC8]/90 text-[#0A111E] border-[#1BDFC8] shadow-sm'
           }`}
           title="Generate AI Threat & Ecological Assessment Briefing"
         >
@@ -274,17 +324,37 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
         disabled={!hasData}
         className={`px-3 py-1.5 rounded border font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer text-[11px] ${
           !hasData
-            ? 'bg-[#F2E8DF] dark:bg-[#1E2E21] border-[#F2E8DF] dark:border-[#415111] text-[#415111]/40 dark:text-[#D2E186]/40 cursor-not-allowed'
-            : 'bg-[#415111] hover:bg-[#415111]/90 text-[#FEFEFE] border-[#415111] shadow-sm'
+            ? 'bg-[#142238] border-[#93A8BC]/20 text-[#93A8BC]/40 cursor-not-allowed'
+            : 'bg-[#2E96DB] hover:bg-[#2E96DB]/90 text-[#FFFFFF] border-[#2E96DB] shadow-sm'
         }`}
         title="Download complete formatted hydrographic survey report as PDF"
       >
         {downloadingPdf ? (
-          <Check className="w-3.5 h-3.5 text-[#FEFEFE]" />
+          <Check className="w-3.5 h-3.5 text-[#FFFFFF]" />
         ) : (
-          <FileText className="w-3.5 h-3.5 text-[#FEFEFE]" />
+          <FileText className="w-3.5 h-3.5 text-[#FFFFFF]" />
         )}
         <span>DOWNLOAD PDF REPORT</span>
+      </button>
+
+      {/* Export GeoJSON (RFC 7946 Spatial Polygon Footprints) */}
+      <button
+        id="btn-export-geojson"
+        onClick={() => handleDownload('geojson')}
+        disabled={!hasData}
+        className={`px-3 py-1.5 rounded border font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer text-[11px] ${
+          !hasData
+            ? 'bg-[#142238] border-[#93A8BC]/20 text-[#93A8BC]/40 cursor-not-allowed'
+            : 'bg-[#142238] hover:bg-[#1BDFC8]/20 text-[#1BDFC8] border border-[#1BDFC8]/40 shadow-sm'
+        }`}
+        title="Export spatial layers as GeoJSON (MapLibre / Leaflet / QGIS ready)"
+      >
+        {downloadingGeoJson ? (
+          <Check className="w-3.5 h-3.5 text-[#1BDFC8]" />
+        ) : (
+          <Globe className="w-3.5 h-3.5 text-[#1BDFC8]" />
+        )}
+        <span>GEOJSON (MAP-READY)</span>
       </button>
 
       {/* Download CSV */}
@@ -294,17 +364,17 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
         disabled={!hasData}
         className={`px-3 py-1.5 rounded border font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer text-[11px] ${
           !hasData
-            ? 'bg-[#F2E8DF] dark:bg-[#1E2E21] border-[#F2E8DF] dark:border-[#415111] text-[#415111]/40 dark:text-[#D2E186]/40 cursor-not-allowed'
-            : 'bg-[#F2E8DF] dark:bg-[#1E2E21] hover:bg-[#D2E186] text-[#415111] dark:text-[#D2E186] border-[#415111]/30 dark:border-[#415111] shadow-sm'
+            ? 'bg-[#142238] border-[#93A8BC]/20 text-[#93A8BC]/40 cursor-not-allowed'
+            : 'bg-[#142238] hover:bg-[#2E96DB]/20 text-[#FFFFFF] border border-[#93A8BC]/30 shadow-sm'
         }`}
         title="Download detection coordinates and bounds as standard survey CSV"
       >
         {downloadingCsv ? (
-          <Check className="w-3.5 h-3.5 text-[#415111] dark:text-[#D2E186]" />
+          <Check className="w-3.5 h-3.5 text-[#1BDFC8]" />
         ) : (
-          <FileSpreadsheet className="w-3.5 h-3.5 text-[#415111] dark:text-[#D2E186]" />
+          <FileSpreadsheet className="w-3.5 h-3.5 text-[#1BDFC8]" />
         )}
-        <span>EXPORT CSV</span>
+        <span>CSV</span>
       </button>
 
       {/* Download JSON */}
@@ -314,15 +384,15 @@ export const ReportButtons: React.FC<ReportButtonsProps> = ({
         disabled={!hasData}
         className={`px-3 py-1.5 rounded border font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer text-[11px] ${
           !hasData
-            ? 'bg-[#F2E8DF] dark:bg-[#1E2E21] border-[#F2E8DF] dark:border-[#415111] text-[#415111]/40 dark:text-[#D2E186]/40 cursor-not-allowed'
-            : 'bg-[#F2E8DF] dark:bg-[#1E2E21] hover:bg-[#D2E186] text-[#415111] dark:text-[#D2E186] border-[#415111]/30 dark:border-[#415111] shadow-sm'
+            ? 'bg-[#142238] border-[#93A8BC]/20 text-[#93A8BC]/40 cursor-not-allowed'
+            : 'bg-[#142238] hover:bg-[#2E96DB]/20 text-[#FFFFFF] border border-[#93A8BC]/30 shadow-sm'
         }`}
         title="Download full analysis payload as JSON"
       >
         {downloadingJson ? (
-          <Check className="w-3.5 h-3.5 text-[#415111] dark:text-[#D2E186]" />
+          <Check className="w-3.5 h-3.5 text-[#1BDFC8]" />
         ) : (
-          <FileJson className="w-3.5 h-3.5 text-[#415111] dark:text-[#D2E186]" />
+          <FileJson className="w-3.5 h-3.5 text-[#1BDFC8]" />
         )}
         <span>JSON</span>
       </button>

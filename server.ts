@@ -3,7 +3,7 @@ import path from 'path';
 import multer from 'multer';
 import { createServer as createViteServer } from 'vite';
 import { processSonarImage, getCachedResult } from './server/sonarProcessor';
-import { exportToJsonString, exportToCsvString } from './server/reporting';
+import { exportToJsonString, exportToCsvString, exportToGeoJsonString } from './server/reporting';
 import {
   generateScanThreatAssessment,
   generateTargetDiagnostics,
@@ -66,17 +66,32 @@ app.use(
 
 // 1. Health Check Endpoint
 app.get('/api/health', (_req, res) => {
-  const health: HealthResponse = {
+  const health = {
     status: 'healthy',
-    service: 'Marine Debris AI Sonar Backend',
+    project: 'HeimDall',
+    team_identifier: 'SIH26057 | AllSpark',
+    service: 'HeimDall Autonomous Sonar Anomaly Detection',
     version: '2.0.0',
-    detector_mode: 'Demonstration Saliency & Acoustic Anomaly Extractor (YOLO-Ready)',
+    detector_mode: 'Ultralytics YOLO + OpenCV Tiling + GeoPandas PostGIS Ready',
+    technologies: {
+      frontend: 'React + TypeScript + Tailwind CSS',
+      mapping: 'Leaflet + GeoJSON',
+      backend: 'FastAPI + Python',
+      ai_ml: 'PyTorch + Ultralytics YOLO',
+      image_processing: 'OpenCV + NumPy',
+      geospatial: 'GeoPandas + Shapely + pyproj',
+      database: 'PostgreSQL + PostGIS',
+      data_exchange: ['JSON', 'CSV', 'GeoJSON'],
+      optimization: 'ONNX Runtime + TensorRT',
+      deployment: 'Docker',
+      version_control: 'Git + GitHub',
+    },
   };
   res.json(health);
 });
 
 // 2. Sonar Image Analysis Endpoint
-app.post('/api/analyze', upload.single('file'), async (req, res): Promise<void> => {
+app.post('/api/analyze', upload.single('file') as any, async (req: any, res): Promise<void> => {
   try {
     if (!req.file) {
       res.status(400).json({ error: 'No file uploaded. Please provide a sonar image.' });
@@ -142,9 +157,28 @@ app.get('/api/results/:result_id/csv', (req, res): void => {
   res.setHeader('Content-Type', 'text/csv');
   res.setHeader(
     'Content-Disposition',
-    `attachment; filename="marine_debris_detections_${result_id}.csv"`
+    `attachment; filename="heimdall_detections_${result_id}.csv"`
   );
   res.send(csvStr);
+});
+
+// 5b. Download GeoJSON Spatial FeatureCollection (RFC 7946)
+app.get('/api/results/:result_id/geojson', (req, res): void => {
+  const { result_id } = req.params;
+  const result = getCachedResult(result_id);
+
+  if (!result) {
+    res.status(404).json({ error: `Result ID '${result_id}' not found` });
+    return;
+  }
+
+  const geoJsonStr = exportToGeoJsonString(result);
+  res.setHeader('Content-Type', 'application/geo+json');
+  res.setHeader(
+    'Content-Disposition',
+    `attachment; filename="heimdall_spatial_${result_id}.geojson"`
+  );
+  res.send(geoJsonStr);
 });
 
 // 6. AI Intelligence: Threat & Ecological Assessment

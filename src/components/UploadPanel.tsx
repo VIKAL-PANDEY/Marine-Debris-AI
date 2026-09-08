@@ -218,37 +218,37 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
   const activeFile = filesQueue.find((f) => f.id === activeFileId);
 
   return (
-    <div className="bg-[#FEFEFE] border border-[#F2E8DF] rounded p-4 flex flex-col gap-3.5 shadow-sm font-sans">
+    <div className="bg-[#0F1A2C] border border-[#93A8BC]/25 rounded p-4 flex flex-col gap-3.5 shadow-sm font-sans">
       {/* Panel Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-[10px] font-tech font-bold uppercase tracking-widest text-[#415111] flex items-center gap-1.5">
-          <FileImage className="w-3.5 h-3.5 text-[#415111]" />
+        <h2 className="text-[10px] font-tech font-bold uppercase tracking-widest text-[#1BDFC8] flex items-center gap-1.5">
+          <FileImage className="w-3.5 h-3.5 text-[#1BDFC8]" />
           <span>ACOUSTIC DATA ACQUISITION & YOLO INFERENCE</span>
         </h2>
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-tech text-[#415111] font-bold bg-[#D2E186] px-2 py-0.5 rounded border border-[#415111]/20 uppercase tracking-wider">
+          <span className="text-[10px] font-tech text-[#0A111E] font-bold bg-[#1BDFC8] px-2 py-0.5 rounded border border-[#1BDFC8]/40 uppercase tracking-wider">
             MULTI-TRANSECT QUEUE
           </span>
         </div>
       </div>
 
       {/* Engine Selection & Model Status */}
-      <div className="bg-[#F2E8DF] border border-[#D2E186] rounded p-2.5 flex flex-col gap-2 font-sans text-xs">
+      <div className="bg-[#142238] border border-[#93A8BC]/25 rounded p-2.5 flex flex-col gap-2 font-sans text-xs">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-1.5">
-            <Cpu className="w-3.5 h-3.5 text-[#415111]" />
-            <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#415111]">INFERENCE ENGINE:</span>
+            <Cpu className="w-3.5 h-3.5 text-[#1BDFC8]" />
+            <span className="text-[11px] font-tech font-bold uppercase tracking-wider text-[#FFFFFF]">INFERENCE ENGINE:</span>
           </div>
 
-          <div className="flex items-center gap-1 bg-[#FEFEFE] p-0.5 rounded border border-[#D2E186]">
+          <div className="flex items-center gap-1 bg-[#0B1320] p-0.5 rounded border border-[#93A8BC]/30">
             <button
               id="btn-engine-yolo"
               type="button"
               onClick={() => setEngineMode('yolo')}
               className={`px-2.5 py-1 rounded text-[10px] font-sans font-bold uppercase tracking-wider transition cursor-pointer flex items-center gap-1 ${
                 engineMode === 'yolo'
-                  ? 'bg-[#415111] text-[#FEFEFE] shadow-sm'
-                  : 'text-[#415111]/70 hover:text-[#415111]'
+                  ? 'bg-[#1BDFC8] text-[#0A111E] shadow-sm'
+                  : 'text-[#93A8BC] hover:text-[#FFFFFF]'
               }`}
             >
               <span>YOLO ONNX (Browser WASM)</span>
@@ -259,8 +259,8 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
               onClick={() => setEngineMode('server')}
               className={`px-2.5 py-1 rounded text-[10px] font-sans font-bold uppercase tracking-wider transition cursor-pointer flex items-center gap-1 ${
                 engineMode === 'server'
-                  ? 'bg-[#415111] text-[#FEFEFE] shadow-sm'
-                  : 'text-[#415111]/70 hover:text-[#415111]'
+                  ? 'bg-[#1BDFC8] text-[#0A111E] shadow-sm'
+                  : 'text-[#93A8BC] hover:text-[#FFFFFF]'
               }`}
             >
               <span>Acoustic Server</span>
@@ -269,40 +269,40 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
         </div>
 
         {/* Model File Status Banner */}
-        <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] pt-1 border-t border-[#D2E186] text-[#415111]/80 font-normal">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] pt-1 border-t border-[#93A8BC]/20 text-[#93A8BC] font-normal">
           <div className="flex items-center gap-1.5">
-            <span className="text-[#415111]/80 font-medium">ONNX Model:</span>
-            <code className="text-[#415111] font-tech font-semibold bg-[#FEFEFE] px-1.5 py-0.5 rounded border border-[#D2E186]">
+            <span className="text-[#93A8BC] font-medium">ONNX Model:</span>
+            <code className="text-[#FFFFFF] font-tech font-semibold bg-[#0B1320] px-1.5 py-0.5 rounded border border-[#93A8BC]/30">
               /models/marine-debris.onnx
             </code>
-            <span className="text-[#415111]/80 font-tech tabular-nums">
+            <span className="text-[#93A8BC] font-tech tabular-nums">
               ({MODEL_CONFIG.inputWidth}×{MODEL_CONFIG.inputHeight})
             </span>
           </div>
 
           <div className="flex items-center gap-1.5">
             {isModelAvailable === true ? (
-              <span className="text-[#415111] flex items-center gap-1 font-sans font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D2E186] border border-[#415111] animate-pulse" />
+              <span className="text-[#1BDFC8] flex items-center gap-1 font-sans font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1BDFC8] border border-[#1BDFC8] animate-pulse" />
                 <span className="font-tech tabular-nums">ONNX Ready {modelFileSize ? `(${formatFileSize(modelFileSize)})` : ''}</span>
               </span>
             ) : isModelAvailable === false ? (
-              <span className="text-[#FB8159] flex items-center gap-1 font-sans font-semibold">
-                <Info className="w-3 h-3 text-[#FB8159]" />
+              <span className="text-[#2E96DB] flex items-center gap-1 font-sans font-semibold">
+                <Info className="w-3 h-3 text-[#2E96DB]" />
                 <span>Place file in /public/models/</span>
               </span>
             ) : (
-              <span className="text-[#415111]/70 font-sans font-medium">Checking model...</span>
+              <span className="text-[#93A8BC] font-sans font-medium">Checking model...</span>
             )}
           </div>
         </div>
 
         {/* Confidence Threshold Slider */}
-        <div className="flex items-center justify-between gap-3 pt-1 border-t border-[#D2E186] text-[10px]">
-          <div className="flex items-center gap-1.5 text-[#415111]">
-            <Sliders className="w-3 h-3 text-[#415111]" />
-            <span className="font-sans font-medium">Confidence Threshold:</span>
-            <span className="text-[#415111] font-tech tabular-nums font-bold">{(confThreshold * 100).toFixed(0)}%</span>
+        <div className="flex items-center justify-between gap-3 pt-1 border-t border-[#93A8BC]/20 text-[10px]">
+          <div className="flex items-center gap-1.5 text-[#FFFFFF]">
+            <Sliders className="w-3 h-3 text-[#1BDFC8]" />
+            <span className="font-sans font-medium text-[#93A8BC]">Confidence Threshold:</span>
+            <span className="text-[#1BDFC8] font-tech tabular-nums font-bold">{(confThreshold * 100).toFixed(0)}%</span>
           </div>
           <input
             type="range"
@@ -311,7 +311,7 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
             step="0.05"
             value={confThreshold}
             onChange={(e) => setConfThreshold(parseFloat(e.target.value))}
-            className="w-28 sm:w-36 h-1.5 bg-[#FEFEFE] rounded-lg appearance-none cursor-pointer accent-[#415111]"
+            className="w-28 sm:w-36 h-1.5 bg-[#0B1320] rounded-lg appearance-none cursor-pointer accent-[#1BDFC8]"
           />
         </div>
       </div>
@@ -325,10 +325,10 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
         onClick={() => fileInputRef.current?.click()}
         className={`border-2 border-dashed rounded p-3 text-center cursor-pointer transition flex flex-col items-center justify-center gap-1.5 ${
           isDragging
-            ? 'border-[#415111] bg-[#F2E8DF] shadow-sm'
+            ? 'border-[#1BDFC8] bg-[#142238] shadow-sm'
             : filesQueue.length > 0
-            ? 'border-[#D2E186] hover:border-[#415111] bg-[#F2E8DF]'
-            : 'border-[#D2E186] hover:border-[#415111] bg-[#F2E8DF] py-6'
+            ? 'border-[#93A8BC]/30 hover:border-[#1BDFC8] bg-[#0B1320]'
+            : 'border-[#93A8BC]/30 hover:border-[#1BDFC8] bg-[#0B1320] py-6'
         }`}
       >
         <input
@@ -342,21 +342,21 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
         />
 
         <div className="flex items-center gap-2">
-          <Upload className="w-5 h-5 text-[#415111] animate-bounce" />
-          <span className="text-xs font-sans font-semibold text-[#415111]">
+          <Upload className="w-5 h-5 text-[#1BDFC8] animate-bounce" />
+          <span className="text-xs font-sans font-semibold text-[#FFFFFF]">
             {filesQueue.length > 0
               ? 'Drop additional sonar waterfall images here'
               : 'Drop side-scan sonar waterfall or acoustic imagery here'}
           </span>
         </div>
 
-        <p className="text-[10px] text-[#415111]/70 font-sans font-normal">
+        <p className="text-[10px] text-[#93A8BC] font-sans font-normal">
           Multi-file selection supported • PNG, JPG, JPEG, TIFF
         </p>
 
         <button
           type="button"
-          className="mt-0.5 bg-[#FEFEFE] hover:bg-[#D2E186] text-[#415111] border border-[#415111]/30 px-3 py-1 rounded text-[10px] font-sans font-bold uppercase tracking-wider transition-colors"
+          className="mt-0.5 bg-[#142238] hover:bg-[#2E96DB]/20 text-[#1BDFC8] border border-[#93A8BC]/30 px-3 py-1 rounded text-[10px] font-sans font-bold uppercase tracking-wider transition-colors"
         >
           {filesQueue.length > 0 ? '+ Add More Sonar Files' : 'Browse & Select Files (Multi-Select)'}
         </button>
@@ -364,13 +364,13 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
 
       {/* Preset Demo Samples Row */}
       <div className="flex flex-col gap-1.5 pt-0.5">
-        <div className="flex items-center justify-between text-[10px] font-tech text-[#415111]/80 uppercase tracking-wider font-bold">
+        <div className="flex items-center justify-between text-[10px] font-tech text-[#93A8BC] uppercase tracking-wider font-bold">
           <span>Survey Transect Presets:</span>
           <button
             type="button"
             onClick={loadAllPresets}
             disabled={isBusy || loadingAllPresets}
-            className="text-[10px] text-[#415111] hover:text-[#FB8159] flex items-center gap-1 font-sans font-semibold cursor-pointer disabled:opacity-50"
+            className="text-[10px] text-[#2E96DB] hover:text-[#1BDFC8] flex items-center gap-1 font-sans font-semibold cursor-pointer disabled:opacity-50"
             title="Queue all 3 sample transect files for sequential analysis"
           >
             {loadingAllPresets ? (
@@ -393,23 +393,23 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                 disabled={isBusy}
                 className={`p-2 rounded border text-left text-xs transition cursor-pointer flex flex-col justify-between gap-0.5 ${
                   isQueued
-                    ? 'border-[#415111] bg-[#D2E186] text-[#415111] shadow-sm font-bold'
-                    : 'border-[#D2E186] bg-[#F2E8DF] hover:bg-[#D2E186]/50 hover:border-[#415111] text-[#415111]'
+                    ? 'border-[#1BDFC8] bg-[#142238] text-[#FFFFFF] shadow-sm font-bold'
+                    : 'border-[#93A8BC]/25 bg-[#0B1320] hover:bg-[#142238] hover:border-[#2E96DB] text-[#93A8BC]'
                 }`}
               >
                 <div className="flex items-center justify-between w-full">
-                  <span className="font-semibold font-tech text-[10px] truncate text-[#415111]">
+                  <span className="font-semibold font-tech text-[10px] truncate text-[#FFFFFF]">
                     {sample.name}
                   </span>
                   {loadingSample === sample.id ? (
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FB8159] animate-ping" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#1BDFC8] animate-ping" />
                   ) : isQueued ? (
-                    <span className="text-[8px] font-tech font-bold px-1 py-0.2 rounded bg-[#415111] text-[#FEFEFE] uppercase tracking-wider">
+                    <span className="text-[8px] font-tech font-bold px-1 py-0.2 rounded bg-[#1BDFC8] text-[#0A111E] uppercase tracking-wider">
                       QUEUED
                     </span>
                   ) : null}
                 </div>
-                <p className="text-[9px] text-[#415111]/70 line-clamp-1 font-sans font-normal leading-tight">
+                <p className="text-[9px] text-[#93A8BC] line-clamp-1 font-sans font-normal leading-tight">
                   {sample.desc}
                 </p>
               </button>
@@ -420,15 +420,15 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
 
       {/* Queued Sonar Files List & Sequential Batch Controller */}
       {filesQueue.length > 0 && (
-        <div className="bg-[#F2E8DF] border border-[#D2E186] rounded p-2.5 flex flex-col gap-2 font-sans">
+        <div className="bg-[#0B1320] border border-[#93A8BC]/25 rounded p-2.5 flex flex-col gap-2 font-sans">
           {/* Queue Header & Stats */}
-          <div className="flex items-center justify-between border-b border-[#D2E186] pb-1.5">
+          <div className="flex items-center justify-between border-b border-[#93A8BC]/20 pb-1.5">
             <div className="flex items-center gap-1.5">
-              <ListOrdered className="w-3.5 h-3.5 text-[#415111]" />
-              <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#415111]">
+              <ListOrdered className="w-3.5 h-3.5 text-[#1BDFC8]" />
+              <span className="text-xs font-tech font-bold uppercase tracking-wider text-[#FFFFFF]">
                 QUEUED TRANSECTS ({filesQueue.length})
               </span>
-              <span className="text-[10px] text-[#415111]/70 font-tech tabular-nums font-medium">
+              <span className="text-[10px] text-[#93A8BC] font-tech tabular-nums font-medium">
                 • {completedCount}/{filesQueue.length} Analyzed
               </span>
             </div>
@@ -438,7 +438,7 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                 type="button"
                 onClick={onClearQueue}
                 disabled={isBatchRunning}
-                className="text-[10px] text-[#415111]/70 hover:text-[#FB8159] transition-colors flex items-center gap-1 px-1.5 py-0.5 rounded border border-[#D2E186] hover:border-[#FB8159] cursor-pointer disabled:opacity-50 font-sans font-semibold"
+                className="text-[10px] text-[#93A8BC] hover:text-[#2E96DB] transition-colors flex items-center gap-1 px-1.5 py-0.5 rounded border border-[#93A8BC]/30 hover:border-[#2E96DB] cursor-pointer disabled:opacity-50 font-sans font-semibold"
                 title="Clear all queued transect images"
               >
                 <Trash2 className="w-3 h-3" />
@@ -449,10 +449,10 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
 
           {/* Active Batch Progress Banner if running */}
           {isBatchRunning && batchProgress && (
-            <div className="p-2 bg-[#FEFEFE] border border-[#D2E186] rounded text-xs flex flex-col gap-1.5 font-sans">
+            <div className="p-2 bg-[#142238] border border-[#93A8BC]/30 rounded text-xs flex flex-col gap-1.5 font-sans">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-[#415111] font-tech font-bold uppercase tracking-wider">
-                  <span className="w-2 h-2 rounded-full bg-[#FB8159] animate-ping" />
+                <div className="flex items-center gap-1.5 text-[#1BDFC8] font-tech font-bold uppercase tracking-wider">
+                  <span className="w-2 h-2 rounded-full bg-[#1BDFC8] animate-ping" />
                   <span className="tabular-nums">
                     SEQUENTIAL ANALYSIS: SCAN {batchProgress.current} OF {batchProgress.total}
                   </span>
@@ -461,19 +461,19 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                   <button
                     type="button"
                     onClick={onCancelBatch}
-                    className="px-2 py-0.5 rounded bg-[#FB8159] hover:bg-[#FCBF93] text-[#FEFEFE] border border-[#FB8159] text-[10px] font-sans font-bold uppercase tracking-wider transition flex items-center gap-1 cursor-pointer"
+                    className="px-2 py-0.5 rounded bg-[#2E96DB] hover:bg-[#2E96DB]/80 text-[#FFFFFF] border border-[#2E96DB] text-[10px] font-sans font-bold uppercase tracking-wider transition flex items-center gap-1 cursor-pointer"
                   >
                     <StopCircle className="w-3 h-3" />
                     <span>Stop Queue</span>
                   </button>
                 )}
               </div>
-              <p className="text-[10px] text-[#415111] truncate font-sans font-medium">
-                Processing: <span className="font-tech font-bold">{batchProgress.currentFilename}</span>
+              <p className="text-[10px] text-[#93A8BC] truncate font-sans font-medium">
+                Processing: <span className="font-tech font-bold text-[#FFFFFF]">{batchProgress.currentFilename}</span>
               </p>
-              <div className="w-full h-1.5 bg-[#F2E8DF] rounded-full overflow-hidden border border-[#D2E186]">
+              <div className="w-full h-1.5 bg-[#0B1320] rounded-full overflow-hidden border border-[#93A8BC]/20">
                 <div
-                  className="h-full bg-gradient-to-r from-[#FCBF93] via-[#FB8159] to-[#D2E186] transition-all duration-300"
+                  className="h-full bg-gradient-to-r from-[#2E96DB] to-[#1BDFC8] transition-all duration-300"
                   style={{
                     width: `${Math.max(
                       8,
@@ -499,18 +499,18 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                   onClick={() => onSelectQueuedFile(item.id)}
                   className={`p-2 rounded border transition-all flex items-center justify-between gap-2.5 cursor-pointer ${
                     isActive
-                      ? 'border-[#415111] bg-[#FEFEFE] shadow-sm ring-1 ring-[#415111]'
-                      : 'border-[#D2E186] bg-[#FEFEFE]/70 hover:bg-[#FEFEFE] hover:border-[#415111]'
+                      ? 'border-[#1BDFC8] bg-[#142238] shadow-sm ring-1 ring-[#1BDFC8]'
+                      : 'border-[#93A8BC]/20 bg-[#0F1A2C] hover:bg-[#142238] hover:border-[#2E96DB]'
                   }`}
                 >
                   {/* Left: Thumbnail & Index */}
                   <div className="flex items-center gap-2 min-w-0 flex-1">
-                    <span className="text-[10px] text-[#415111]/70 font-tech tabular-nums w-4 shrink-0 text-center font-bold">
+                    <span className="text-[10px] text-[#93A8BC] font-tech tabular-nums w-4 shrink-0 text-center font-bold">
                       #{index + 1}
                     </span>
 
                     {/* Image Thumbnail */}
-                    <div className="w-8 h-8 rounded border border-[#D2E186] bg-[#FEFEFE] overflow-hidden shrink-0 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded border border-[#93A8BC]/30 bg-[#0B1320] overflow-hidden shrink-0 flex items-center justify-center">
                       {item.previewUrl ? (
                         <img
                           src={item.previewUrl}
@@ -518,7 +518,7 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <FileImage className="w-4 h-4 text-[#415111]/40" />
+                        <FileImage className="w-4 h-4 text-[#93A8BC]/40" />
                       )}
                     </div>
 
@@ -527,19 +527,19 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                       <div className="flex items-center gap-1.5">
                         <p
                           className={`font-semibold truncate text-[11px] font-tech ${
-                            isActive ? 'text-[#415111] font-bold' : 'text-[#415111]'
+                            isActive ? 'text-[#FFFFFF] font-bold' : 'text-[#FFFFFF]'
                           }`}
                           title={item.file.name}
                         >
                           {item.file.name}
                         </p>
                         {isActive && (
-                          <span className="text-[8px] bg-[#415111] text-[#FEFEFE] px-1 rounded font-bold font-tech uppercase tracking-wider shrink-0">
+                          <span className="text-[8px] bg-[#1BDFC8] text-[#0A111E] px-1 rounded font-bold font-tech uppercase tracking-wider shrink-0">
                             ACTIVE
                           </span>
                         )}
                       </div>
-                      <p className="text-[9px] text-[#415111]/70 font-tech tabular-nums">
+                      <p className="text-[9px] text-[#93A8BC] font-tech tabular-nums">
                         {formatFileSize(item.file.size)}
                       </p>
                     </div>
@@ -552,13 +552,13 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                   >
                     {/* Status Pill */}
                     {isItemAnalyzing ? (
-                      <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FCBF93] text-[#415111] border border-[#FB8159] flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#FB8159] animate-ping" />
+                      <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#2E96DB]/20 text-[#2E96DB] border border-[#2E96DB] flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#2E96DB] animate-ping" />
                         <span>ANALYZING</span>
                       </span>
                     ) : isItemCompleted ? (
-                      <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#D2E186] text-[#415111] border border-[#415111]/30 flex items-center gap-1 tabular-nums">
-                        <CheckCircle2 className="w-3 h-3 text-[#415111]" />
+                      <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#1BDFC8]/20 text-[#1BDFC8] border border-[#1BDFC8]/40 flex items-center gap-1 tabular-nums">
+                        <CheckCircle2 className="w-3 h-3 text-[#1BDFC8]" />
                         <span>
                           {item.detectionCount !== undefined
                             ? `${item.detectionCount} DETECTIONS`
@@ -567,14 +567,14 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                       </span>
                     ) : isItemError ? (
                       <span
-                        className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FB8159] text-[#FEFEFE] border border-[#FB8159] flex items-center gap-1"
+                        className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#2E96DB]/20 text-[#2E96DB] border border-[#2E96DB] flex items-center gap-1"
                         title={item.error || 'Inference error'}
                       >
                         <AlertCircle className="w-3 h-3" />
                         <span>FAILED</span>
                       </span>
                     ) : (
-                      <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FEFEFE] text-[#415111]/70 border border-[#D2E186] flex items-center gap-1">
+                      <span className="text-[9px] font-tech font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#142238] text-[#93A8BC] border border-[#93A8BC]/30 flex items-center gap-1">
                         <Clock className="w-2.5 h-2.5" />
                         <span>QUEUED</span>
                       </span>
@@ -586,8 +586,8 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                       onClick={() => onSelectQueuedFile(item.id)}
                       className={`p-1 rounded transition text-[10px] cursor-pointer ${
                         isActive
-                          ? 'text-[#415111] bg-[#D2E186]'
-                          : 'text-[#415111]/70 hover:text-[#415111] hover:bg-[#D2E186]'
+                          ? 'text-[#1BDFC8] bg-[#142238]'
+                          : 'text-[#93A8BC] hover:text-[#FFFFFF] hover:bg-[#142238]'
                       }`}
                       title="View this sonar scan in dashboard"
                     >
@@ -599,7 +599,7 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                       type="button"
                       disabled={isBatchRunning || isItemAnalyzing}
                       onClick={() => onAnalyzeSingle(item.id, engineMode, confThreshold)}
-                      className="p-1 rounded text-[#415111]/70 hover:text-[#415111] hover:bg-[#D2E186] transition cursor-pointer disabled:opacity-40"
+                      className="p-1 rounded text-[#93A8BC] hover:text-[#1BDFC8] hover:bg-[#142238] transition cursor-pointer disabled:opacity-40"
                       title={
                         isItemCompleted
                           ? 'Re-analyze this scan individually'
@@ -618,7 +618,7 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                       type="button"
                       disabled={isBatchRunning || isItemAnalyzing}
                       onClick={() => onRemoveQueuedFile(item.id)}
-                      className="p-1 rounded text-[#415111]/60 hover:text-[#FB8159] hover:bg-[#FB8159]/20 transition cursor-pointer disabled:opacity-40"
+                      className="p-1 rounded text-[#93A8BC]/60 hover:text-[#2E96DB] hover:bg-[#2E96DB]/20 transition cursor-pointer disabled:opacity-40"
                       title="Remove from queue"
                     >
                       <X className="w-3.5 h-3.5" />
@@ -633,20 +633,20 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
 
       {/* Error Alert */}
       {error && (
-        <div className="p-2.5 rounded bg-[#F2E8DF] border border-[#FB8159] flex flex-col gap-1.5 text-xs text-[#FB8159] font-sans">
+        <div className="p-2.5 rounded bg-[#142238] border border-[#2E96DB] flex flex-col gap-1.5 text-xs text-[#2E96DB] font-sans">
           <div className="flex items-start gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#FB8159]" />
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#2E96DB]" />
             <div className="flex-1 font-sans text-[11px]">
-              <span className="font-tech font-bold uppercase tracking-wider">INFERENCE ERROR: </span>
-              <span>{error}</span>
+              <span className="font-tech font-bold uppercase tracking-wider text-[#FFFFFF]">INFERENCE ERROR: </span>
+              <span className="text-[#93A8BC]">{error}</span>
             </div>
           </div>
           {error.includes('marine-debris.onnx') && (
-            <div className="pl-6 text-[10px] font-sans text-[#415111]">
-              <p className="font-semibold text-[#FB8159]">How to fix:</p>
+            <div className="pl-6 text-[10px] font-sans text-[#93A8BC]">
+              <p className="font-semibold text-[#2E96DB]">How to fix:</p>
               <p>
                 Place your exported YOLO ONNX weights at{' '}
-                <code className="text-[#415111] font-tech font-bold bg-[#FEFEFE] px-1 py-0.5 rounded border border-[#D2E186]">public/models/marine-debris.onnx</code>
+                <code className="text-[#FFFFFF] font-tech font-bold bg-[#0B1320] px-1 py-0.5 rounded border border-[#93A8BC]/30">public/models/marine-debris.onnx</code>
               </p>
               <button
                 type="button"
@@ -658,7 +658,7 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
                     onAnalyze('server', confThreshold);
                   }
                 }}
-                className="mt-1 text-[10px] text-[#FB8159] underline hover:text-[#415111] cursor-pointer font-sans font-semibold"
+                className="mt-1 text-[10px] text-[#1BDFC8] underline hover:text-[#FFFFFF] cursor-pointer font-sans font-semibold"
               >
                 Or switch to the Server Acoustic Pipeline now →
               </button>
@@ -677,13 +677,13 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
           disabled={filesQueue.length === 0 || isBatchRunning}
           className={`flex-1 w-full py-2.5 px-3 rounded text-xs font-sans font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer ${
             filesQueue.length === 0 || isBatchRunning
-              ? 'bg-[#F2E8DF] text-[#415111]/40 border border-[#F2E8DF] cursor-not-allowed'
-              : 'bg-[#FB8159] hover:bg-[#FCBF93] text-[#FEFEFE] border border-[#FB8159] shadow-sm font-bold'
+              ? 'bg-[#142238] text-[#93A8BC]/40 border border-[#93A8BC]/20 cursor-not-allowed'
+              : 'bg-[#1BDFC8] hover:bg-[#1BDFC8]/90 text-[#0A111E] border border-[#1BDFC8] shadow-sm font-bold'
           }`}
         >
           {isBatchRunning ? (
             <>
-              <span className="w-3.5 h-3.5 border-2 border-[#FEFEFE] border-t-transparent rounded-full animate-spin" />
+              <span className="w-3.5 h-3.5 border-2 border-[#0A111E] border-t-transparent rounded-full animate-spin" />
               <span className="tabular-nums">
                 SEQUENTIAL BATCH IN PROGRESS ({batchProgress?.current || 1}/{batchProgress?.total || filesQueue.length})...
               </span>
@@ -715,12 +715,12 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({
             }}
             className={`w-full sm:w-auto py-2.5 px-3 rounded text-xs font-sans font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border transition-all cursor-pointer ${
               !activeFileId || isBatchRunning || isBusy
-                ? 'bg-[#F2E8DF] text-[#415111]/40 border-[#F2E8DF] cursor-not-allowed'
-                : 'bg-[#F2E8DF] hover:bg-[#D2E186] text-[#415111] border-[#D2E186] font-bold'
+                ? 'bg-[#142238] text-[#93A8BC]/40 border-[#93A8BC]/20 cursor-not-allowed'
+                : 'bg-[#2E96DB] hover:bg-[#2E96DB]/85 text-[#FFFFFF] border-[#2E96DB] font-bold'
             }`}
             title="Analyze only the currently active selected scan"
           >
-            <Play className="w-3 h-3 text-[#415111]" />
+            <Play className="w-3 h-3 text-[#FFFFFF]" />
             <span>ANALYZE ACTIVE SCAN</span>
           </button>
         )}

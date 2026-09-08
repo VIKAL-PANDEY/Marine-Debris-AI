@@ -19,6 +19,9 @@ export interface DetectionItem {
   latitude: number;
   longitude: number;
   priority: DebrisPriority;
+  specular_db?: number;
+  shadow_ratio?: number;
+  edge_gradient?: number;
 }
 
 export interface MissionStatistics {

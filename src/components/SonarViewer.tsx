@@ -127,67 +127,67 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
 
     if (isSelected) {
       return {
-        boxClass: 'border-2 border-[#415111] dark:border-[#D2E186] ring-4 ring-[#415111]/40 dark:ring-[#D2E186]/40 bg-[#D2E186]/35 shadow-lg animate-pulse z-30',
-        badgeBg: 'bg-[#415111] text-[#FEFEFE] ring-1 ring-[#D2E186]',
-        cornerColor: 'border-[#415111] dark:border-[#D2E186]',
+        boxClass: 'border-2 border-[#1BDFC8] ring-4 ring-[#1BDFC8]/40 bg-[#1BDFC8]/35 shadow-lg animate-pulse z-30',
+        badgeBg: 'bg-[#1BDFC8] text-[#0A111E] ring-1 ring-[#1BDFC8]',
+        cornerColor: 'border-[#1BDFC8]',
       };
     }
 
     if (className.includes('net') || className.includes('ghost')) {
-      // Ghost net: Dashed border with high-visibility coral/orange tags
+      // Ghost net: Dashed border with high-visibility turquoise tags
       return {
-        boxClass: 'border-2 border-dashed border-[#FB8159] bg-[#FB8159]/15 hover:bg-[#FB8159]/30 z-20',
-        badgeBg: 'bg-[#FB8159] text-[#FEFEFE]',
-        cornerColor: 'border-[#FB8159]',
+        boxClass: 'border-2 border-dashed border-[#1BDFC8] bg-[#1BDFC8]/15 hover:bg-[#1BDFC8]/30 z-20',
+        badgeBg: 'bg-[#1BDFC8] text-[#0A111E]',
+        cornerColor: 'border-[#1BDFC8]',
       };
     }
 
     if (className.includes('metal') || className.includes('container')) {
       // Metal debris: Solid heavy outline with sharp reinforced brackets
       return {
-        boxClass: 'border-2 border-solid border-[#415111] dark:border-[#D2E186] bg-[#415111]/15 hover:bg-[#415111]/30 z-20',
-        badgeBg: 'bg-[#415111] dark:bg-[#D2E186] text-[#FEFEFE] dark:text-[#415111]',
-        cornerColor: 'border-[#415111] dark:border-[#D2E186]',
+        boxClass: 'border-2 border-solid border-[#2E96DB] bg-[#2E96DB]/15 hover:bg-[#2E96DB]/30 z-20',
+        badgeBg: 'bg-[#2E96DB] text-[#FFFFFF]',
+        cornerColor: 'border-[#2E96DB]',
       };
     }
 
     if (className.includes('trap') || className.includes('gear') || className.includes('trawl')) {
       // Derelict trap / trawl gear: Dotted technical border
       return {
-        boxClass: 'border-2 border-dotted border-[#FCBF93] bg-[#FCBF93]/25 hover:bg-[#FCBF93]/40 z-20',
-        badgeBg: 'bg-[#FCBF93] text-[#415111]',
-        cornerColor: 'border-[#FCBF93]',
+        boxClass: 'border-2 border-dotted border-[#93A8BC] bg-[#93A8BC]/25 hover:bg-[#93A8BC]/40 z-20',
+        badgeBg: 'bg-[#93A8BC] text-[#0A111E]',
+        cornerColor: 'border-[#93A8BC]',
       };
     }
 
     // Default / general debris
     if (isCritical) {
       return {
-        boxClass: 'border-2 border-solid border-[#FB8159] bg-[#FB8159]/20 hover:bg-[#FB8159]/35 z-20',
-        badgeBg: 'bg-[#FB8159] text-[#FEFEFE]',
-        cornerColor: 'border-[#FB8159]',
+        boxClass: 'border-2 border-solid border-[#1BDFC8] bg-[#1BDFC8]/20 hover:bg-[#1BDFC8]/35 z-20',
+        badgeBg: 'bg-[#1BDFC8] text-[#0A111E]',
+        cornerColor: 'border-[#1BDFC8]',
       };
     }
 
     return {
-      boxClass: 'border-2 border-solid border-[#D2E186] bg-[#D2E186]/25 hover:bg-[#D2E186]/40 z-20',
-      badgeBg: 'bg-[#D2E186] text-[#415111]',
-      cornerColor: 'border-[#415111]/60',
+      boxClass: 'border-2 border-solid border-[#2E96DB] bg-[#2E96DB]/25 hover:bg-[#2E96DB]/40 z-20',
+      badgeBg: 'bg-[#2E96DB] text-[#FFFFFF]',
+      cornerColor: 'border-[#2E96DB]/60',
     };
   };
 
   return (
-    <div className={`bg-[#FEFEFE] dark:bg-[#15221B] border border-[#F2E8DF] dark:border-[#415111]/40 rounded-lg flex flex-col overflow-hidden shadow-sm font-sans transition-colors ${className || 'h-full flex-1 min-h-0'}`}>
+    <div className={`bg-[#0F1A2C] border border-[#93A8BC]/25 rounded-lg flex flex-col overflow-hidden shadow-sm font-sans transition-colors ${className || 'h-full flex-1 min-h-0'}`}>
       {/* Viewer Toolbar */}
-      <div className="p-2.5 border-b border-[#F2E8DF] dark:border-[#415111]/40 bg-[#FEFEFE] dark:bg-[#15221B] flex flex-wrap items-center justify-between gap-2">
+      <div className="p-2.5 border-b border-[#93A8BC]/25 bg-[#142238] flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded bg-[#F2E8DF] dark:bg-[#1E2E21] border border-[#D2E186] flex items-center justify-center text-[#415111] dark:text-[#D2E186]">
+          <div className="w-6 h-6 rounded bg-[#0B1320] border border-[#93A8BC]/30 flex items-center justify-center text-[#1BDFC8]">
             <Scan className="w-3.5 h-3.5" />
           </div>
-          <h3 className="text-xs font-tech font-bold uppercase tracking-wider text-[#415111] dark:text-[#FEFEFE] flex items-center gap-2">
+          <h3 className="text-xs font-tech font-bold uppercase tracking-wider text-[#FFFFFF] flex items-center gap-2">
             <span>ACOUSTIC WATERFALL VIEWER</span>
             {selectedDetectionId && (
-              <span className="text-[9px] text-[#415111] font-bold px-1.5 py-0.2 bg-[#D2E186] rounded border border-[#415111]/20 uppercase tracking-wider">
+              <span className="text-[9px] text-[#0A111E] font-bold px-1.5 py-0.2 bg-[#1BDFC8] rounded border border-[#1BDFC8] uppercase tracking-wider">
                 ACTIVE: {selectedDetectionId}
               </span>
             )}
@@ -195,15 +195,15 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
 
           {result && (
             <div className="flex items-center gap-1.5">
-              <span className="text-[9px] font-tech tabular-nums px-1.5 py-0.5 rounded bg-[#F2E8DF] dark:bg-[#1E2E21] text-[#415111] dark:text-[#D2E186] border border-[#D2E186] dark:border-[#415111] font-medium">
+              <span className="text-[9px] font-tech tabular-nums px-1.5 py-0.5 rounded bg-[#0B1320] text-[#93A8BC] border border-[#93A8BC]/30 font-medium">
                 {result.metadata.width}×{result.metadata.height} px
               </span>
-              <span className="text-[9px] font-tech tabular-nums px-1.5 py-0.5 rounded bg-[#D2E186] text-[#415111] border border-[#415111]/20 font-bold uppercase tracking-wider">
+              <span className="text-[9px] font-tech tabular-nums px-1.5 py-0.5 rounded bg-[#1BDFC8] text-[#0A111E] border border-[#1BDFC8] font-bold uppercase tracking-wider">
                 {result.detections.length} DETECTIONS
               </span>
               {typeof result.metadata.inference_time_ms === 'number' && (
-                <span className="text-[9px] font-tech tabular-nums px-1.5 py-0.5 rounded bg-[#D2E186] text-[#415111] border border-[#415111]/20 flex items-center gap-1 font-bold">
-                  <Cpu className="w-2.5 h-2.5 text-[#415111]" />
+                <span className="text-[9px] font-tech tabular-nums px-1.5 py-0.5 rounded bg-[#2E96DB] text-[#FFFFFF] border border-[#2E96DB] flex items-center gap-1 font-bold">
+                  <Cpu className="w-2.5 h-2.5 text-[#FFFFFF]" />
                   <span>{result.metadata.inference_time_ms.toFixed(1)}ms</span>
                 </span>
               )}
@@ -213,13 +213,13 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
 
         {/* View Mode Switcher */}
         {result && (
-          <div className="flex items-center bg-[#F2E8DF] dark:bg-[#1E2E21] border border-[#D2E186] dark:border-[#415111] rounded p-0.5 text-xs font-sans">
+          <div className="flex items-center bg-[#0B1320] border border-[#93A8BC]/30 rounded p-0.5 text-xs font-sans">
             <button
               onClick={() => setViewMode('overlay')}
               className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider transition cursor-pointer ${
                 viewMode === 'overlay'
-                  ? 'bg-[#415111] text-[#FEFEFE]'
-                  : 'text-[#415111]/70 dark:text-[#D2E186]/70 hover:text-[#415111]'
+                  ? 'bg-[#1BDFC8] text-[#0A111E]'
+                  : 'text-[#93A8BC] hover:text-[#FFFFFF]'
               }`}
               title="Interactive YOLO Bounding Box Overlay"
             >
@@ -229,8 +229,8 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
               onClick={() => setViewMode('annotated')}
               className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider transition cursor-pointer ${
                 viewMode === 'annotated'
-                  ? 'bg-[#415111] text-[#FEFEFE]'
-                  : 'text-[#415111]/70 dark:text-[#D2E186]/70 hover:text-[#415111]'
+                  ? 'bg-[#1BDFC8] text-[#0A111E]'
+                  : 'text-[#93A8BC] hover:text-[#FFFFFF]'
               }`}
               title="Canvas rendered annotations"
             >
@@ -240,8 +240,8 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
               onClick={() => setViewMode('preprocessed')}
               className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider transition cursor-pointer ${
                 viewMode === 'preprocessed'
-                  ? 'bg-[#415111] text-[#FEFEFE]'
-                  : 'text-[#415111]/70 dark:text-[#D2E186]/70 hover:text-[#415111]'
+                  ? 'bg-[#1BDFC8] text-[#0A111E]'
+                  : 'text-[#93A8BC] hover:text-[#FFFFFF]'
               }`}
               title="CLAHE equalized and filtered acoustic view"
             >
@@ -251,8 +251,8 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
               onClick={() => setViewMode('raw')}
               className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider transition cursor-pointer ${
                 viewMode === 'raw'
-                  ? 'bg-[#415111] text-[#FEFEFE]'
-                  : 'text-[#415111]/70 dark:text-[#D2E186]/70 hover:text-[#415111]'
+                  ? 'bg-[#1BDFC8] text-[#0A111E]'
+                  : 'text-[#93A8BC] hover:text-[#FFFFFF]'
               }`}
               title="Original raw sonar return"
             >
@@ -267,8 +267,8 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
             onClick={() => setShowNadir(!showNadir)}
             className={`px-2 py-1 rounded border text-[10px] uppercase font-bold tracking-wider flex items-center gap-1 transition cursor-pointer ${
               showNadir
-                ? 'bg-[#D2E186] border-[#415111]/30 text-[#415111]'
-                : 'bg-[#F2E8DF] dark:bg-[#1E2E21] border-[#D2E186] dark:border-[#415111] text-[#415111]/70 dark:text-[#D2E186]/70'
+                ? 'bg-[#1BDFC8] border-[#1BDFC8] text-[#0A111E]'
+                : 'bg-[#0B1320] border-[#93A8BC]/30 text-[#93A8BC]'
             }`}
             title="Toggle Towfish Track Nadir Line"
           >
@@ -278,19 +278,19 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
 
           <button
             onClick={() => handleZoom(-0.25)}
-            className="p-1 rounded bg-[#F2E8DF] dark:bg-[#1E2E21] hover:bg-[#D2E186] border border-[#D2E186] dark:border-[#415111] text-[#415111] dark:text-[#D2E186] transition cursor-pointer"
+            className="p-1 rounded bg-[#0B1320] hover:bg-[#2E96DB]/20 border border-[#93A8BC]/30 text-[#FFFFFF] transition cursor-pointer"
             title="Zoom Out"
           >
             <ZoomOut className="w-3.5 h-3.5" />
           </button>
 
-          <span className="text-[10px] text-[#415111] dark:text-[#FEFEFE] px-1 font-tech tabular-nums font-bold">
+          <span className="text-[10px] text-[#FFFFFF] px-1 font-tech tabular-nums font-bold">
             {Math.round(zoomLevel * 100)}%
           </span>
 
           <button
             onClick={() => handleZoom(0.25)}
-            className="p-1 rounded bg-[#F2E8DF] dark:bg-[#1E2E21] hover:bg-[#D2E186] border border-[#D2E186] dark:border-[#415111] text-[#415111] dark:text-[#D2E186] transition cursor-pointer"
+            className="p-1 rounded bg-[#0B1320] hover:bg-[#2E96DB]/20 border border-[#93A8BC]/30 text-[#FFFFFF] transition cursor-pointer"
             title="Zoom In"
           >
             <ZoomIn className="w-3.5 h-3.5" />
@@ -298,7 +298,7 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
 
           <button
             onClick={resetZoomAndPan}
-            className="p-1 rounded bg-[#F2E8DF] dark:bg-[#1E2E21] hover:bg-[#D2E186] border border-[#D2E186] dark:border-[#415111] text-[#415111] dark:text-[#D2E186] transition cursor-pointer"
+            className="p-1 rounded bg-[#0B1320] hover:bg-[#2E96DB]/20 border border-[#93A8BC]/30 text-[#FFFFFF] transition cursor-pointer"
             title="Reset Zoom & Center Pan"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -317,16 +317,16 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
           setIsPanning(false);
           setCursorPos(null);
         }}
-        className={`relative bg-[#182419] flex-1 min-h-0 w-full overflow-hidden flex items-center justify-center p-2 select-none tactical-grid ${
+        className={`relative bg-[#0A111E] flex-1 min-h-0 w-full overflow-hidden flex items-center justify-center p-2 select-none tactical-grid ${
           zoomLevel > 1 ? (isPanning ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-crosshair'
         }`}
       >
         {/* Top HUD Badge */}
-        <div className="absolute top-2 left-2 px-2.5 py-1 bg-[#FEFEFE]/95 dark:bg-[#15221B]/95 rounded text-[10px] font-tech border border-[#D2E186] dark:border-[#415111] z-10 text-[#415111] dark:text-[#FEFEFE] font-bold flex items-center gap-1.5 shadow-sm uppercase tracking-wider">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#D2E186] border border-[#415111]/30 animate-pulse" />
+        <div className="absolute top-2 left-2 px-2.5 py-1 bg-[#0F1A2C]/95 rounded text-[10px] font-tech border border-[#93A8BC]/30 z-10 text-[#FFFFFF] font-bold flex items-center gap-1.5 shadow-sm uppercase tracking-wider">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#1BDFC8] border border-[#1BDFC8]/40 animate-pulse" />
           <span>VIEW: {viewMode.toUpperCase()}_SONAR_OVERLAY</span>
           {zoomLevel > 1 && (
-            <span className="text-[9px] text-[#FB8159] ml-1">
+            <span className="text-[9px] text-[#1BDFC8] ml-1">
               [DRAG TO PAN • {Math.round(zoomLevel * 100)}%]
             </span>
           )}
@@ -334,7 +334,7 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
 
         {activeImageUrl ? (
           <div
-            className="relative transition-transform duration-75 ease-out origin-center shadow-2xl border border-[#D2E186]/60 rounded bg-[#1A241A] max-h-full max-w-full flex items-center justify-center"
+            className="relative transition-transform duration-75 ease-out origin-center shadow-2xl border border-[#93A8BC]/40 rounded bg-[#0A111E] max-h-full max-w-full flex items-center justify-center"
             style={{
               transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoomLevel})`,
             }}
@@ -351,13 +351,13 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
             {/* Nadir Line (Central Towfish Ground Track) */}
             {showNadir && (
               <div
-                className="absolute inset-y-0 border-l border-dashed border-[#D2E186]/70 pointer-events-none flex flex-col justify-between items-center z-10"
+                className="absolute inset-y-0 border-l border-dashed border-[#1BDFC8]/70 pointer-events-none flex flex-col justify-between items-center z-10"
                 style={{ left: '50%' }}
               >
-                <span className="text-[8px] font-tech uppercase tracking-widest text-[#415111] font-bold bg-[#D2E186]/95 px-1 py-0.5 rounded -translate-x-1/2 mt-1 shadow">
+                <span className="text-[8px] font-tech uppercase tracking-widest text-[#0A111E] font-bold bg-[#1BDFC8]/95 px-1 py-0.5 rounded -translate-x-1/2 mt-1 shadow">
                   PORT ◄ TOWFISH NADIR ► STBD
                 </span>
-                <span className="text-[8px] font-tech uppercase tracking-widest text-[#415111] font-bold bg-[#D2E186]/95 px-1 py-0.5 rounded -translate-x-1/2 mb-1 shadow">
+                <span className="text-[8px] font-tech uppercase tracking-widest text-[#0A111E] font-bold bg-[#1BDFC8]/95 px-1 py-0.5 rounded -translate-x-1/2 mb-1 shadow">
                   PING RETURNS ▼
                 </span>
               </div>
@@ -411,14 +411,14 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
           </div>
         ) : (
           <div className="text-center p-8 max-w-sm flex flex-col items-center gap-2.5">
-            <div className="w-12 h-12 rounded-full bg-[#1E2E21] border border-[#D2E186] flex items-center justify-center text-[#D2E186] shadow-sm">
-              <Crosshair className="w-6 h-6 animate-spin text-[#D2E186]" />
+            <div className="w-12 h-12 rounded-full bg-[#142238] border border-[#93A8BC]/30 flex items-center justify-center text-[#1BDFC8] shadow-sm">
+              <Crosshair className="w-6 h-6 animate-spin text-[#1BDFC8]" />
             </div>
             <div>
-              <p className="text-xs font-tech font-bold uppercase tracking-wider text-[#D2E186]">
+              <p className="text-xs font-tech font-bold uppercase tracking-wider text-[#FFFFFF]">
                 AWAITING ACOUSTIC WATERFALL
               </p>
-              <p className="text-[10px] text-[#D2E186]/70 font-sans mt-0.5 font-normal">
+              <p className="text-[10px] text-[#93A8BC] font-sans mt-0.5 font-normal">
                 Upload side-scan imagery or select a test survey scan to begin YOLO detection
               </p>
             </div>
@@ -427,24 +427,24 @@ export const SonarViewer: React.FC<SonarViewerProps> = ({
       </div>
 
       {/* Viewer Footer Telemetry Bar */}
-      <div className="p-2.5 bg-[#FEFEFE] dark:bg-[#15221B] border-t border-[#F2E8DF] dark:border-[#415111]/40 flex flex-wrap items-center justify-between gap-3 text-[10px] font-sans text-[#415111] dark:text-[#D2E186]">
+      <div className="p-2.5 bg-[#142238] border-t border-[#93A8BC]/25 flex flex-wrap items-center justify-between gap-3 text-[10px] font-sans text-[#93A8BC]">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">
-            <Compass className="w-3 h-3 text-[#415111] dark:text-[#D2E186]" />
+            <Compass className="w-3 h-3 text-[#1BDFC8]" />
             <span className="font-medium">TRANSECT HEADING:</span>
-            <span className="text-[#415111] dark:text-[#FEFEFE] font-tech font-bold tabular-nums">045° TRUE</span>
+            <span className="text-[#FFFFFF] font-tech font-bold tabular-nums">045° TRUE</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Layers className="w-3 h-3 text-[#415111] dark:text-[#D2E186]" />
+            <Layers className="w-3 h-3 text-[#1BDFC8]" />
             <span className="font-medium">SWATH COVERAGE:</span>
-            <span className="text-[#415111] dark:text-[#FEFEFE] font-tech font-bold tabular-nums">100M (±50M NADIR)</span>
+            <span className="text-[#FFFFFF] font-tech font-bold tabular-nums">100M (±50M NADIR)</span>
           </div>
         </div>
 
         {cursorPos && (
-          <div className="flex items-center gap-1.5 text-[#415111] dark:text-[#D2E186]">
+          <div className="flex items-center gap-1.5 text-[#93A8BC]">
             <span className="font-medium">ACOUSTIC PIXEL:</span>
-            <span className="text-[#415111] dark:text-[#FEFEFE] font-tech font-bold tabular-nums">
+            <span className="text-[#FFFFFF] font-tech font-bold tabular-nums">
               X:{cursorPos.x} Y:{cursorPos.y}
             </span>
           </div>

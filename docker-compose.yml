@@ -1,0 +1,65 @@
+version: '3.8'
+
+# HEIMDALL | SIH26057 | AllSpark
+# Multi-container Docker deployment for HeimDall Acoustic Sonar AI
+# Orchestrating:
+# 1. PostgreSQL + PostGIS database
+# 2. FastAPI + Python backend (PyTorch, Ultralytics YOLO, OpenCV, GeoPandas)
+# 3. React + TypeScript + Tailwind CSS frontend dashboard
+
+services:
+  # 1. Spatial Database: PostgreSQL + PostGIS
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: heimdall_postgis
+    environment:
+      POSTGRES_DB: heimdall_postgis
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d heimdall_postgis"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. REST API & Inference Backend: FastAPI + Python
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: heimdall_fastapi
+    environment:
+      DATABASE_URL: postgresql://postgres:postgrespassword@db:5432/heimdall_postgis
+      YOLO_MODEL_PATH: /app/models/marine_debris_best.pt
+      PORT: 8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+  # 3. Interactive Cockpit Frontend: React + Leaflet + Tailwind CSS
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: heimdall_frontend
+    environment:
+      VITE_API_URL: http://backend:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgis_data:
+    driver: local

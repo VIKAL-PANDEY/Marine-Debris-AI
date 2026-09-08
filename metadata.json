@@ -1,6 +1,6 @@
 {
-  "name": "Remix Marine Debris AI",
-  "description": "Side-Scan Sonar Anomaly Detection for Artificial Marine Debris",
+  "name": "HeimDall",
+  "description": "Side-Scan Sonar Artificial Marine Debris Anomaly Detection (SIH26057 - AllSpark)",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

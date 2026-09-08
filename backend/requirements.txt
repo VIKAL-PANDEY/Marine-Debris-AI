@@ -1,6 +1,29 @@
+# HEIMDALL | SIH26057 | AllSpark
+# Autonomous Side-Scan Sonar Marine Debris Detection
+# Python Backend Dependencies
+
 fastapi>=0.110.0
-uvicorn>=0.29.0
-opencv-python-headless>=4.9.0
-numpy>=1.26.0
+uvicorn[standard]>=0.28.0
 python-multipart>=0.0.9
-pydantic>=2.6.0
+pydantic>=2.6.4
+
+# AI/ML - PyTorch + Ultralytics YOLO
+torch>=2.2.0
+torchvision>=0.17.0
+ultralytics>=8.1.0
+onnxruntime>=1.17.1
+
+# Image Processing - OpenCV + NumPy
+opencv-python-headless>=4.9.0.80
+numpy>=1.26.0
+Pillow>=10.2.0
+
+# Geospatial - GeoPandas + Shapely + pyproj
+geopandas>=0.14.3
+shapely>=2.0.3
+pyproj>=3.6.1
+
+# Database - PostgreSQL + PostGIS
+sqlalchemy>=2.0.28
+geoalchemy2>=0.14.6
+psycopg2-binary>=2.9.9
