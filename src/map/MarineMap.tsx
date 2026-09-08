@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline, Polygon as LeafletPolygon } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Navigation, Compass, Crosshair, ZoomIn, ZoomOut, Maximize2, MapPin, Copy, Check, Layers } from 'lucide-react';
+import { Navigation, Compass, Crosshair, ZoomIn, ZoomOut, Maximize2, MapPin, Copy, Check, Layers, Globe } from 'lucide-react';
 import { DetectionItem } from '../types/detection';
+import { INDIA_CENTER_COORDINATES, DEFAULT_INDIA_ZOOM, OSM_TILE_URL, OSM_ATTRIBUTION } from './leafletHelper';
 
 // Global safeguard against Leaflet accessing detached/unmounted DOM elements during React 19 StrictMode transitions
 if (typeof window !== 'undefined' && L && L.DomUtil) {
@@ -45,9 +46,11 @@ interface MarineMapProps {
 const MapViewController: React.FC<{
   detections: DetectionItem[];
   selectedDetectionId: string | null;
-}> = ({ detections, selectedDetectionId }) => {
+  indiaCenterTrigger: number;
+}> = ({ detections, selectedDetectionId, indiaCenterTrigger }) => {
   const map = useMap();
   const isMountedRef = useRef(true);
+  const prevIndiaTrigger = useRef(indiaCenterTrigger);
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -74,6 +77,22 @@ const MapViewController: React.FC<{
     }, 150);
     return () => clearTimeout(timer);
   }, [map]);
+
+  // Manual Trigger to Center on India [20.5937, 78.9629], zoom 5
+  useEffect(() => {
+    if (indiaCenterTrigger !== prevIndiaTrigger.current) {
+      prevIndiaTrigger.current = indiaCenterTrigger;
+      if (isMountedRef.current && map) {
+        try {
+          map.flyTo(INDIA_CENTER_COORDINATES, DEFAULT_INDIA_ZOOM, {
+            duration: 1.2,
+          });
+        } catch {
+          map.setView(INDIA_CENTER_COORDINATES, DEFAULT_INDIA_ZOOM);
+        }
+      }
+    }
+  }, [indiaCenterTrigger, map]);
 
   useEffect(() => {
     if (!isMountedRef.current || !map) return;
@@ -154,11 +173,14 @@ export const MarineMap: React.FC<MarineMapProps> = ({
 }) => {
   const [copiedId, setCopiedId] = React.useState<string | null>(null);
   const [showGeoJsonPolygons, setShowGeoJsonPolygons] = React.useState<boolean>(true);
+  const [tileLayerMode, setTileLayerMode] = React.useState<'osm' | 'dark' | 'satellite'>('osm');
+  const [indiaCenterTrigger, setIndiaCenterTrigger] = React.useState<number>(0);
 
-  // Center fallback (e.g. Arabian Sea / Gulf Survey Zone)
+  // Default Center fallback (India Center [20.5937, 78.9629], zoom 5)
   const defaultCenter: [number, number] = detections.length > 0
     ? [detections[0].latitude, detections[0].longitude]
-    : [21.1428, 72.5842];
+    : INDIA_CENTER_COORDINATES;
+  const defaultZoom = detections.length > 0 ? 15 : DEFAULT_INDIA_ZOOM;
 
   // Survey Transect Path connecting detections
   const polylineCoords = detections.map((d) => [d.latitude, d.longitude] as [number, number]);
@@ -169,6 +191,10 @@ export const MarineMap: React.FC<MarineMapProps> = ({
     navigator.clipboard.writeText(text);
     setCopiedId(det.id);
     setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const handleCenterIndia = () => {
+    setIndiaCenterTrigger((prev) => prev + 1);
   };
 
   // Cache marker icons so we don't recreate DOM elements on every single render
@@ -197,8 +223,20 @@ export const MarineMap: React.FC<MarineMapProps> = ({
           </div>
         </div>
 
-        {/* Legend & GeoJSON Polygon Footprint Toggle */}
-        <div className="flex items-center gap-3 text-[10px] font-sans font-medium text-[#93A8BC]">
+        {/* Legend, India Center & GeoJSON Controls */}
+        <div className="flex items-center gap-2 text-[10px] font-sans font-medium text-[#93A8BC]">
+          {/* India Center Quick Button */}
+          <button
+            id="btn-center-india"
+            onClick={handleCenterIndia}
+            className="px-2 py-0.5 rounded text-[10px] font-tech font-bold border border-[#1BDFC8]/40 bg-[#1BDFC8]/10 hover:bg-[#1BDFC8]/20 text-[#1BDFC8] transition cursor-pointer flex items-center gap-1"
+            title="Set view to India Center [20.5937, 78.9629] at zoom 5"
+          >
+            <Globe className="w-3 h-3" />
+            <span>INDIA CENTER</span>
+          </button>
+
+          {/* GeoJSON Polygon Footprint Toggle */}
           <button
             onClick={() => setShowGeoJsonPolygons(!showGeoJsonPolygons)}
             className={`px-2 py-0.5 rounded text-[10px] font-tech font-bold border transition cursor-pointer flex items-center gap-1 ${
@@ -209,24 +247,23 @@ export const MarineMap: React.FC<MarineMapProps> = ({
             title="Toggle GeoJSON bounding polygon footprints on seabed"
           >
             <Layers className="w-3 h-3" />
-            <span>GEOJSON FOOTPRINTS: {showGeoJsonPolygons ? 'ON' : 'OFF'}</span>
+            <span>GEOJSON: {showGeoJsonPolygons ? 'ON' : 'OFF'}</span>
           </button>
 
-          <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[#1BDFC8]" /> Critical
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[#2E96DB]" /> Warning
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[#93A8BC]" /> Advisory
-          </span>
+          <div className="hidden sm:flex items-center gap-2 pl-1 border-l border-[#93A8BC]/20">
+            <span className="flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-[#1BDFC8]" /> Critical
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-[#2E96DB]" /> Warning
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Map Viewport Container */}
       <div className="flex-1 min-h-0 w-full relative z-10 bg-[#0A111E]">
-        {/* Top HUD Coordinates Badge */}
+        {/* Top Left HUD Coordinates Badge */}
         <div className="absolute top-2 left-2 px-2.5 py-1 bg-[#0F1A2C]/95 rounded text-[10px] font-tech border border-[#93A8BC]/30 z-[1000] text-[#FFFFFF] font-bold flex items-center gap-2 shadow-sm pointer-events-none uppercase tracking-wider">
           <span className="w-1.5 h-1.5 rounded-full bg-[#1BDFC8] border border-[#1BDFC8]/40 animate-pulse" />
           <span className="tabular-nums">
@@ -236,23 +273,83 @@ export const MarineMap: React.FC<MarineMapProps> = ({
           </span>
         </div>
 
+        {/* Top Right TileLayer Switcher HUD */}
+        <div className="absolute top-2 right-2 flex items-center bg-[#0F1A2C]/95 border border-[#93A8BC]/30 rounded p-0.5 z-[1000] shadow-sm text-[10px] font-tech font-bold uppercase tracking-wider">
+          <button
+            onClick={() => setTileLayerMode('osm')}
+            className={`px-2 py-0.5 rounded transition cursor-pointer ${
+              tileLayerMode === 'osm'
+                ? 'bg-[#1BDFC8] text-[#0A111E]'
+                : 'text-[#93A8BC] hover:text-[#FFFFFF]'
+            }`}
+            title="OpenStreetMap Standard Layer (osm.org)"
+          >
+            OSM
+          </button>
+          <button
+            onClick={() => setTileLayerMode('dark')}
+            className={`px-2 py-0.5 rounded transition cursor-pointer ${
+              tileLayerMode === 'dark'
+                ? 'bg-[#1BDFC8] text-[#0A111E]'
+                : 'text-[#93A8BC] hover:text-[#FFFFFF]'
+            }`}
+            title="Carto Dark Matter Tactical Layer"
+          >
+            Dark
+          </button>
+          <button
+            onClick={() => setTileLayerMode('satellite')}
+            className={`px-2 py-0.5 rounded transition cursor-pointer ${
+              tileLayerMode === 'satellite'
+                ? 'bg-[#1BDFC8] text-[#0A111E]'
+                : 'text-[#93A8BC] hover:text-[#FFFFFF]'
+            }`}
+            title="Esri World Ocean / Satellite Layer"
+          >
+            Sat
+          </button>
+        </div>
+
         <MapContainer
+          id="map"
           center={defaultCenter}
-          zoom={15}
+          zoom={defaultZoom}
           scrollWheelZoom={true}
           className="h-full w-full"
           attributionControl={true}
         >
-          {/* Tactical Carto TileLayer */}
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-            maxZoom={19}
-          />
+          {/* Base TileLayer: OpenStreetMap as requested, with Dark/Satellite switch */}
+          {tileLayerMode === 'osm' && (
+            <TileLayer
+              key="osm"
+              attribution={OSM_ATTRIBUTION}
+              url={OSM_TILE_URL}
+              maxZoom={19}
+            />
+          )}
+
+          {tileLayerMode === 'dark' && (
+            <TileLayer
+              key="dark"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
+              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              maxZoom={19}
+            />
+          )}
+
+          {tileLayerMode === 'satellite' && (
+            <TileLayer
+              key="satellite"
+              attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+              maxZoom={19}
+            />
+          )}
 
           <MapViewController
             detections={detections}
             selectedDetectionId={selectedDetectionId}
+            indiaCenterTrigger={indiaCenterTrigger}
           />
 
           {/* Survey Transect Path connecting detections */}
